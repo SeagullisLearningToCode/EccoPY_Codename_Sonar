@@ -13,7 +13,7 @@ This is used to play around how EccoPY would look if the user ran it for now it 
 
 OS | Notes |
 ---|-------|
-MacOS | Will work the best for now |
+MacOS | Will work the best for now, might not look the same in `.Screenshots` later.|
 Windows | Not all fonts will be loaded, if so then it's defaulted to what Tkinter uses, but still will work like MacOS (in theory)|
 Linux | Not tested |
 

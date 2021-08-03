@@ -4,7 +4,7 @@
  __                     ___  __              ___       __   __
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \
-                                                    Version: 1 Shut Up Gull
+                                                    Version: 1.2 Shut Up Gull
                                                                Now with Extension "Support"
 ````
 This is used to play around how EccoPY would look if the user ran it for now it may be restricted to MacOSX, so feel free to use it as long you give credit to me (Sound SFX and some images don't belong to me)

@@ -68,7 +68,8 @@ winstrings = {
                         ["Playable Review", "0429", "X11"] # Prototypes any pre-release build goes here
                     ]
                 }
-            }
+            },
+            "save_options": ["Apply", "Ok", "Cancel"]
         }
     }
 }

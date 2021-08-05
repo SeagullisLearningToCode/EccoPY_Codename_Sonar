@@ -23,7 +23,7 @@ from data.txt.men import *
 class MAIN_W_I(object):
     def __init__(self):
         # init/
-        #   vars/
+        #   var/
         #       osp/
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
         #           dicts/
@@ -45,7 +45,7 @@ class MAIN_WINDOW(Tk):
         # init/
         #   sup/
         super().__init__()
-        #       vars/
+        #       var/
         #           i/
         self.sc_init = MAIN_W_I()
         #       TK/
@@ -54,11 +54,14 @@ class MAIN_WINDOW(Tk):
         self.title(winstrings["main"]["title"][0])
 
     def DRAW_CONTENTS(self):
+        # init/
+        #   vars/
+        #       tk/
         options_frame = Frame(self, background=rgbtohex(34, 87, 165)).grid(column=0, rowspan=5)
 
         def options_format():
             # init/
-            #   vars/
+            #   var/
             #       int/
             #           background/
             rb = 92 + 20
@@ -92,6 +95,20 @@ class MAIN_WINDOW(Tk):
                            command=self.PLAY_GAME).grid(column=0,
                                                         row=self.sc_init.iterator_01,
                                                         sticky="w")
+                elif self.sc_init.iterator_01 == 1:
+                    Button(options_frame,
+                           highlightcolor=label_background,
+                           activebackground=label_background,
+                           activeforeground=label_foreground,
+                           bg=label_background,
+                           relief='groove',
+                           fg=label_foreground,
+                           bd=10,
+                           text=subdict,
+                           font='"Myanmar MN" 36',
+                           command=self.SETTINGS_MENU).grid(column=0,
+                                                            row=self.sc_init.iterator_01,
+                                                            sticky="w")
                 else:
                     Label(options_frame,
                           bg=label_background,
@@ -106,10 +123,10 @@ class MAIN_WINDOW(Tk):
 
         def bkgrd_image():
             # init/
-            #   vars/
+            #   var/
             #       str/
             #           img/
-            bkgrd = loadimage(self.sc_init.i_dict[3])
+            bkgrd = loadimage(self.sc_init.i_dict[2])
             # code/
             Label(self, image=bkgrd, background=rgbtohex(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
 
@@ -118,16 +135,49 @@ class MAIN_WINDOW(Tk):
         Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=4)
 
     def SETTINGS_MENU(self):
-        p()
+        # init/
+        #   var/
+        #       tk/
+        set_menu = Toplevel()
+        set_menu.title(winstrings["main"]["choices"][1])
+        smf = Frame(set_menu, bg="black").grid(column=0,
+                                               row=0)
+
+        # code/
+        def video():
+            # init/
+            #   var/
+            #       int/
+            i = 1
+            # code/
+            for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
+                Label(smf, text=video_settings_strings).grid(column=0, row=i)
+                i += 1
+
+        for string in winstrings["main"]["options"]:
+            if not self.sc_init.iterator_02 == 4:
+                if string == "Video":
+                    Button(set_menu, text=string,
+                           relief="ridge",
+                           font="'Helvetica' 16",
+                           command=video).grid(column=self.sc_init.iterator_02,
+                                               row=0)
+            self.sc_init.iterator_02 += 1
 
     def PLAY_GAME(self):
-        time = 1000000
-        amountoftime = time
-        p("See you next time!")
-        for amount in range(time):
-            amountoftime -= 1
-            if amountoftime <= 0:
-                sys.exit(0)
+        sys.exit(0)
+
+    def SAVE_GAME(self):
+        # init/
+        #   var/
+        #       int/
+        time = randint(10, 5000)
+        # code/
+        p("Saving Game...")
+        for t in range(time):
+            t -= 1
+            if t == 0:
+                p("Saved")
 
     def run(self):
         self.DRAW_CONTENTS()

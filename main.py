@@ -13,8 +13,14 @@ SonarMap/
         txt/ ; Text String Folder
 """
 # Imports
+# frw
+# GF
+# EXT
 from data.frw.GF.EXT.GFTKE import *
+# txt
 from data.txt.men import *
+# mu
+from data.mu.Values import *
 
 
 # Vars
@@ -27,7 +33,7 @@ class MAIN_W_I(object):
         #       osp/
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
         #           dicts/
-        self.i_dict = image_dict(f"{self.main_dir}/data/img/", EVerboseResults=True)
+        self.i_dict = image_dict(f"{self.main_dir}/data/img/")
         #           arrs/
         self.size = [1024, 450]
         #           cfgs/
@@ -93,8 +99,7 @@ class MAIN_WINDOW(Tk):
                            text=subdict,
                            font='"Myanmar MN" 36',
                            command=self.PLAY_GAME).grid(column=0,
-                                                        row=self.sc_init.iterator_01,
-                                                        sticky="w")
+                                                        row=self.sc_init.iterator_01)
                 elif self.sc_init.iterator_01 == 1:
                     Button(options_frame,
                            highlightcolor=label_background,
@@ -140,19 +145,57 @@ class MAIN_WINDOW(Tk):
         #       tk/
         set_menu = Toplevel()
         set_menu.title(winstrings["main"]["choices"][1])
-        smf = Frame(set_menu, bg="black").grid(column=0,
-                                               row=0)
+        #       int/
+        i = 0
 
         # code/
+
+        for choiceOptions in winstrings["main"]["save_options"]:
+            Button(set_menu, text=choiceOptions).grid(column=5-i, row=5)
+            i += 1
+
         def video():
             # init/
             #   var/
             #       int/
             i = 1
+            #       strv/
+            #           res/
+            x = StringVar()
+            y = StringVar()
+            #               ent/
+            x_txt = Entry(set_menu, textvariable=x, width=5)
+            y_txt = Entry(set_menu, textvariable=y, width=5)
+            #           gme/
+            rx = StringVar()
+            ry = StringVar()
+            #               ent/
+            rx_txt = Entry(set_menu, textvariable=rx, width=5)
+            ry_txt = Entry(set_menu, textvariable=ry, width=5)
+            #       ckbn/
+            #           dir/
+            dir_chkbtn = Checkbutton(set_menu, variable=r_disable_ripple, onvalue=True, offvalue=False)
+            #       scae/
+            #           wei/
+            wei_scale = Scale(set_menu, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
+
             # code/
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
-                Label(smf, text=video_settings_strings).grid(column=0, row=i)
+                Label(set_menu, text=video_settings_strings).grid(column=0, row=i, sticky="w")
                 i += 1
+
+            x_txt.grid(column=2, row=1)
+            Label(set_menu, text=in_between_entries).grid(column=3, row=1)
+            y_txt.grid(column=4, row=1)
+
+            rx_txt.grid(column=2, row=2)
+            Label(set_menu, text=in_between_entries).grid(column=3, row=2)
+            ry_txt.grid(column=4, row=2)
+
+            dir_chkbtn.grid(column=2, row=3)
+
+            wei_scale.grid(column=2, row=4)
+
 
         for string in winstrings["main"]["options"]:
             if not self.sc_init.iterator_02 == 4:

@@ -10,6 +10,7 @@ This file is also makes stating certain things faster and possibly easier.
 """
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 from tkinter import *
+from tkinter import ttk
 from PIL import ImageTk, Image
 from data.frw.GF.GF import *
 
@@ -26,8 +27,9 @@ INFO = {
     "Age": [8, 2, 2021],
     "Desc": "Official Extentsion of the Gull Framework for added support for Tkinter GUI python module"
 }
-
+flp(INFO)
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
+
 
 # Tkinter Images
 def loadimage(image):
@@ -82,3 +84,5 @@ def rgbtohex(r: int, g: int, b: int, **kwargs):
             return "#%02x%02x%02x" % (b, g, r)
         else:
             return "#%02x%02x%02x" % (r, g, b)
+
+# CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------

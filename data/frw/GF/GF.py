@@ -427,7 +427,7 @@ class GF_INIT(object):
     """
 
     def __init__(self, assembly_mode: bool = False):
-        p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n")
+        p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
         # Init/
         #   Args/
         #       Vars/

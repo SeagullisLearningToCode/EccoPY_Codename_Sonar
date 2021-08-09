@@ -1,10 +1,10 @@
 # txt/
 #   imp/
-from data.frw.GF.GF import td_c_s_yo
+from data.frw.GF.GF import td_c_s_yo, flp
 #   vars/
 #       str/
 #           eng/
-ui_version_number = ["Tkinter", "1.0"]
+ui_version_number = ["Tkinter", "2.0"]
 winstrings = {
     "main": {
         "title": [f"EccoPY Version {ui_version_number[1]} {ui_version_number[0]}", f"Ecco The Dolphin Rewritten Version {ui_version_number[1]} {ui_version_number[0]}"],
@@ -27,8 +27,19 @@ winstrings = {
                 },
                 "set": {
                     "Music": ["Soundtrack", "Use custom music?", "Custom music directory", "Volume"],
-                    "SFX": ["What Game?", "Use custom sounds", "Custom Sound directory" "Volume"],
-
+                    "SFX": ["Sound Effects", "Use custom sounds", "Custom Sound directory", "Volume"]
+                },
+                "special": {
+                    "games": {
+                        "retail": [
+                            ["Ecco The Dolphin (PC/CD)", "Ecco The Dolphin (Genesis/MD)",
+                             "Ecco: Tides Of Time (CD)", "Ecco: Tides of Time (Genesis/MD)",
+                             "ecco the dolphin: defender of the future".title()+"PS2/DC"]
+                        ],
+                        "proto": [
+                            ["0249", "X11"]
+                        ]
+                    }
                 }
             },
             "Controlls": {
@@ -70,6 +81,6 @@ winstrings = {
                 }
             }
         },
-        "save_options": ["Cancel", "Ok", "Apply"]
+        "save_options": ["Ok", "Apply", "Cancel"]
     }
 }

@@ -145,13 +145,20 @@ class MAIN_WINDOW(Tk):
         #       tk/
         set_menu = Toplevel()
         set_menu.title(winstrings["main"]["choices"][1])
+        #           nb/
+        set_menu_nb = ttk.Notebook(set_menu)
+        #               frme/
+        frame_01 = ttk.Frame(set_menu_nb) # ;Video
+        frame_02 = ttk.Frame(set_menu_nb) # ;Audio
+        frame_03 = ttk.Frame(set_menu_nb) # ;Controller
+        frame_04 = ttk.Frame(set_menu_nb) # ;Game
         #       int/
         i = 0
 
         # code/
 
         for choiceOptions in winstrings["main"]["save_options"]:
-            Button(set_menu, text=choiceOptions).grid(column=5-i, row=5)
+            Button(set_menu, text=choiceOptions).grid(column=i+1, row=5)
             i += 1
 
         def video():
@@ -164,48 +171,106 @@ class MAIN_WINDOW(Tk):
             x = StringVar()
             y = StringVar()
             #               ent/
-            x_txt = Entry(set_menu, textvariable=x, width=5)
-            y_txt = Entry(set_menu, textvariable=y, width=5)
+            x_txt = Entry(frame_01, textvariable=x, width=5)
+            y_txt = Entry(frame_01, textvariable=y, width=5)
             #           gme/
             rx = StringVar()
             ry = StringVar()
             #               ent/
-            rx_txt = Entry(set_menu, textvariable=rx, width=5)
-            ry_txt = Entry(set_menu, textvariable=ry, width=5)
+            rx_txt = Entry(frame_01, textvariable=rx, width=5)
+            ry_txt = Entry(frame_01, textvariable=ry, width=5)
             #       ckbn/
             #           dir/
-            dir_chkbtn = Checkbutton(set_menu, variable=r_disable_ripple, onvalue=True, offvalue=False)
+            dir_chkbtn = Checkbutton(frame_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
             #       scae/
             #           wei/
-            wei_scale = Scale(set_menu, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
+            wei_scale = Scale(frame_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
 
             # code/
+
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
-                Label(set_menu, text=video_settings_strings).grid(column=0, row=i, sticky="w")
+                Label(frame_01, text=video_settings_strings).grid(column=0, row=i, sticky="e")
                 i += 1
 
             x_txt.grid(column=2, row=1)
-            Label(set_menu, text=in_between_entries).grid(column=3, row=1)
+            Label(frame_01, text=in_between_entries).grid(column=3, row=1)
             y_txt.grid(column=4, row=1)
 
             rx_txt.grid(column=2, row=2)
-            Label(set_menu, text=in_between_entries).grid(column=3, row=2)
+            Label(frame_01, text=in_between_entries).grid(column=3, row=2)
             ry_txt.grid(column=4, row=2)
 
             dir_chkbtn.grid(column=2, row=3)
 
             wei_scale.grid(column=2, row=4)
 
+        def audio():
+            # init/
+            #   var/
+            #       tk/
+            #           nb/
+            sframe_02_01 = ttk.Notebook(frame_02)
+            #               frme/
+            frame_02_01_01 = Frame(sframe_02_01) # ;Music
+            frame_02_01_02 = Frame(sframe_02_01) # ;SFX
+            #           cmbox/
+            combox_01 = ttk.Combobox(frame_02_01_01) # ;Music
+            combox_02 = ttk.Combobox(frame_02_01_02) # ;SFX
+            #           scae/
+            volume_music = Scale(frame_02_01_01, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
+            volume_sfx = Scale(frame_02_01_01, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
+            #       int/
+            #           iters/ ; Generic assembly-like vars
+            i = 0
+            q = 0
+            a = 1
+            z = 1
+            # code/
+
+            for music_strings in winstrings["main"]["options"]["Audio"]["set"]["Music"]:
+                Label(frame_02_01_01, text=music_strings).grid(column=0, row=i, sticky="w")
+                i += 1
+
+            for sfx_strings in winstrings["main"]["options"]["Audio"]["set"]["SFX"]:
+                Label(frame_02_01_02, text=sfx_strings).grid(column=0, row=q, sticky="w")
+                q += 1
+
+            for audio_settings_strings in winstrings["main"]["options"]["Audio"]["set"]:
+                if audio_settings_strings == "Music":
+                    sframe_02_01.add(frame_02_01_01, text=audio_settings_strings)
+                elif audio_settings_strings == "SFX":
+                    sframe_02_01.add(frame_02_01_02, text=audio_settings_strings)
+
+            for unvailable_music_option in range(2):
+                Label(frame_02_01_01, text="not available".upper()).grid(column=1, row=a)
+                a += 1
+
+            for unvailable_sfx_option in range(2):
+                Label(frame_02_01_02, text="not available".upper()).grid(column=1, row=z)
+                z += 1
+
+            combox_01['values'] = (winstrings["main"]["options"]["Audio"]["special"]["games"]["retail"][0])
+            combox_01['state'] = "readonly"
+            combox_01.grid(column=1, row=0)
+
+            volume_music.grid(column=1, row=3)
+
+            volume_sfx.grid(column=1, row=3)
+
+            sframe_02_01.grid(column=0, row=1)
 
         for string in winstrings["main"]["options"]:
             if not self.sc_init.iterator_02 == 4:
                 if string == "Video":
-                    Button(set_menu, text=string,
-                           relief="ridge",
-                           font="'Helvetica' 16",
-                           command=video).grid(column=self.sc_init.iterator_02,
-                                               row=0)
+                    set_menu_nb.add(frame_01, text=string)
+                elif string == "Audio":
+                    set_menu_nb.add(frame_02, text=string)
             self.sc_init.iterator_02 += 1
+
+
+        set_menu_nb.grid(column=0, row=0)
+        video()
+        audio()
 
     def PLAY_GAME(self):
         sys.exit(0)

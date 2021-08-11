@@ -1,6 +1,7 @@
 # txt/
 #   imp/
 from data.frw.GF.GF import td_c_s_yo, flp
+
 #   vars/
 #       str/
 #           eng/
@@ -13,10 +14,10 @@ winstrings = {
         "options": {
             "Video": {
                 "tooltips": [
-                    "EccoPY uses an external and internal resolution system\n Now with ""Window Resolution"", this will change the actual size of the window without affecting the internal resolution.", # Window Resolution
-                    "EccoPY uses an external and internal resolution system\n Now with ""2D Resolution"" this will change the game's resolution without resizing the window.", # 2D Resolution
-                    "In the original Ecco, there a ripple effect that makes the water surface feels alive, disabling this will make the game run slightly faster but will remove the feel of the original game.", # Disable Ripple
-                    "This is a new addition to Ecco the Dolphin, this adds weather effects based on the level that Ecco's in, this includes rain, snow, fog and possibly enviromental effects" # Weather Effects Intensity
+                    "EccoPY uses an external and internal resolution system\n Now with ""Window Resolution"", this will change the actual size of the window without affecting the internal resolution.",  # Window Resolution
+                    "EccoPY uses an external and internal resolution system\n Now with ""2D Resolution"" this will change the game's resolution without resizing the window.",  # 2D Resolution
+                    "In the original Ecco, there a ripple effect that makes the water surface feels alive, disabling this will make the game run slightly faster but will remove the feel of the original game.",  # Disable Ripple
+                    "This is a new addition to Ecco the Dolphin, this adds weather effects based on the level that Ecco's in, this includes rain, snow, fog and possibly enviromental effects"  # Weather Effects Intensity
                 ],
                 "set": ["Window Resolution (size)", "2D Resolution", "Disable Ripple", "Weather Effects intensity"]
             },
@@ -34,7 +35,7 @@ winstrings = {
                         "retail": [
                             ["Ecco The Dolphin (PC/CD)", "Ecco The Dolphin (Genesis/MD)",
                              "Ecco: Tides Of Time (CD)", "Ecco: Tides of Time (Genesis/MD)",
-                             "ecco the dolphin: defender of the future".title()+"PS2/DC"]
+                             "ecco the dolphin: defender of the future".title() + "PS2/DC"]
                         ],
                         "proto": [
                             ["0249", "X11"]
@@ -44,43 +45,33 @@ winstrings = {
             },
             "Controlls": {
                 "tooltips": ["Bind Controls"],
-                "set": {
-                    "Keyboard": {
-                        "str": ["Use Keyboard", "Enable Debug keys"],
-                        "function": [
-                            ["Up", "Down", "Left", "Right"], # Movement
-                            ["Swim", "Sonar", "Dash", "Pause", "Exit game"],  # Action Buttons
-                            ["TurnOffMusic", "TurnOffSfx"], # During Pause
-                            ["ShowFPS", "ShowPOS", "ShowAll"], # Debug
-                        ]
-                    },
-                    "Controller/Gamepad": {
-                        "str": ["Use Controller", "Enable Debug buttons"],
-                        "function": [
+                "set": [
+                    ["Enable Debug Bindings"], # ;Setting Strings
+                    ["Keyboard", "Controller", "Joystick"] # ; User Input type (note that joystick is the controller alt name)
+                ],
+                "bindings": [
                             ["Up", "Down", "Left", "Right"],  # Movement
                             ["Swim", "Sonar", "Dash", "Pause", "Exit game"],  # Action Buttons
                             ["TurnOffMusic", "TurnOffSfx"],  # During Pause
                             ["ShowFPS", "ShowPOS", "ShowAll"],  # Debug
-                        ],
-                    }
-                }
-            },
-            "Game": {
-                "tooltips": [],
-                "set": {
-                    "Difficulty": [
-                        ["Truely Alone Mode", "Exploration Mode"], # Passive modes
-                        ["Easy", "Normal", "Hard", "Extreme"], # Normal difficulty settings
-                        ["Agressive", "No mercy", "Survival", "One Life mode"] # Extreme Modes
-                    ],
-                    "Game": [
-                        ["Ecco the Dolphin", "Ecco: The Tides of Time"], # Retail Releases
-                        [], # Mod Names go here
-                        ["Playable Review", "0429", "X11"] # Prototypes any pre-release build goes here
-                    ]
-                }
+                        ]
             }
         },
-        "save_options": ["Ok", "Apply", "Cancel"]
+        "Game": {
+            "tooltips": [],
+            "set": {
+                "Difficulty": [
+                    ["Truely Alone Mode", "Exploration Mode"],  # Passive modes
+                    ["Easy", "Normal", "Hard", "Extreme"],  # Normal difficulty settings
+                    ["Agressive", "No mercy", "Survival", "One Life mode"]  # Extreme Modes
+                ],
+                "Game": [
+                    ["Ecco the Dolphin", "Ecco: The Tides of Time"],  # Retail Releases
+                    [],  # Mod Names go here
+                    ["Playable Review", "0429", "X11"]  # Prototypes any pre-release build goes here
+                ]
+            }
+        },
+        "save_options": ["Ok", "Apply", "Cancel"],
     }
 }

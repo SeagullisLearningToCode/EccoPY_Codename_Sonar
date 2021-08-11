@@ -148,17 +148,17 @@ class MAIN_WINDOW(Tk):
         #           nb/
         set_menu_nb = ttk.Notebook(set_menu)
         #               frme/
-        frame_01 = ttk.Frame(set_menu_nb) # ;Video
-        frame_02 = ttk.Frame(set_menu_nb) # ;Audio
-        frame_03 = ttk.Frame(set_menu_nb) # ;Controller
-        frame_04 = ttk.Frame(set_menu_nb) # ;Game
+        frame_01 = ttk.Frame(set_menu_nb)  # ;Video
+        frame_02 = ttk.Frame(set_menu_nb)  # ;Audio
+        frame_03 = ttk.Frame(set_menu_nb)  # ;Controller
+        frame_04 = ttk.Frame(set_menu_nb)  # ;Game
         #       int/
         i = 0
 
         # code/
 
         for choiceOptions in winstrings["main"]["save_options"]:
-            Button(set_menu, text=choiceOptions).grid(column=i+1, row=5)
+            Button(set_menu, text=choiceOptions).grid(column=i + 1, row=5)
             i += 1
 
         def video():
@@ -211,14 +211,14 @@ class MAIN_WINDOW(Tk):
             #           nb/
             sframe_02_01 = ttk.Notebook(frame_02)
             #               frme/
-            frame_02_01_01 = Frame(sframe_02_01) # ;Music
-            frame_02_01_02 = Frame(sframe_02_01) # ;SFX
+            frame_02_01_01 = Frame(sframe_02_01)  # ;Music
+            frame_02_01_02 = Frame(sframe_02_01)  # ;SFX
             #           cmbox/
-            combox_01 = ttk.Combobox(frame_02_01_01) # ;Music
-            combox_02 = ttk.Combobox(frame_02_01_02) # ;SFX
+            combox_01 = ttk.Combobox(frame_02_01_01)  # ;Music
+            combox_02 = ttk.Combobox(frame_02_01_02)  # ;SFX
             #           scae/
             volume_music = Scale(frame_02_01_01, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
-            volume_sfx = Scale(frame_02_01_01, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
+            volume_sfx = Scale(frame_02_01_02, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
             #       int/
             #           iters/ ; Generic assembly-like vars
             i = 0
@@ -255,9 +255,38 @@ class MAIN_WINDOW(Tk):
 
             volume_music.grid(column=1, row=3)
 
+            combox_02['values'] = (winstrings["main"]["options"]["Audio"]["special"]["games"]["retail"][0])
+            combox_02['state'] = "readonly"
+            combox_02.grid(column=1, row=0)
+
             volume_sfx.grid(column=1, row=3)
 
             sframe_02_01.grid(column=0, row=1)
+
+        def user_input():
+            # init/
+            #   var/
+            #       tk/
+            #           nb/
+            sframe_03_01 = ttk.Notebook(frame_03) # ;Main
+            usi_keyboard_type_bindings = ttk.Notebook(sframe_03_01)
+            #           frme/
+            frame_keyboard = Frame(usi_keyboard_type_bindings)
+            frame_joystick = Frame(sframe_03_01)
+            #       int/
+            #           iters/ ;Generic assembly-like vars
+            i = 0
+            q = 0
+            a = 0
+            z = 0
+            # code/
+
+            usi_keyboard_type_bindings.add(frame_keyboard, text=winstrings["main"]["options"]["controlls".title()]["set"][1][0])
+            usi_keyboard_type_bindings.add(frame_joystick, text=winstrings["main"]["options"]["controlls".title()]["set"][1][1])
+
+            usi_keyboard_type_bindings.grid(column=0, row=0)
+            sframe_03_01.grid(column=0, row=0)
+
 
         for string in winstrings["main"]["options"]:
             if not self.sc_init.iterator_02 == 4:
@@ -265,12 +294,15 @@ class MAIN_WINDOW(Tk):
                     set_menu_nb.add(frame_01, text=string)
                 elif string == "Audio":
                     set_menu_nb.add(frame_02, text=string)
+                elif string == "Controlls":
+                    set_menu_nb.add(frame_03, text=string)
             self.sc_init.iterator_02 += 1
 
-
         set_menu_nb.grid(column=0, row=0)
+
         video()
         audio()
+        user_input()
 
     def PLAY_GAME(self):
         sys.exit(0)

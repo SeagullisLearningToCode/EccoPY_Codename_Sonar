@@ -16,3 +16,6 @@ snd_vol_lmts = [0.0, 100.0] # ; This will be converted to a number between 0.0 a
 #           video/
 #               dir/
 r_disable_ripple = False
+#           controlls/
+#               dbg/
+usi_enable_debugmode = False

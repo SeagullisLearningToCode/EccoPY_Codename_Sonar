@@ -44,6 +44,7 @@ class MAIN_W_I(object):
         #           Bools/
         self.lessguimode = False
         self.converttopygame = False
+        self.is_running = True
 
 
 class MAIN_WINDOW(Tk):
@@ -268,25 +269,96 @@ class MAIN_WINDOW(Tk):
             #   var/
             #       tk/
             #           nb/
-            sframe_03_01 = ttk.Notebook(frame_03) # ;Main
+            sframe_03_01 = ttk.Notebook(frame_03)  # ;Main
             usi_keyboard_type_bindings = ttk.Notebook(sframe_03_01)
+            #               nnb/
+            usi_keyboard_type_bindings_movement = ttk.Notebook(usi_keyboard_type_bindings)
             #           frme/
             frame_keyboard = Frame(usi_keyboard_type_bindings)
             frame_joystick = Frame(sframe_03_01)
+            frame02 = Frame(sframe_03_01)
+            #               nfrme/
+            frame_usi_type_movement = Frame(usi_keyboard_type_bindings_movement)
+            #           ckbn/
+            #               dm/
+            ckbn_e_dm = Checkbutton(frame02, text="Debug Mode", variable=usi_enable_debugmode, onvalue=True, offvalue=False)
             #       int/
             #           iters/ ;Generic assembly-like vars
             i = 0
             q = 0
             a = 0
             z = 0
+            #           iters_arr/ ;Generic assembly-like extended vars
+            e = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             # code/
 
+            # ;Keyboard
             usi_keyboard_type_bindings.add(frame_keyboard, text=winstrings["main"]["options"]["controlls".title()]["set"][1][0])
+            usi_keyboard_type_bindings_movement.add(frame_usi_type_movement, text=winstrings["main"]["options"]["controlls".title()]["bindings_names"][0])
+
+            # ;Keyboard/Movement/
+            Label(
+                frame_keyboard,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][0],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=0, sticky="w")
+
+            for usi_keyboard_type_bindings_movement_strings in winstrings["main"]["options"]["Controlls"]["bindings"][0]:
+                Label(frame_keyboard, text=usi_keyboard_type_bindings_movement_strings).grid(column=0, row=i + 2, sticky="w")
+                i += 1
+
+            # ;Keyboard/ActionButtons/
+            Label(
+                frame_keyboard,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][1],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=i+2, sticky="w")
+
+            for usi_keyboard_type_bindings_ab_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
+                Label(frame_keyboard, text=usi_keyboard_type_bindings_ab_strings).grid(column=0, row=(i + q + 3), sticky="w")
+                q += 1
+
+            # ;Keyboard/PauseButtons/
+            Label(
+                frame_keyboard,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][2],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=i+q+1, sticky="w")
+
+            for usi_keyboard_type_bindings_pb_strings in winstrings["main"]["options"]["Controlls"]["bindings"][2]:
+                Label(frame_keyboard, text=usi_keyboard_type_bindings_pb_strings).grid(column=0, row=(i + q + a + 2), sticky="w")
+                a += 1
+
+            # ;Keyboard/DebugButtons/
+            if usi_enable_debugmode is True:
+                dbm_l = Label(
+                    frame_keyboard,
+                    text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][2],
+                    font='"Helvectica Light" 16',
+                    relief="groove",
+                    bd=5
+                ).grid(column=0, row=i + q + 2, sticky="w")
+                for usi_keyboard_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
+                    Label(frame_keyboard, text=usi_keyboard_type_bindings_db_b_strings).grid(column=0, row=(i + q + a + 3), sticky="w")
+                    a += 1
+            # ;Keyboard/DebugButtons/CIDMIO/
+            ckbn_e_dm.grid()
+
+            # ;Joystick
             usi_keyboard_type_bindings.add(frame_joystick, text=winstrings["main"]["options"]["controlls".title()]["set"][1][1])
 
-            usi_keyboard_type_bindings.grid(column=0, row=0)
-            sframe_03_01.grid(column=0, row=0)
 
+
+            # ;Grid
+            usi_keyboard_type_bindings.grid(column=0, row=0)
+            frame02.grid(column=1, row=0)
+            sframe_03_01.grid(column=0, row=0)
 
         for string in winstrings["main"]["options"]:
             if not self.sc_init.iterator_02 == 4:
@@ -305,7 +377,7 @@ class MAIN_WINDOW(Tk):
         user_input()
 
     def PLAY_GAME(self):
-        sys.exit(0)
+        self.sc_init.is_running = False
 
     def SAVE_GAME(self):
         # init/
@@ -320,8 +392,9 @@ class MAIN_WINDOW(Tk):
                 p("Saved")
 
     def run(self):
-        self.DRAW_CONTENTS()
-        self.mainloop()
+        while self.sc_init.is_running is True:
+            self.DRAW_CONTENTS()
+            self.mainloop()
 
 
 mw = MAIN_WINDOW()

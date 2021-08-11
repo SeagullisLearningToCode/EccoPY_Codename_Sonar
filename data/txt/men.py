@@ -5,7 +5,7 @@ from data.frw.GF.GF import td_c_s_yo, flp
 #   vars/
 #       str/
 #           eng/
-ui_version_number = ["Tkinter", "2.0"]
+ui_version_number = ["Gull Framework TK Extension", "1.0"]
 winstrings = {
     "main": {
         "title": [f"EccoPY Version {ui_version_number[1]} {ui_version_number[0]}", f"Ecco The Dolphin Rewritten Version {ui_version_number[1]} {ui_version_number[0]}"],
@@ -52,9 +52,10 @@ winstrings = {
                 "bindings": [
                             ["Up", "Down", "Left", "Right"],  # Movement
                             ["Swim", "Sonar", "Dash", "Pause", "Exit game"],  # Action Buttons
-                            ["TurnOffMusic", "TurnOffSfx"],  # During Pause
+                            ["TurnOffMusic", "TurnOffSfx"],  # Pause Buttons
                             ["ShowFPS", "ShowPOS", "ShowAll"],  # Debug
-                        ]
+                        ],
+                "bindings_names": ["movement".title(), "action buttons".title(), "pause buttons".title(), "debug buttons".title()]
             }
         },
         "Game": {

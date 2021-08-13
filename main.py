@@ -45,6 +45,8 @@ class MAIN_W_I(object):
         self.lessguimode = False
         self.converttopygame = False
         self.is_running = True
+        #   gfe/
+        self.tp = pygame_Tk_Integration()
 
 
 class MAIN_WINDOW(Tk):
@@ -157,9 +159,17 @@ class MAIN_WINDOW(Tk):
         i = 0
 
         # code/
+        def cancel():
+            # code/
+            self.forget(set_menu)
 
         for choiceOptions in winstrings["main"]["save_options"]:
-            Button(set_menu, text=choiceOptions).grid(column=i + 1, row=5)
+            if choiceOptions == "Ok":
+                pass
+            elif choiceOptions == "Apply":
+                pass
+            elif choiceOptions == "Cancel":
+                Button(set_menu, text=choiceOptions, command=cancel).grid(column=i + 1, row=5)
             i += 1
 
         def video():
@@ -276,9 +286,12 @@ class MAIN_WINDOW(Tk):
             #           frme/
             frame_keyboard = Frame(usi_keyboard_type_bindings)
             frame_joystick = Frame(sframe_03_01)
-            frame02 = Frame(sframe_03_01)
+            frame02 = Frame(frame_03, relief="groove", bd=10)
             #               nfrme/
             frame_usi_type_movement = Frame(usi_keyboard_type_bindings_movement)
+            #           ckbn/
+            #               dbm/
+            dbm_chkbtn = Checkbutton(sframe_03_01, text="Enable Debug Mode (Requires Restart)", variable=usi_enable_debugmode, onvalue=True, offvalue=False)
             #       int/
             #           iters/ ;Generic assembly-like vars
             i = 0
@@ -333,31 +346,80 @@ class MAIN_WINDOW(Tk):
                 a += 1
 
             # ;Keyboard/DebugButtons/
-            # ;Wish that I can make a check that checks for if a value named "usi_enable_debugmode" is on that it'll display the debug items, but since I know more pygame and this module
-            # ;Tkinter is very confusing to use since they use a function that will read the code but isn't the fashion that I would liked in pygame, I think pygame is more suited for me
-            # ;though due to it being in my way of thinking as "simple", hell you can even look back on my previous code and just making a window that responds flawlessly or my mind isn't
-            # ;working that well today.
-            # ;
-            # ;This is tkinter, to me, it's a pain
-            # ;Need to find a way to update a value constantly, unless if I am doing something wrong
-            Label(
-                frame_keyboard,
-                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][3],
-                font='"Helvectica Light" 16',
-                relief="groove",
-                bd=5,
-                anchor="center"
-            ).grid(column=0, row=i + q + a + 2, sticky="w")
+            if usi_enable_debugmode is True:
+                Label(
+                    frame_keyboard,
+                    text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][3],
+                    font='"Helvectica Light" 16',
+                    relief="groove",
+                    bd=5,
+                    anchor="center"
+                ).grid(column=0, row=i + q + a + 2, sticky="w")
 
-            for usi_keyboard_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
-                Label(frame_keyboard, text=usi_keyboard_type_bindings_db_b_strings).grid(column=0, row=(i + q + a + z + 3), sticky="w")
-                z += 1
+                for usi_keyboard_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][3]:
+                    Label(frame_keyboard, text=usi_keyboard_type_bindings_db_b_strings).grid(column=0, row=(i + q + a + z + 3), sticky="w")
+                    z += 1
 
             # ;Joystick
             usi_keyboard_type_bindings.add(frame_joystick, text=winstrings["main"]["options"]["controlls".title()]["set"][1][1])
 
+            # ;Joystick/Movement/
+            Label(
+                frame_joystick,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][0],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=0, sticky="w")
+
+            for usi_joystick_type_bindings_movement_strings in winstrings["main"]["options"]["Controlls"]["bindings"][0]:
+                Label(frame_joystick, text=usi_joystick_type_bindings_movement_strings).grid(column=0, row=e[0] + 2, sticky="w")
+                e[0] += 1
+
+            # ;Joystick/ActionButtons/
+            Label(
+                frame_joystick,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][1],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=e[0] + 2, sticky="w")
+
+            for usi_joystick_type_bindings_ab_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
+                Label(frame_joystick, text=usi_joystick_type_bindings_ab_strings).grid(column=0, row=(e[0] + e[1] + 3), sticky="w")
+                e[1] += 1
+
+            # ;Joystick/PauseButtons/
+            Label(
+                frame_joystick,
+                text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][2],
+                font='"Helvectica Light" 16',
+                relief="groove",
+                bd=5
+            ).grid(column=0, row=e[0] + e[1] + 1, sticky="w")
+
+            for usi_joystick_type_bindings_pb_strings in winstrings["main"]["options"]["Controlls"]["bindings"][2]:
+                Label(frame_joystick, text=usi_joystick_type_bindings_pb_strings).grid(column=0, row=(e[0] + e[1] + e[2] + 2), sticky="w")
+                e[2] += 1
+
+            # ;Joystick/DebugButtons/
+            if usi_enable_debugmode is True:
+                Label(
+                    frame_joystick,
+                    text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][3],
+                    font='"Helvectica Light" 16',
+                    relief="groove",
+                    bd=5,
+                    anchor="center"
+                ).grid(column=0, row=e[0] + e[1] + e[2] + 2, sticky="w")
+
+                for usi_joystick_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][3]:
+                    Label(frame_keyboard, text=usi_joystick_type_bindings_db_b_strings).grid(column=0, row=(e[0] + e[1] + e[2] + e[3] + 3), sticky="w")
+                    e[3] += 1
+
             # ;Grid
             usi_keyboard_type_bindings.grid(column=0, row=0)
+            dbm_chkbtn.grid(column=1, row=0)
             frame02.grid(column=1, row=0)
             sframe_03_01.grid(column=0, row=0)
 
@@ -378,7 +440,7 @@ class MAIN_WINDOW(Tk):
         user_input()
 
     def PLAY_GAME(self):
-        sys.exit(0)
+        self.sc_init.is_running = False
 
     def SAVE_GAME(self):
         # init/
@@ -392,10 +454,14 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
-    def run(self):
-        self.DRAW_CONTENTS()
-        self.mainloop()
+    def run(self): # Now I'm going somewhere
+        while self.sc_init.is_running is True:
+            self.update_idletasks()
+            self.sc_init.tp.GetAllKeyBinds()
+            self.update()
+
 
 
 mw = MAIN_WINDOW()
+mw.DRAW_CONTENTS()
 mw.run()

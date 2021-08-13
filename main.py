@@ -337,6 +337,9 @@ class MAIN_WINDOW(Tk):
             # ;Tkinter is very confusing to use since they use a function that will read the code but isn't the fashion that I would liked in pygame, I think pygame is more suited for me
             # ;though due to it being in my way of thinking as "simple", hell you can even look back on my previous code and just making a window that responds flawlessly or my mind isn't
             # ;working that well today.
+            # ;
+            # ;This is tkinter, to me, it's a pain
+            # ;Need to find a way to update a value constantly, unless if I am doing something wrong
             Label(
                 frame_keyboard,
                 text=winstrings["main"]["options"]['controlls'.title()]['bindings_names'][3],

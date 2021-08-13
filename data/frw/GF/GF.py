@@ -235,7 +235,7 @@ def image_dict(targetpath: str, **kwargs):
     #           kwargs/
     #               extras/
     v_names = kwargs.get("EVerboseResults", False) # prints the process
-    # code/
+    #   code/
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
             counter += 1

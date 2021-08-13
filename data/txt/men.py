@@ -8,7 +8,7 @@ from data.frw.GF.GF import td_c_s_yo, flp
 ui_version_number = ["Gull Framework TK Extension", "1.0"]
 winstrings = {
     "main": {
-        "title": [f"EccoPY Version {ui_version_number[1]} {ui_version_number[0]}", f"Ecco The Dolphin Rewritten Version {ui_version_number[1]} {ui_version_number[0]}"],
+        "title": [f"Bottlenose GUI Version {ui_version_number[1]} {ui_version_number[0]}", f"Ecco The Dolphin Rewritten Version {ui_version_number[1]} {ui_version_number[0]}"],
         "choices": ["Play          ", "Options", "Save        ", "Load       ", "Exit          "],
         "bottomtext": f"SeagullinSeagulls {td_c_s_yo}\nCode: https://github.com/SeagullisLearningToCode/EccoPY_Codename_Sonar",
         "options": {

@@ -235,10 +235,11 @@ def image_dict(targetpath: str, **kwargs):
     #           kwargs/
     #               extras/
     v_names = kwargs.get("EVerboseResults", False) # prints the process
-    #   code/
+    # code/
     for file in g_fit:
-        counter += 1
-        d.update({counter: t_path+file})
+        if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
+            counter += 1
+            d.update({counter: t_path+file})
     if v_names is True:
         flp(d)
     return d

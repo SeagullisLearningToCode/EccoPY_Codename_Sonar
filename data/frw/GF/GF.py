@@ -25,7 +25,7 @@
  __                     ___  __              ___       __   __
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \
-                                                    Version: 1 Shut Up Gull
+                                                    Version: 1.01 Shut Up Gull
 
 
 This file stores very simple functions with the sole purpose of de-bloating the Main.py file
@@ -34,7 +34,7 @@ This file is also makes stating certain things faster and possibly easier.
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 import os
 import sys
-import pygame
+from pygame import *
 import getpass as gp
 from datetime import *
 from random import *
@@ -42,7 +42,7 @@ from configparser import *
 
 # VARIABLES-------------------------------------------------------------------------------------------------------------------
 
-load = pygame.mixer.music
+load = mixer.music
 
 # Today's Date
 td = date.today()

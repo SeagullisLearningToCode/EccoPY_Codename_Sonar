@@ -25,16 +25,19 @@
  __                     ___  __              ___       __   __
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \
-                                                    Version: 1.01 Shut Up Gull
+                                                    Version: 1.014 Shut Up Gull
 
 
 This file stores very simple functions with the sole purpose of de-bloating the Main.py file
 This file is also makes stating certain things faster and possibly easier.
+
+This version of the Gull Framework uses Pygame 2.0.1 and Pyglet (latest version) as of 8/16/21
 """
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 import os
 import sys
 from pygame import *
+from pyglet import *
 import getpass as gp
 from datetime import *
 from random import *

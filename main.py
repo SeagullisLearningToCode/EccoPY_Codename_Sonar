@@ -47,6 +47,9 @@ class MAIN_W_I(object):
         self.is_running = True
         #   gfe/
         self.tp = pygame_Tk_Integration()
+        #       init/
+        #           keys/
+        self.tp.CombineDictToOne()
 
 
 class MAIN_WINDOW(Tk):
@@ -457,9 +460,7 @@ class MAIN_WINDOW(Tk):
     def run(self): # Now I'm going somewhere
         while self.sc_init.is_running is True:
             self.update_idletasks()
-            self.sc_init.tp.GetAllKeyBinds()
             self.update()
-
 
 
 mw = MAIN_WINDOW()

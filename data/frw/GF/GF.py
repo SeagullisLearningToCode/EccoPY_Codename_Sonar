@@ -247,6 +247,31 @@ def image_dict(targetpath: str, **kwargs):
         flp(d)
     return d
 
+def get_directory(targetpath: str):
+    #   init/
+    #       pych/ ; For Pycharm
+    """
+    Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
+    :param targetpath:
+    :param kwargs:
+    :return: Dict
+    """
+    #       vars/
+    #           int/
+    counter = 0
+    #           str/
+    t_path = targetpath
+    #           dict/
+    d = {}
+    #           op/
+    g_fit = os.listdir(t_path)  # hey you get fit
+    #   code/
+    for file in g_fit:
+        counter += 1
+        d.update({counter: t_path + file})
+    flp(d)
+
+    return d
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -430,13 +455,15 @@ class GF_INIT(object):
     PLEASE DON'T MODIFY IF YOU DON'T KNOW WHAT YOUR DOING!!!
     """
 
-    def __init__(self, assembly_mode: bool = False):
+    def __init__(self, assembly_mode: bool = False, **kwargs):
         p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
         # Init/
         #   Args/
         #       Vars/
         #           Booleans/
-        self.enable_assembly_mode = (assembly_mode)
+        self.enable_assembly_mode = assembly_mode
+        #           Kwargs/
+        self.print_faq_possible = kwargs.get("print_faq_possible", False) # ; Prints why I start functions like this
         #   I/
         if self.enable_assembly_mode == True:  # gives it somewhat of an assembly feel
             self.m = GF_MAPPING  # Deals with mapping
@@ -450,6 +477,9 @@ class GF_INIT(object):
             self.set = GF_WRITE_SETTING_FILES
             self.musicPlayer = GF_MUSICPLAYER_DICT_FORM
             self.convert = GF_MATH_CONVERT_FROM_LIST
+        #       KWARGS/
+        if self.print_faq_possible is True:
+            p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
         #   S/ ; Sandbox like psuedo directory
 
 # INIT_GULL_FRAMEWORK----------------------------------------------------------------------------------------------------------------------------------------------------------------

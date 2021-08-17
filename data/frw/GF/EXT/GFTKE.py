@@ -23,14 +23,11 @@ from data.frw.GF.GF import *
 INFO = {
     "Type": "Extentsion",
     "Name": ["Gull", "Tkinter"],
-    "Author/s": [
-        ["SeagullinSeagulls", "SeagullisLearningToCode"]
-    ],
+    "Author/s": "SeagullIsLearningToCode",
     "Age": [8, 2, 2021],
     "Desc": "Official Extentsion of the Gull Framework for added support for Tkinter GUI python module."
 }
 flp(INFO)
-
 
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
@@ -128,10 +125,20 @@ class pygame_Tk_Integration(object):
                 "3bttn": ["up", "down", "left", "right"],
                 "4bttn": [],
                 "9bttn": []
+            },
+            "key_pad": {
+                "numpad": [],
+                "misc": ["period", "divide", "multiply", "minus", "plus", "enter", "equals", "numlock", "print screen"]
+            },
+            "function_buttons": {
+                "num": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"],
+                "str": ["escape", "sysrq", "scrollock", "break", "capslock", "right shift", "left shift",
+                        "right control", "left control", "right alt", "left alt", "right meta", "left meta",
+                        "right Windows key", "left Windows key", "mode shift", "menu", "break", "power", "help"]
             }
         }
 
-    def FinishDict(self):
+    def FinishDict(self, **kwargs):
         """
         This function shouldn't be runned
 
@@ -139,13 +146,18 @@ class pygame_Tk_Integration(object):
         """
         # INIT/
         #   VAR/
-        #       BOOLEANS/
-        SHOWRESULT = False
+        #       KWARGS/
+        #           BOOLEANS/
+        SHOWRESULT = kwargs.get('showresult', False)
         # CODE/
         for key in self.pg_keyb_list["alphabet"]["no-mod"]:
             self.pg_keyb_list["alphabet"]["mod"].append(key.upper())
+
+        for number in self.pg_keyb_list["numerical"]:
+            self.pg_keyb_list["key_pad"]["numpad"].append(f"keypad {number}")
+
         if SHOWRESULT is True:
-            p(self.pg_keyb_list["alphabet"]["mod"])
+            p(f"{self.pg_keyb_list['alphabet']['mod']}\n{self.pg_keyb_list['key_pad']['numpad']}")
 
     def CombineDictToOne(self, **kwargs):
         """
@@ -159,23 +171,29 @@ class pygame_Tk_Integration(object):
         #       KWARGS/
         #           BOOLEANS/
         IncludeAlphaCaps = kwargs.get("include_alpha_caps", False)
+        ShowResult = kwargs.get("show_result", False)
+        IncludeFD = kwargs.get("include_fd", False)
         # CODE/
         # ;Alpha
-        self.FinishDict()
+        if IncludeFD is True:
+            self.FinishDict(showresult=False)
+        else:
+            self.FinishDict()
+
         for key_alpha_nm_val in self.pg_keyb_list["alphabet"]["no-mod"]:
             allvars.append(key_alpha_nm_val)
 
         if IncludeAlphaCaps is True:
             for key_alpha_m_val in self.pg_keyb_list["alphabet"]["mod"]:
-                allvars.append(key_alpha_m_val)
+                    allvars.append(key_alpha_m_val)
 
         # ;Numbers
         for key_num_val in self.pg_keyb_list["numerical"]:
-            allvars.append(key_num_val)
+                allvars.append(key_num_val)
 
         # ;Symbolic
         for key_sym_nm_val in self.pg_keyb_list["symbolics"]["no-mod"]:
-            allvars.append(key_sym_nm_val)
+                allvars.append(key_sym_nm_val)
 
         for key_sym_m_val in self.pg_keyb_list["symbolics"]["mod"]:
             allvars.append(key_sym_m_val)
@@ -186,8 +204,37 @@ class pygame_Tk_Integration(object):
 
         # ;ArrowKeys
         for key_aw_val in self.pg_keyb_list["arrow_keys"]["3bttn"]:
-            allvars.append(key_aw_val)
+            allvars.append(f"{key_aw_val} arrow")
+
+        # ;KeyPad
+        for key_kp_m_val in self.pg_keyb_list["key_pad"]["misc"]:
+            allvars.append(f"keypad {key_kp_m_val}")
+
+        for key_kp_np_val in self.pg_keyb_list["key_pad"]["numpad"]:
+            allvars.append(key_kp_np_val)
+
+        # ;FunctionButtons
+        for key_fb_num_val in self.pg_keyb_list["function_buttons"]["num"]:
+            allvars.append(f"f{key_fb_num_val}")
+
+        for key_fb_str_val in self.pg_keyb_list["function_buttons"]["str"]:
+            allvars.append(key_fb_str_val)
+
+        if ShowResult is True:
+            p(f"{allvars}\n{len(allvars)}")
 
         return allvars
+
+    def SHOW_PYGAME_BINDINGS_CURRENT_DEVICE(self, **kwargs):
+        # INIT/
+        #   VAR/
+        #       KWARGS/
+        #           BOOLEANS/
+        show_len_bindings = kwargs.get("show_len_bindings", False)
+        # CODE/
+        if show_len_bindings is True:
+            p(f"{key.get_pressed()}\n{len(key.get_pressed())}")
+        else:
+            p(key.get_pressed())
 
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

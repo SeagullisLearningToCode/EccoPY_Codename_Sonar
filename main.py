@@ -49,7 +49,7 @@ class MAIN_W_I(object):
         self.tp = pygame_Tk_Integration()
         #       init/
         #           keys/
-        self.tp.CombineDictToOne()
+        self.tp.CombineDictToOne(show_result=True)
 
 
 class MAIN_WINDOW(Tk):
@@ -295,6 +295,41 @@ class MAIN_WINDOW(Tk):
             #           ckbn/
             #               dbm/
             dbm_chkbtn = Checkbutton(sframe_03_01, text="Enable Debug Mode (Requires Restart)", variable=usi_enable_debugmode, onvalue=True, offvalue=False)
+            #           cmbox/
+            #               kyb/ ; Keyboard
+            #                   mvm/
+            kyb_mvm_up = ttk.Combobox(frame_keyboard) # ; Up
+            kyb_mvm_down = ttk.Combobox(frame_keyboard) # ; Down
+            kyb_mvm_left = ttk.Combobox(frame_keyboard) # ; Left
+            kyb_mvm_right = ttk.Combobox(frame_keyboard) # ; Right
+            #                   ab/
+            kyb_ab_swim = ttk.Combobox(frame_keyboard) # ; Swim
+            kyb_ab_sonar = ttk.Combobox(frame_keyboard) # ; Sonar
+            kyb_ab_dash = ttk.Combobox(frame_keyboard) # ; Dash
+            #                   pb/
+            kyb_pb_tom = ttk.Combobox(frame_keyboard) # ; TurnOffMusic
+            kyb_pb_tose = ttk.Combobox(frame_keyboard) # ; TurnOffSFX
+            #                   dbb/
+            kyb_dbb_sfps = ttk.Combobox(frame_keyboard) # ; ShowFPS
+            kyb_dbb_spos = ttk.Combobox(frame_keyboard) # ; ShowPOS
+            kyb_dbb_sall = ttk.Combobox(frame_keyboard) # ; ShowAll
+            #               jys/ ; Joystick
+            #                   mvm/
+            jys_mvm_up = ttk.Combobox(frame_keyboard) # ; Up
+            jys_mvm_down = ttk.Combobox(frame_keyboard) # ; Down
+            jys_mvm_left = ttk.Combobox(frame_keyboard) # ; Left
+            jys_mvm_right = ttk.Combobox(frame_keyboard) # ; Right
+            #                   ab/
+            jys_ab_swim = ttk.Combobox(frame_keyboard) # ; Swim
+            jys_ab_sonar = ttk.Combobox(frame_keyboard) # ; Sonar
+            jys_ab_dash = ttk.Combobox(frame_keyboard) # ; Dash
+            #                   pb/
+            jys_pb_tom = ttk.Combobox(frame_keyboard) # ; TurnOffMusic
+            jys_pb_tose = ttk.Combobox(frame_keyboard) # ; TurnOffSFX
+            #                   dbb/
+            jys_dbb_sfps = ttk.Combobox(frame_keyboard) # ; ShowFPS
+            jys_dbb_spos = ttk.Combobox(frame_keyboard) # ; ShowPOS
+            jys_dbb_sall = ttk.Combobox(frame_keyboard) # ; ShowAll
             #       int/
             #           iters/ ;Generic assembly-like vars
             i = 0
@@ -419,6 +454,7 @@ class MAIN_WINDOW(Tk):
                 for usi_joystick_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][3]:
                     Label(frame_keyboard, text=usi_joystick_type_bindings_db_b_strings).grid(column=0, row=(e[0] + e[1] + e[2] + e[3] + 3), sticky="w")
                     e[3] += 1
+
 
             # ;Grid
             usi_keyboard_type_bindings.grid(column=0, row=0)

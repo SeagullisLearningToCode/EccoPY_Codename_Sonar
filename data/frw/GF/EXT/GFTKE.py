@@ -139,11 +139,14 @@ class pygame_Tk_Integration(object):
                         "right Windows key", "left Windows key", "mode shift", "menu", "break", "power", "help"]
             }
         }
+        #       arr/
+        self.pg_joys_list = []
 
     def FinishDict(self, **kwargs):
         """
-        This function shouldn't be runned
+        Fills in the blanks in self.pg_keyb_list
 
+        :param kwargs:
         :return:
         """
         # INIT/
@@ -220,9 +223,50 @@ class pygame_Tk_Integration(object):
         #       KWARGS/
         #           BOOLEANS/
         show_number_of_controllers = kwargs.get("show_num_of_controllers", False)
+        show_controller_info = kwargs.get("show_controller_info", False)
         # CODE/
         if show_number_of_controllers is True:
             p(joystick.get_count())
+
+        if show_controller_info is True:
+            for controller in range(joystick.get_count()):
+                jys = joystick.Joystick(controller)
+                try:
+                    cid = jys.get_instance_id()
+                except AttributeError:
+                    cid = jys.get_id()
+                    p(f"Joystick {cid}")
+
+                controller_name = jys.get_name()
+                p(f"\nJoystick Name: {controller_name}")
+
+                try:
+                    controller_guid = jys.get_guid()
+                except AttributeError:
+                    pass
+                else:
+                    p(f"GUID: {controller_guid}")
+
+                controller_axes = jys.get_numaxes()
+                p(f"Num of Axes: {controller_axes}")
+
+                for axes in range(controller_axes):
+                    controller_axis = jys.get_axis(axes)
+                p   (f"Axis {axes}, Value: {controller_axis}")
+
+                controller_buttons = jys.get_numbuttons()
+                p(f"Number of Buttons: {controller_buttons}")
+
+                for buttons in range(controller_buttons):
+                    button = jys.get_button(buttons)
+                    p(f"Button: {buttons}, Value: {button}")
+
+                controller_hats = jys.get_numhats() # ; Wait, controllers has hats? What a werid world we live in
+                p(f"Number of Hats: {controller_hats}")
+
+                for hats in range(controller_hats):
+                    hat = jys.get_hat(hats)
+                    p(f"Hat: {hats}, Value: {str(hat)}")
 
         for controller in range(joystick.get_count()):
             jys = joystick.Joystick(controller)
@@ -230,38 +274,10 @@ class pygame_Tk_Integration(object):
                 cid = jys.get_instance_id()
             except AttributeError:
                 cid = jys.get_id()
-                p(f"Joystick {cid}")
-
-            controller_name = jys.get_name()
-            p(f"Joystick Name: {controller_name}")
-
-            try:
-                controller_guid = jys.get_guid()
-            except AttributeError:
-                pass
-            else:
-                p(f"GUID: {controller_guid}")
-
-            controller_axes = jys.get_numaxes()
-            p(f"Num of Axes: {controller_axes}")
-
-            for axes in range(controller_axes):
-                controller_axis = jys.get_axis(axes)
-                p(f"Axis {axes}, Value: {controller_axis}")
 
             controller_buttons = jys.get_numbuttons()
-            p(f"Number of Buttons: {controller_buttons}")
 
             for buttons in range(controller_buttons):
-                button = jys.get_button(buttons)
-                p(f"Button: {buttons}, Value: {button}")
-
-            controller_hats = jys.get_numhats() # ; Wait, controllers has hats? What a werid world we live in
-            p(f"Number of Hats: {controller_hats}")
-
-            for hats in range(controller_hats):
-                hat = jys.get_hat(hats)
-                p(f"Hat: {hats}, Value: {str(hat)}")
-
+                self.pg_joys_list.append(f"Button {buttons}")
 
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

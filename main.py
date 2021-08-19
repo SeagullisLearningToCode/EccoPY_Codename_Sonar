@@ -49,7 +49,10 @@ class MAIN_W_I(object):
         self.tp = pygame_Tk_Integration()
         #       init/
         #           keys/
-        self.tp.CombineDictToOne(show_result=True)
+        self.keys = self.tp.CombineDictToOne()
+        #           cbttns/
+        #               dbg/
+        self.dbg_controller = self.tp.debug_controller()
 
 
 class MAIN_WINDOW(Tk):
@@ -105,7 +108,8 @@ class MAIN_WINDOW(Tk):
                            text=subdict,
                            font='"Myanmar MN" 36',
                            command=self.PLAY_GAME).grid(column=0,
-                                                        row=self.sc_init.iterator_01)
+                                                        row=self.sc_init.iterator_01
+                                                        )
                 elif self.sc_init.iterator_01 == 1:
                     Button(options_frame,
                            highlightcolor=label_background,
@@ -118,8 +122,8 @@ class MAIN_WINDOW(Tk):
                            text=subdict,
                            font='"Myanmar MN" 36',
                            command=self.SETTINGS_MENU).grid(column=0,
-                                                            row=self.sc_init.iterator_01,
-                                                            sticky="w")
+                                                            row=self.sc_init.iterator_01
+                                                            )
                 else:
                     Label(options_frame,
                           bg=label_background,
@@ -292,9 +296,6 @@ class MAIN_WINDOW(Tk):
             frame02 = Frame(frame_03, relief="groove", bd=10)
             #               nfrme/
             frame_usi_type_movement = Frame(usi_keyboard_type_bindings_movement)
-            #           ckbn/
-            #               dbm/
-            dbm_chkbtn = Checkbutton(sframe_03_01, text="Enable Debug Mode (Requires Restart)", variable=usi_enable_debugmode, onvalue=True, offvalue=False)
             #           cmbox/
             #               kyb/ ; Keyboard
             #                   mvm/
@@ -315,21 +316,24 @@ class MAIN_WINDOW(Tk):
             kyb_dbb_sall = ttk.Combobox(frame_keyboard) # ; ShowAll
             #               jys/ ; Joystick
             #                   mvm/
-            jys_mvm_up = ttk.Combobox(frame_keyboard) # ; Up
-            jys_mvm_down = ttk.Combobox(frame_keyboard) # ; Down
-            jys_mvm_left = ttk.Combobox(frame_keyboard) # ; Left
-            jys_mvm_right = ttk.Combobox(frame_keyboard) # ; Right
+            jys_mvm_up = ttk.Combobox(frame_joystick) # ; Up
+            jys_mvm_down = ttk.Combobox(frame_joystick) # ; Down
+            jys_mvm_left = ttk.Combobox(frame_joystick) # ; Left
+            jys_mvm_right = ttk.Combobox(frame_joystick) # ; Right
             #                   ab/
-            jys_ab_swim = ttk.Combobox(frame_keyboard) # ; Swim
-            jys_ab_sonar = ttk.Combobox(frame_keyboard) # ; Sonar
-            jys_ab_dash = ttk.Combobox(frame_keyboard) # ; Dash
+            jys_ab_swim = ttk.Combobox(frame_joystick) # ; Swim
+            jys_ab_sonar = ttk.Combobox(frame_joystick) # ; Sonar
+            jys_ab_dash = ttk.Combobox(frame_joystick) # ; Dash
             #                   pb/
-            jys_pb_tom = ttk.Combobox(frame_keyboard) # ; TurnOffMusic
-            jys_pb_tose = ttk.Combobox(frame_keyboard) # ; TurnOffSFX
+            jys_pb_tom = ttk.Combobox(frame_joystick) # ; TurnOffMusic
+            jys_pb_tose = ttk.Combobox(frame_joystick) # ; TurnOffSFX
             #                   dbb/
-            jys_dbb_sfps = ttk.Combobox(frame_keyboard) # ; ShowFPS
-            jys_dbb_spos = ttk.Combobox(frame_keyboard) # ; ShowPOS
-            jys_dbb_sall = ttk.Combobox(frame_keyboard) # ; ShowAll
+            jys_dbb_sfps = ttk.Combobox(frame_joystick) # ; ShowFPS
+            jys_dbb_spos = ttk.Combobox(frame_joystick) # ; ShowPOS
+            jys_dbb_sall = ttk.Combobox(frame_joystick) # ; ShowAll
+            #       dict/
+            usi_keyboard_type_bindings_list = [kyb_mvm_up, kyb_mvm_left, kyb_mvm_right, kyb_mvm_down, kyb_ab_dash, kyb_ab_swim, kyb_ab_sonar, kyb_pb_tom, kyb_pb_tose, kyb_dbb_sall, kyb_dbb_sfps, kyb_dbb_spos] # ;For loop
+            usi_joystick_type_bindings_list = [jys_mvm_up, jys_mvm_left, jys_mvm_right, jys_mvm_down, jys_ab_dash, jys_ab_swim, jys_ab_sonar, jys_pb_tom, jys_pb_tose, jys_dbb_sall, jys_dbb_sfps, jys_dbb_spos] # ;For loop
             #       int/
             #           iters/ ;Generic assembly-like vars
             i = 0
@@ -354,7 +358,7 @@ class MAIN_WINDOW(Tk):
             ).grid(column=0, row=0, sticky="w")
 
             for usi_keyboard_type_bindings_movement_strings in winstrings["main"]["options"]["Controlls"]["bindings"][0]:
-                Label(frame_keyboard, text=usi_keyboard_type_bindings_movement_strings).grid(column=0, row=i + 2, sticky="w")
+                Label(frame_keyboard, text=usi_keyboard_type_bindings_movement_strings).grid(column=0, row=i + 1, sticky="w")
                 i += 1
 
             # ;Keyboard/ActionButtons/
@@ -364,10 +368,10 @@ class MAIN_WINDOW(Tk):
                 font='"Helvectica Light" 16',
                 relief="groove",
                 bd=5
-            ).grid(column=0, row=i + 2, sticky="w")
+            ).grid(column=0, row=i + 1, sticky="w")
 
             for usi_keyboard_type_bindings_ab_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
-                Label(frame_keyboard, text=usi_keyboard_type_bindings_ab_strings).grid(column=0, row=(i + q + 3), sticky="w")
+                Label(frame_keyboard, text=usi_keyboard_type_bindings_ab_strings).grid(column=0, row=(i + q + 2), sticky="w")
                 q += 1
 
             # ;Keyboard/PauseButtons/
@@ -392,10 +396,10 @@ class MAIN_WINDOW(Tk):
                     relief="groove",
                     bd=5,
                     anchor="center"
-                ).grid(column=0, row=i + q + a + 2, sticky="w")
+                ).grid(column=0, row=i + q + a + 1, sticky="w")
 
                 for usi_keyboard_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][3]:
-                    Label(frame_keyboard, text=usi_keyboard_type_bindings_db_b_strings).grid(column=0, row=(i + q + a + z + 3), sticky="w")
+                    Label(frame_keyboard, text=usi_keyboard_type_bindings_db_b_strings).grid(column=0, row=(i + q + a + z + 1), sticky="w")
                     z += 1
 
             # ;Joystick
@@ -411,7 +415,7 @@ class MAIN_WINDOW(Tk):
             ).grid(column=0, row=0, sticky="w")
 
             for usi_joystick_type_bindings_movement_strings in winstrings["main"]["options"]["Controlls"]["bindings"][0]:
-                Label(frame_joystick, text=usi_joystick_type_bindings_movement_strings).grid(column=0, row=e[0] + 2, sticky="w")
+                Label(frame_joystick, text=usi_joystick_type_bindings_movement_strings).grid(column=0, row=e[0] + 1, sticky="w")
                 e[0] += 1
 
             # ;Joystick/ActionButtons/
@@ -421,10 +425,10 @@ class MAIN_WINDOW(Tk):
                 font='"Helvectica Light" 16',
                 relief="groove",
                 bd=5
-            ).grid(column=0, row=e[0] + 2, sticky="w")
+            ).grid(column=0, row=e[0] + 1, sticky="w")
 
             for usi_joystick_type_bindings_ab_strings in winstrings["main"]["options"]["Controlls"]["bindings"][1]:
-                Label(frame_joystick, text=usi_joystick_type_bindings_ab_strings).grid(column=0, row=(e[0] + e[1] + 3), sticky="w")
+                Label(frame_joystick, text=usi_joystick_type_bindings_ab_strings).grid(column=0, row=(e[0] + e[1] + 2), sticky="w")
                 e[1] += 1
 
             # ;Joystick/PauseButtons/
@@ -449,16 +453,27 @@ class MAIN_WINDOW(Tk):
                     relief="groove",
                     bd=5,
                     anchor="center"
-                ).grid(column=0, row=e[0] + e[1] + e[2] + 2, sticky="w")
+                ).grid(column=0, row=e[0] + e[1] + e[2] + 1, sticky="w")
 
                 for usi_joystick_type_bindings_db_b_strings in winstrings["main"]["options"]["Controlls"]["bindings"][3]:
-                    Label(frame_keyboard, text=usi_joystick_type_bindings_db_b_strings).grid(column=0, row=(e[0] + e[1] + e[2] + e[3] + 3), sticky="w")
+                    Label(frame_keyboard, text=usi_joystick_type_bindings_db_b_strings).grid(column=0, row=(e[0] + e[1] + e[2] + e[3] + 2), sticky="w")
                     e[3] += 1
 
+            for keyboard_combobox in usi_keyboard_type_bindings_list:
+                keyboard_combobox['width'] = 15
+                keyboard_combobox['values'] = self.sc_init.keys
+                if not e[4] == 4 and not e[4] == 9:
+                    keyboard_combobox.grid(column=1, row=e[4]+1)
+                e[4] += 1
+
+            for joystick_combobox in usi_joystick_type_bindings_list:
+                joystick_combobox['width'] = 15
+                if not e[5] == 4 and not e[5] == 9:
+                    joystick_combobox.grid(column=1, row=e[5]+1)
+                e[5] += 1
 
             # ;Grid
             usi_keyboard_type_bindings.grid(column=0, row=0)
-            dbm_chkbtn.grid(column=1, row=0)
             frame02.grid(column=1, row=0)
             sframe_03_01.grid(column=0, row=0)
 

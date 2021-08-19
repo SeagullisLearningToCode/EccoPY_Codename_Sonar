@@ -273,6 +273,38 @@ def get_directory(targetpath: str):
 
     return d
 
+def merge(target_list, **kwargs):
+    """
+    Takes a nested list into a single list
+
+    :param target_list:
+    :param kwargs:
+    :return:
+    """
+    # init/
+    #   var/
+    #       args/
+    #           abs/
+    #               arr/
+    tl = target_list
+    #       kwargs/
+    #           booleans/
+    show_result = kwargs.get("show_result", False)
+    #       arr/
+    i = [] # ; result var
+    # code/
+
+    for cat in tl:
+        for value in cat:
+            i.append(value)
+
+    if show_result is True:
+        p(i)
+
+    return i
+
+
+
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class GF_MATH_CONVERT_FROM_LIST(object):
@@ -295,7 +327,6 @@ class GF_MATH_CONVERT_FROM_LIST(object):
             for i in range(len(tl)):
                 if type(hexchecker) != hex:
                     nothexval += 1
-                    p()
         for value in tl:
             dl.append(int(value))
 
@@ -329,7 +360,6 @@ class GF_MUSICPLAYER_DICT_FORM(object):
     def queFromDict(self, target: dict):  # takes the values from the target and qeues them
         names = target
         for i in names:
-            p(f"Gull: Putting {i} from your written list into my list")
             self.que(names, i)
 
 

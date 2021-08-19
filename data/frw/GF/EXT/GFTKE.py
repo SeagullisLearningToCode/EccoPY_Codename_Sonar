@@ -94,19 +94,21 @@ class pygame_Tk_Integration(object):
     """
     Have Tkinter and pygame work together (unfinished)
     """
-
     def __init__(self):
         # init/
         #   pg/
         #       it/
         init()
+        joystick.init()
         p("\nTP Initiallized")
         #   var/
         #       int/
         self.amount_pressed = 0
         #       pg/
-        #           keyb/
+        #           keyb/ ;Keyboard
         self.keyi = KEYDOWN
+        #           jysb/ ;JoystickButtons
+        self.pg_controllers = [joystick.Joystick(x) for x in range(joystick.get_count())]
         #       dict/
         self.pg_keyb_list = {
             "alphabet": {
@@ -122,7 +124,7 @@ class pygame_Tk_Integration(object):
             },
             "tc": ["backspace", "tab", "pause", "delete", "end", "page up", "page down", "home", "insert"], # ;Text Commands
             "arrow_keys": {
-                "3bttn": ["up", "down", "left", "right"],
+                "3bttn": ["up arrow", "down arrow", "left arrow", "right arrow"],
                 "4bttn": [],
                 "9bttn": []
             },
@@ -167,6 +169,8 @@ class pygame_Tk_Integration(object):
         # INIT/
         #   VAR/
         #       ARR/
+        refrenced_dicts_list = [self.pg_keyb_list['alphabet']['no-mod'], self.pg_keyb_list['numerical'], self.pg_keyb_list['symbolics']['no-mod'], self.pg_keyb_list['symbolics']['mod'], self.pg_keyb_list['tc'],
+                                self.pg_keyb_list['arrow_keys']['3bttn'], self.pg_keyb_list['key_pad']['misc'], self.pg_keyb_list['key_pad']['numpad'], self.pg_keyb_list['function_buttons']['num'], self.pg_keyb_list['function_buttons']['str']]
         allvars = []
         #       KWARGS/
         #           BOOLEANS/
@@ -180,45 +184,12 @@ class pygame_Tk_Integration(object):
         else:
             self.FinishDict()
 
-        for key_alpha_nm_val in self.pg_keyb_list["alphabet"]["no-mod"]:
-            allvars.append(key_alpha_nm_val)
-
         if IncludeAlphaCaps is True:
-            for key_alpha_m_val in self.pg_keyb_list["alphabet"]["mod"]:
-                    allvars.append(key_alpha_m_val)
+            refrenced_dicts_list.append(self.pg_keyb_list['alphabet']['mod'])
 
-        # ;Numbers
-        for key_num_val in self.pg_keyb_list["numerical"]:
-                allvars.append(key_num_val)
-
-        # ;Symbolic
-        for key_sym_nm_val in self.pg_keyb_list["symbolics"]["no-mod"]:
-                allvars.append(key_sym_nm_val)
-
-        for key_sym_m_val in self.pg_keyb_list["symbolics"]["mod"]:
-            allvars.append(key_sym_m_val)
-
-        # ;tc
-        for key_tc_val in self.pg_keyb_list["tc"]:
-            allvars.append(key_tc_val)
-
-        # ;ArrowKeys
-        for key_aw_val in self.pg_keyb_list["arrow_keys"]["3bttn"]:
-            allvars.append(f"{key_aw_val} arrow")
-
-        # ;KeyPad
-        for key_kp_m_val in self.pg_keyb_list["key_pad"]["misc"]:
-            allvars.append(f"keypad {key_kp_m_val}")
-
-        for key_kp_np_val in self.pg_keyb_list["key_pad"]["numpad"]:
-            allvars.append(key_kp_np_val)
-
-        # ;FunctionButtons
-        for key_fb_num_val in self.pg_keyb_list["function_buttons"]["num"]:
-            allvars.append(f"f{key_fb_num_val}")
-
-        for key_fb_str_val in self.pg_keyb_list["function_buttons"]["str"]:
-            allvars.append(key_fb_str_val)
+        for keyb_key_val in refrenced_dicts_list:
+            for key_val in keyb_key_val:
+                allvars.append(key_val)
 
         if ShowResult is True:
             p(f"{allvars}\n{len(allvars)}")
@@ -236,5 +207,61 @@ class pygame_Tk_Integration(object):
             p(f"{key.get_pressed()}\n{len(key.get_pressed())}")
         else:
             p(key.get_pressed())
+
+    def debug_controller(self, **kwargs):
+        """
+        Copied from https://www.pygame.org/docs/ref/joystick.html#pygame.joystick.Joystick.get_guid
+
+        :param kwargs:
+        :return:
+        """
+        # INIT/
+        #   VAR/
+        #       KWARGS/
+        #           BOOLEANS/
+        show_number_of_controllers = kwargs.get("show_num_of_controllers", False)
+        # CODE/
+        if show_number_of_controllers is True:
+            p(joystick.get_count())
+
+        for controller in range(joystick.get_count()):
+            jys = joystick.Joystick(controller)
+            try:
+                cid = jys.get_instance_id()
+            except AttributeError:
+                cid = jys.get_id()
+                p(f"Joystick {cid}")
+
+            controller_name = jys.get_name()
+            p(f"Joystick Name: {controller_name}")
+
+            try:
+                controller_guid = jys.get_guid()
+            except AttributeError:
+                pass
+            else:
+                p(f"GUID: {controller_guid}")
+
+            controller_axes = jys.get_numaxes()
+            p(f"Num of Axes: {controller_axes}")
+
+            for axes in range(controller_axes):
+                controller_axis = jys.get_axis(axes)
+                p(f"Axis {axes}, Value: {controller_axis}")
+
+            controller_buttons = jys.get_numbuttons()
+            p(f"Number of Buttons: {controller_buttons}")
+
+            for buttons in range(controller_buttons):
+                button = jys.get_button(buttons)
+                p(f"Button: {buttons}, Value: {button}")
+
+            controller_hats = jys.get_numhats() # ; Wait, controllers has hats? What a werid world we live in
+            p(f"Number of Hats: {controller_hats}")
+
+            for hats in range(controller_hats):
+                hat = jys.get_hat(hats)
+                p(f"Hat: {hats}, Value: {str(hat)}")
+
 
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

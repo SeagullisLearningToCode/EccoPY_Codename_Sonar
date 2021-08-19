@@ -1,0 +1,26 @@
+Joystick Name: PDP Xbox One Wired Controller
+GUID: 030000006f0e0000b802000000000000
+Num of Axes: 6
+Axis 0, Value: -0.0301513671875
+Axis 1, Value: 0.033233642578125
+Axis 2, Value: -1.0
+Axis 3, Value: 0.077423095703125
+Axis 4, Value: -0.030670166015625
+Axis 5, Value: -1.0
+Number of Buttons: 15
+Button: 0, Value: 0
+Button: 1, Value: 0
+Button: 2, Value: 0
+Button: 3, Value: 0
+Button: 4, Value: 0
+Button: 5, Value: 0
+Button: 6, Value: 0
+Button: 7, Value: 0
+Button: 8, Value: 0
+Button: 9, Value: 0
+Button: 10, Value: 0
+Button: 11, Value: 0
+Button: 12, Value: 0
+Button: 13, Value: 0
+Button: 14, Value: 0
+Number of Hats: 0

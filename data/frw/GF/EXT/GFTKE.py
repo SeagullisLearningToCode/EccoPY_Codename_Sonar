@@ -2,7 +2,6 @@
  __                     ___  __              ___       __   __
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \  Xtension
-                                                    Version: 1 Shut Up Gull (Tkinter Extentsion)
 
 
 This file stores very simple functions with the sole purpose of de-bloating the Main.py file

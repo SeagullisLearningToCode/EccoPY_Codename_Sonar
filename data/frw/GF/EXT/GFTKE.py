@@ -11,8 +11,8 @@ This file is also makes stating certain things faster and possibly easier.
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 from tkinter import *
 from tkinter import ttk
-
 from PIL import ImageTk, Image
+
 from data.frw.GF.GF import *
 
 # VARIABLES-------------------------------------------------------------------------------------------------------------------
@@ -27,10 +27,9 @@ INFO = {
 }
 flp(INFO)
 
+
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
-
-# Tkinter Images
 def loadimage(image):
     """
     May help with PIL's garbage collection so it's less bloated
@@ -42,7 +41,7 @@ def loadimage(image):
     #       STR/
     #           IMG/
     i = ImageTk.PhotoImage(Image.open(image))
-    #               PROTECTION/ ; Apply protection please
+    #               PROTECTION/
     ip = i
     ip_pmm = i
     ip_pmm.protect = ip_pmm
@@ -94,6 +93,7 @@ class pygame_Tk_Integration(object):
     """
     Have Tkinter and pygame work together (unfinished)
     """
+
     def __init__(self):
         # INIT/
         #   PG/
@@ -115,14 +115,14 @@ class pygame_Tk_Integration(object):
                 "no-mod": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
                            "a", "s", "d", "f", "g", "h", "j", "k", "l",
                            "z", "x", "c", "v", "b", "n", "m"],
-                "mod": [] # ;Gull, copy the values from self.pg_keyb_list["alphabet"]["no-mod"] and paste into self.pg_keyb_list["alphabet"]["mod"] as uppercase values
+                "mod": []  # ;Gull, copy the values from self.pg_keyb_list["alphabet"]["no-mod"] and paste into self.pg_keyb_list["alphabet"]["mod"] as uppercase values
             },
             "numerical": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
             "symbolics": {
                 "no-mod": ["`", "-", "=", "[", "]", "\\", ";", "'", ",", ".", "/"],
                 "mod": ["~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "+", "{", "}", "|", ":", '"', "<", ">", "?"],
             },
-            "tc": ["backspace", "tab", "pause", "delete", "end", "page up", "page down", "home", "insert"], # ;Text Commands
+            "tc": ["backspace", "tab", "pause", "delete", "end", "page up", "page down", "home", "insert"],  # ;Text Commands
             "arrow_keys": {
                 "3bttn": ["up arrow", "down arrow", "left arrow", "right arrow"],
                 "4bttn": [],
@@ -261,7 +261,7 @@ class pygame_Tk_Integration(object):
                     button = jys.get_button(buttons)
                     p(f"Button: {buttons}, Value: {button}")
 
-                controller_hats = jys.get_numhats() # ;Wait, controllers has hats? What a werid world we live in
+                controller_hats = jys.get_numhats()  # ;Wait, controllers has hats? What a werid world we live in
                 p(f"Number of Hats: {controller_hats}")
 
                 for hats in range(controller_hats):
@@ -279,5 +279,8 @@ class pygame_Tk_Integration(object):
 
             for buttons in range(controller_buttons):
                 self.pg_joys_list.append(f"Button {buttons}")
+
+
+gc.collect()
 
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

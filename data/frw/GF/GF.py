@@ -209,7 +209,7 @@ def image_dict(targetpath: str, **kwargs):
     g_fit = os.listdir(t_path) # hey you get fit
     # KWARGS_BOOLEANS
     v_names = kwargs.get("EVerboseResults", False) # prints the process
-    #   CODE
+    # CODE
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
             counter += 1
@@ -378,7 +378,7 @@ class GF_WRITE_SETTING_FILES(object):
         gun = gp.getuser()
         subdir = f"{gun}/EP_S/"
         getdir = f"/Users/{gun}{d}{subdir}"
-        # CODE/
+        # CODE
 
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)

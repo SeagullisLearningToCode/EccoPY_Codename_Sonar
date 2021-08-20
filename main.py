@@ -111,7 +111,7 @@ class MAIN_WINDOW(Tk):
 
         def bkgrd_image():
             # IMAGES
-            bkgrd = loadimage(self.sc_init.i_dict[2])
+            bkgrd = loadimage(self.sc_init.i_dict[1])
             # CODE/
             Label(self, image=bkgrd, background=rgbtohex(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
             gc.collect()
@@ -165,7 +165,6 @@ class MAIN_WINDOW(Tk):
             dir_chkbtn = Checkbutton(frame_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
             # SCALES
             wei_scale = Scale(frame_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
-
             # CODE
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
@@ -173,8 +172,8 @@ class MAIN_WINDOW(Tk):
                 i += 1
 
             x_txt.grid(column=2, row=1)
-            Label(frame_01, text=in_between_entries).grid(column=3, row=1)
-            y_txt.grid(column=4, row=1)
+            Label(frame_01, text=in_between_entries).grid(column=2, row=1, sticky='w')
+            y_txt.grid(column=2, row=1)
 
             rx_txt.grid(column=2, row=2)
             Label(frame_01, text=in_between_entries).grid(column=3, row=2)
@@ -459,6 +458,7 @@ class MAIN_WINDOW(Tk):
                 list = combobox_list[game_cb_list]
                 n_val_list = options_val_list[game_cb_list]
                 list['values'] = n_val_list
+                list['state'] = "readonly"
                 if game_cb_list == 0:
                     list['width'] = 18
                 list.grid(column=0, row=q, padx=10, pady=10, sticky='w')

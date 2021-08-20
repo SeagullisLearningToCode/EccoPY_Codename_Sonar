@@ -36,15 +36,16 @@ def loadimage(image):
     :param image:
     :return: image:
     """
-    # init/
-    #   vars/
-    #       str/
-    #           img/
+    # INIT/
+    #   VARS/
+    #       STR/
+    #           IMG/
     i = ImageTk.PhotoImage(Image.open(image))
-    #               protection/ ; Apply protection please
+    #               PROTECTION/ ; Apply protection please
     ip = i
     ip_pmm = i
     ip_pmm.protect = ip_pmm
+    # CODE/
     return ip
 
 
@@ -58,12 +59,13 @@ def rgbtohex(r: int, g: int, b: int, **kwargs):
         :param kwargs: printresults = False
         :return: Formated String
         """
-    # init/
-    #   kwargs/
-    #       Booleans/
+    # INIT/
+    #   VAR/
+    #       KWARGS/
+    #           BOOLEANS/
     pr = kwargs.get("printresults", False)
     convert_to_bgr = kwargs.get("convert_bgr", False)
-    # code/
+    # CODE/
     if r > 255:
         p(f"Red: {r}")
         raise ValueError

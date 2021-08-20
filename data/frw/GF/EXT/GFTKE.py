@@ -12,6 +12,7 @@ This file is also makes stating certain things faster and possibly easier.
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
+import gc
 
 from data.frw.GF.GF import *
 
@@ -280,7 +281,5 @@ class pygame_Tk_Integration(object):
             for buttons in range(controller_buttons):
                 self.pg_joys_list.append(f"Button {buttons}")
 
-
 gc.collect()
-
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

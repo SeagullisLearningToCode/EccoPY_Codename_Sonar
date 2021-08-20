@@ -506,10 +506,9 @@ class MAIN_WINDOW(Tk):
                 ).grid(column=0, row=i, pady=10, sticky='w')
                 i += 1
 
-            # INIT/VAR/ABS/ARR
             combobox_list = [difficulty_list_combobox, mod_list_combobox]
             options_val_list = [difficulties, games]
-            # CODE/
+
             for game_cb_list in range(len(combobox_list)):
                 list = combobox_list[game_cb_list]
                 n_val_list = options_val_list[game_cb_list]
@@ -546,18 +545,18 @@ class MAIN_WINDOW(Tk):
         self.sc_init.is_running = False
 
     def SAVE_GAME(self):
-        # init/
-        #   var/
-        #       int/
+        # INIT/
+        #   VAR/
+        #       INT/
         time = randint(10, 5000)
-        # code/
+        # CODE/
         p("Saving Game...")
         for t in range(time):
             t -= 1
             if t == 0:
                 p("Saved")
 
-    def run(self): # Now I'm going somewhere
+    def run(self): # ;Now I'm going somewhere
         while self.sc_init.is_running is True:
             self.update_idletasks()
             self.update()

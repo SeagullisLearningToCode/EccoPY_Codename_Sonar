@@ -3,15 +3,13 @@
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \  Xtension
 
-
-This file stores very simple functions with the sole purpose of de-bloating the Main.py file
+This file stores very simple functions with the sole purpose of de-bloating the Main.py file (used to be)
 This file is also makes stating certain things faster and possibly easier.
 """
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 from tkinter import *
 from tkinter import ttk
 from PIL import ImageTk, Image
-import gc
 
 from data.frw.GF.GF import *
 

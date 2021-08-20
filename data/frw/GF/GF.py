@@ -4,7 +4,7 @@
 \__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \
                                                     Version: 1.014 Shut Up Gull
 
-This file stores very simple functions with the sole purpose of de-bloating the Main.py file
+This file stores very simple functions with the sole purpose of de-bloating the Main.py file (used to be)
 This file is also makes stating certain things faster and possibly easier.
 
 This version of the Gull Framework uses Pygame 2.0.1 and Pyglet (latest version) as of 8/16/21
@@ -18,6 +18,7 @@ import getpass as gp
 from datetime import *
 from random import *
 from configparser import *
+import gc
 
 # VARIABLES-------------------------------------------------------------------------------------------------------------------
 
@@ -417,9 +418,6 @@ class GF_MAPPING(object):
 class GF_INIT(object):
     """
     Gull Framework Root class
-
-    THIS INITIALLIZES ALL THE CLASSES SHOWNABOVE
-    PLEASE DON'T MODIFY IF YOU DON'T KNOW WHAT YOUR DOING!!!
     """
 
     def __init__(self, assembly_mode: bool = False, **kwargs):

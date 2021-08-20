@@ -249,7 +249,7 @@ class pygame_Tk_Integration(object):
 
                 for axes in range(controller_axes):
                     controller_axis = jys.get_axis(axes)
-                p   (f"Axis {axes}, Value: {controller_axis}")
+                    p(f"Axis {axes}, Value: {controller_axis}")
 
                 controller_buttons = jys.get_numbuttons()
                 p(f"Number of Buttons: {controller_buttons}")

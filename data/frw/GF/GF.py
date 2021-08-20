@@ -68,6 +68,7 @@ def p(t="passed"):
     Example: p("Hello World")
     Output: Hello World
     """
+    # CODE/
     print(t)
 
 
@@ -80,6 +81,7 @@ def sps(t: str):
     Example: sps("it")
     Output: passed it
     """
+    # CODE/
     p(f"passed {t}")
 
 
@@ -87,6 +89,7 @@ def flp(l: dict):
     """
     For in Loop Print From Dictionary
     """
+    # CODE/
     for key in l:
         p(f"{key}: {l.get(key)}")
 
@@ -99,7 +102,11 @@ def GetPresSpec(file: str):
 
     Returns: None
     """
+    # INIT/
+    #   VARS/
+    #       OS/
     getpres = os.path.exists
+    # CODE/
     p(f"{getpres(file)}")
 
 
@@ -119,7 +126,12 @@ def RCE(rfe: str, et: int):
                 2 = Not an Error but a Warning (WARNING)
                 3 = EccoPY_RenderTypeInvaild_Error (ERROR)
     """
+    # INIT/
+    #   VAR/
+    #       ARGS/
+    #           INT/
     error_type = et
+    # CODE/
     if error_type == 0:  # FNFE
         p(f"ERROR: {rfe}")
         raise FileNotFoundError
@@ -148,21 +160,21 @@ def HVFFTAOHV(dirname: str,
     """
     Unfortunately what sucks about this function as of now is that I can possibly figure out a way to convert it into an actual hex value.
     """
-    # FUNC/
+    # INIT/
     #   ARGS/
     #       VARS/
     #           STR/
     dfn = dirname  # ;Shortens dirname arg
     fn = filename  # ;Shortens and filename arg
     dtn = destination  # ;Shortens destination arg
-    #           BOOL/
+    #           BOOLEANS/
     orf = outputresulttofile  # ;Shortens outputresulttofile arg (this makes it to where if you don't want the results made into a file, the function prints the result instead)
     pr = printresults  # ;Shortens the printresults arg
     #           MSC/
     gun = gp.getuser()  # ;Shortens and gets the current username
 
     #   CODE/
-    #       VARS/
+    #       VAR/
     #           STR/
     gdn = (dfn + fn)  # ;Combine and Shortens dfn and fn which creates the full path
     gun_gdn = (gun + gdn)  # ;Combines and shortens gun and gdn which will do something
@@ -175,7 +187,7 @@ def HVFFTAOHV(dirname: str,
     void_names = ["none", "null", "0"]
     preres = []
     res = []
-    #   CODE
+    #   CODE/
     pat.close()  # ;Prevents memory leakage
     r = dat.split(' ')
     if orf is True:
@@ -217,8 +229,6 @@ def HVFFTAOHV(dirname: str,
 
 
 def image_dict(targetpath: str, **kwargs):
-    #   init/
-    #       pych/ ; For Pycharm
     """
     Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
 
@@ -226,19 +236,20 @@ def image_dict(targetpath: str, **kwargs):
     :param kwargs:
     :return: Dict
     """
-    #       vars/
-    #           int/
+    # INIT/
+    #   VARS/
+    #       INT/
     counter = 0
-    #           str/
+    #       STR/
     t_path = targetpath
-    #           dict/
+    #       DICT/
     d = {}
-    #           op/
+    #       OP/
     g_fit = os.listdir(t_path) # hey you get fit
-    #           kwargs/
-    #               extras/
+    #       KWARGS/
+    #           BOOLEANS/
     v_names = kwargs.get("EVerboseResults", False) # prints the process
-    #   code/
+    #   CODE/
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
             counter += 1
@@ -248,24 +259,23 @@ def image_dict(targetpath: str, **kwargs):
     return d
 
 def get_directory(targetpath: str):
-    #   init/
-    #       pych/ ; For Pycharm
     """
     Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
     :param targetpath:
     :param kwargs:
     :return: Dict
     """
-    #       vars/
-    #           int/
+    # INIT/
+    #   VARS/
+    #       INT/
     counter = 0
-    #           str/
+    #       STR/
     t_path = targetpath
-    #           dict/
+    #       DICT/
     d = {}
-    #           op/
-    g_fit = os.listdir(t_path)  # hey you get fit
-    #   code/
+    #       OP/
+    g_fit = os.listdir(t_path)
+    #   CODE/
     for file in g_fit:
         counter += 1
         d.update({counter: t_path + file})
@@ -281,18 +291,18 @@ def merge(target_list, **kwargs):
     :param kwargs:
     :return:
     """
-    # init/
-    #   var/
-    #       args/
-    #           abs/
-    #               arr/
+    # INIT/
+    #   VAR/
+    #       ARGS/
+    #           ABS/
+    #               ARR/
     tl = target_list
-    #       kwargs/
-    #           booleans/
+    #       KWARGS/
+    #           BOOLEANS/
     show_result = kwargs.get("show_result", False)
-    #       arr/
-    i = [] # ; result var
-    # code/
+    #       ARR/
+    i = [] # ;result var
+    # CODE/
 
     for cat in tl:
         for value in cat:
@@ -304,21 +314,16 @@ def merge(target_list, **kwargs):
     return i
 
 
-
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 class GF_MATH_CONVERT_FROM_LIST(object):
     def __init__(self):
-        dummyvar = 0
-        # init/
-        #   VARS/
-        #       LISTS/
-        #           EXAMPLE/
+        pass
 
     def hextoint(self, tl: list, dl: list):
-        # FUNC/
-        #   VARS/
-        #       BOOL/
+        # INIT/
+        #   VAR/
+        #       BOOLEANS/
         islisthexed = False
         #       VARS/
         nothexval = 0
@@ -333,17 +338,18 @@ class GF_MATH_CONVERT_FROM_LIST(object):
 
 class GF_MUSICPLAYER_DICT_FORM(object):
     def __init__(self):
-        dummyvar = 0
-        # Func/
-        #   Args/
-        #       Vars/
-        #           Dict/
+        pass
 
     def play(self,
              target: dict,
              name: str,
              loop: int):
+        # INIT/
+        #   VAR/
+        #       ARGS/
+        #           DICT/
         filename = target.get(name)
+        # CODE/
         load.load(filename)
         if loop != 1 or 0:
             if randint(0, 100) == 1:
@@ -354,10 +360,19 @@ class GF_MUSICPLAYER_DICT_FORM(object):
     def que(self,
             target: dict,
             name: str):
+        # INIT/
+        #   VAR/
+        #       ARGS/
+        #           DICT/
         filename = target.get(name)
+        # CODE/
         load.queue(filename)
 
     def queFromDict(self, target: dict):  # takes the values from the target and qeues them
+        # INIT/
+        #   VAR/
+        #       ARGS/
+        #           DICT/
         names = target
         for i in names:
             self.que(names, i)
@@ -378,24 +393,25 @@ class GF_DEVLOG(object):
                  filetype: str = ".log",
                  limit_fs: float = 0x164210,
                  isThisEnabled: bool = True):
-        # Init/
-        #   Args/
-        #       Vars/
+        # INIT/
+        #   ARGS/
+        #       VAR/
         #           STR/
         self.fp = (filepath)
         self.tf = (textfile)
         self.ft = (filetype)
-        #           Float/
+        #           FLOATS/
         self.lfs = (limit_fs)
-        #           Booleans/
+        #           BOOLEANS/
         self.ise = isThisEnabled
         #   STATEMENTS/
-        #       Vars/
+        #       VARS/
         #           STR/
         self.gun = gp.getuser()
         # ;Seagull
 
     def RECORD_CONSOLE(self, what):
+        # CODE/
         if what is not sys.stderr or sys.stdout or sys.stdin:
             p(f"Gull: ARGUMENT OF RECORD WHICH IS {what} ISN'T 'sys.stderr', 'sys.stdout OR 'sys.stdin'\n SOLUTION: Try changing 'what' to one of those options")
             raise ValueError
@@ -425,20 +441,22 @@ class GF_WRITE_SETTING_FILES(object):
     """
 
     def __init__(self):
-        dummyvar = 0
-        # Init/
-        #   Args/
-        #       Vars/
-        #           STR/
+        pass
 
     def writeSettingsFile(self,
                           dir: str = "/Documents/Seagulls/EccoPY/",
                           name: str = "Settings"):
+        # INIT/
+        #   VAR/
+        #       ARGS/
+        #           ABS/
+        #               STR/
         d = dir
         n = name
         gun = gp.getuser()
         subdir = f"{gun}/EP_S/"
         getdir = f"/Users/{gun}{d}{subdir}"
+        # CODE/
 
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)
@@ -457,17 +475,18 @@ class GF_MAPPING(object):
     """
 
     def __init__(self):
-        dummyvar = 0
-        # Init/
-        #   Args/
-        #       Vars/
-        #           STR/
+        pass
 
     def loadMap(self, filepath):
         """
         This function is now mainly used for either basic maps or static HUD
         """
+        # INIT/
+        #   VAR/
+        #       ARGS/
+        #           OPN/ ;Open()
         f = open(filepath, "r")
+        # CODE/
         data = f.read()
         f.close()
         data = data.split('\n')
@@ -487,21 +506,21 @@ class GF_INIT(object):
 
     def __init__(self, assembly_mode: bool = False, **kwargs):
         p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
-        # Init/
-        #   Args/
-        #       Vars/
-        #           Booleans/
+        # INIT/
+        #   ARGS/
+        #       VAR/
+        #           BOOLEANS/
         self.enable_assembly_mode = assembly_mode
-        #           Kwargs/
+        #           KWARGS/
         self.print_faq_possible = kwargs.get("print_faq_possible", False) # ; Prints why I start functions like this
-        #   I/
-        if self.enable_assembly_mode == True:  # gives it somewhat of an assembly feel
-            self.m = GF_MAPPING  # Deals with mapping
-            self.dl = GF_DEVLOG  # Logs stuff
-            self.wsf = GF_WRITE_SETTING_FILES  # Writes INI files
-            self.mpdf = GF_MUSICPLAYER_DICT_FORM  # Deals with playing music from dicts
-            self.cl = GF_MATH_CONVERT_FROM_LIST  # Deals with converting lists/dicts to differnt types of values inside them
-        else:  # New age stuff
+        #   CODE/
+        if self.enable_assembly_mode == True:  # ;gives it somewhat of an assembly feel
+            self.m = GF_MAPPING  # ;Deals with mapping
+            self.dl = GF_DEVLOG  # ;Logs stuff
+            self.wsf = GF_WRITE_SETTING_FILES  # ;Writes INI files
+            self.mpdf = GF_MUSICPLAYER_DICT_FORM  # ;Deals with playing music from dicts
+            self.cl = GF_MATH_CONVERT_FROM_LIST  # ;Deals with converting lists/dicts to differnt types of values inside them
+        else:  # ;New age stuff
             self.map = GF_MAPPING
             self.log = GF_DEVLOG
             self.set = GF_WRITE_SETTING_FILES
@@ -510,7 +529,7 @@ class GF_INIT(object):
         #       KWARGS/
         if self.print_faq_possible is True:
             p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
-        #   S/ ; Sandbox like psuedo directory
+        #   S/ ;Sandbox like psuedo directory
 
 # INIT_GULL_FRAMEWORK----------------------------------------------------------------------------------------------------------------------------------------------------------------
 

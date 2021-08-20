@@ -261,7 +261,7 @@ class pygame_Tk_Integration(object):
                     button = jys.get_button(buttons)
                     p(f"Button: {buttons}, Value: {button}")
 
-                controller_hats = jys.get_numhats() # ; Wait, controllers has hats? What a werid world we live in
+                controller_hats = jys.get_numhats() # ;Wait, controllers has hats? What a werid world we live in
                 p(f"Number of Hats: {controller_hats}")
 
                 for hats in range(controller_hats):

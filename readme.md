@@ -31,5 +31,5 @@ File | Path | Source / Credit | Notes
 ecco.bmp | `data/img/ecco.bmp` |(Sliversea) https://www.spriters-resource.com/genesis_32x_scd/ecco1/sheet/65574/ | This came from The Spriters Resource.
 ecco-the-dolphin-jpeg_fade_cropped.png | `data/img/ecco-the-dolphin-jpeg_fade_cropped.png` | The Ecco Online media restoration community (https://eccothedolphin.online/media-restoration/) <br /> Original Version created by Boris Vanjello (Cover art for the Western release of the 1992 game) | I added in a fade effect and cropped the image (more additions will be made to it soon)
 Seagull.jpg | `data/img/Seagull.jpg` | Image © Acabashi; Creative Commons CC-BY-SA 4.0; Source: Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Herring_gull_seagull_at_Broadstairs,_Kent,_England_06.jpg) | Image Modified by using GIMP 2.10 and a plugin called "GIMIC". Cropped (also changed the leveling) the original image Applied a Greyscale filter and GIMIC's Cutout Feature. CC-BY-SA License 4.0 (inherited from the Original Author).
-GF.py | `data/frw/GF.py` | SeagullisLearningToCode (please look at this table for changes if you're planning to use previous revisions/versions)| Feel free to use it
+GF.py | `data/frw/GF.py` | SeagullisLearningToCode | Feel free to use it
 main.py | `main` | SeagullisLearningToCode | Applies to `GF.py`

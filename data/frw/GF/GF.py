@@ -512,7 +512,7 @@ class GF_INIT(object):
         #           BOOLEANS/
         self.enable_assembly_mode = assembly_mode
         #           KWARGS/
-        self.print_faq_possible = kwargs.get("print_faq_possible", False) # ; Prints why I start functions like this
+        self.print_faq_possible = kwargs.get("print_faq_possible", False) # ;Prints why I start functions like this
         #   CODE/
         if self.enable_assembly_mode == True:  # ;gives it somewhat of an assembly feel
             self.m = GF_MAPPING  # ;Deals with mapping

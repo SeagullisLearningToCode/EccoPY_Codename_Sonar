@@ -42,7 +42,6 @@ import getpass as gp
 from datetime import *
 from random import *
 from configparser import *
-import gc
 
 # VARIABLES-------------------------------------------------------------------------------------------------------------------
 

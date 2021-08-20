@@ -92,21 +92,21 @@ class pygame_Tk_Integration(object):
     Have Tkinter and pygame work together (unfinished)
     """
     def __init__(self):
-        # init/
-        #   pg/
-        #       it/
+        # INIT/
+        #   PG/
+        #       IT/
         init()
         joystick.init()
         p("\nTP Initiallized")
-        #   var/
-        #       int/
+        #   VAR/
+        #       INT/
         self.amount_pressed = 0
-        #       pg/
-        #           keyb/ ;Keyboard
+        #       PG/
+        #           KEYB/ ;Keyboard
         self.keyi = KEYDOWN
-        #           jysb/ ;JoystickButtons
+        #           JYSB/ ;JoystickButtons
         self.pg_controllers = [joystick.Joystick(x) for x in range(joystick.get_count())]
-        #       dict/
+        #       DICT/
         self.pg_keyb_list = {
             "alphabet": {
                 "no-mod": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
@@ -136,7 +136,7 @@ class pygame_Tk_Integration(object):
                         "right Windows key", "left Windows key", "mode shift", "menu", "break", "power", "help"]
             }
         }
-        #       arr/
+        #       ARR/
         self.pg_joys_list = []
 
     def FinishDict(self, **kwargs):

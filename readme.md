@@ -22,7 +22,7 @@ Here is a detailed table of what you need to run this properly (if you're planni
 
 File | Path            | Modules  | Notes  
 -----|-----------------|----------|---------|
-GF.py| `data/frw/GF.py` | `Pygame 2.0.1`| Any `import` statement that targets this file is most likely going to use these modules (unless targeting a specific object but still some functions use pygame)
+GF.py| `data/frw/GF.py` | `Pygame 2.0.1`, `Pyglet`| Any `import` statement that targets this file is most likely going to use these modules (unless targeting a specific object but still some functions use pygame)
 main.py| `main.py` | `Tkinter` (Built-in if using python 3.7 and up), `PIL` (Python Imaging Library)| `Python 3.8` or higher (to be safe about install the latest version of python), this also uses `GF.py`.
 
 # Sources

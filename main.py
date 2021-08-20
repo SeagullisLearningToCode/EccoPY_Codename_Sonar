@@ -12,20 +12,10 @@ SonarMap/
         snd/ ; Sound Folder
         txt/ ; Text String Folder
 """
-# Imports
-# frw
-# GF
-# EXT
 from data.frw.GF.EXT.GFTKE import *
-# txt
 from data.txt.men import *
-# mu
 from data.mu.Values import *
 
-
-# Vars
-# Code
-#   Classes
 class MAIN_W_I(object):
     def __init__(self):
         # INIT/

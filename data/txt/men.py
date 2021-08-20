@@ -1,9 +1,6 @@
-# TXT/
-#   IMP/
 from data.frw.GF.GF import td_c_s_yo
-#   VARS/
-#       STR/
-#           ENG/
+
+# ;ENGLISH_STRINGS
 ui_version_number = ["Gull Framework TK Extension", "1.0"]
 winstrings = {
     "main": {

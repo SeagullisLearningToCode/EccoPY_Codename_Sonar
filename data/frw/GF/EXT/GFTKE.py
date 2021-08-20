@@ -1,7 +1,7 @@
 """
  __                     ___  __              ___       __   __
 / _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
-\__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \
+\__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \  Xtension
                                                     Version: 1 Shut Up Gull (Tkinter Extentsion)
 
 
@@ -28,7 +28,6 @@ INFO = {
 }
 flp(INFO)
 
-
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
 def loadimage(image):
@@ -37,16 +36,12 @@ def loadimage(image):
     :param image:
     :return: image:
     """
-    # INIT/
-    #   VARS/
-    #       STR/
-    #           IMG/
+    # IMAGES
     i = ImageTk.PhotoImage(Image.open(image))
-    #               PROTECTION/
+    # CODE/
     ip = i
     ip_pmm = i
     ip_pmm.protect = ip_pmm
-    # CODE/
     return ip
 
 
@@ -60,13 +55,10 @@ def rgbtohex(r: int, g: int, b: int, **kwargs):
         :param kwargs: printresults = False
         :return: Formated String
         """
-    # INIT/
-    #   VAR/
-    #       KWARGS/
-    #           BOOLEANS/
+    # KWARGS_BOOLEANS
     pr = kwargs.get("printresults", False)
     convert_to_bgr = kwargs.get("convert_bgr", False)
-    # CODE/
+    # CODE
     if r > 255:
         p(f"Red: {r}")
         raise ValueError
@@ -96,21 +88,18 @@ class pygame_Tk_Integration(object):
     """
 
     def __init__(self):
-        # INIT/
-        #   PG/
-        #       IT/
+        # INITS
         init()
         joystick.init()
         p("\nTP Initiallized")
-        #   VAR/
-        #       INT/
+        # INT
         self.amount_pressed = 0
-        #       PG/
-        #           KEYB/ ;Keyboard
+        # PYGAME_KEYB ;Keyboard
         self.keyi = KEYDOWN
-        #           JYSB/ ;JoystickButtons
+        # LISTS
         self.pg_controllers = [joystick.Joystick(x) for x in range(joystick.get_count())]
-        #       DICT/
+        self.pg_joys_list = []
+        # DICTIONARIES
         self.pg_keyb_list = {
             "alphabet": {
                 "no-mod": ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p",
@@ -140,8 +129,6 @@ class pygame_Tk_Integration(object):
                         "right Windows key", "left Windows key", "mode shift", "menu", "break", "power", "help"]
             }
         }
-        #       ARR/
-        self.pg_joys_list = []
 
     def FinishDict(self, **kwargs):
         """
@@ -150,12 +137,9 @@ class pygame_Tk_Integration(object):
         :param kwargs:
         :return:
         """
-        # INIT/
-        #   VAR/
-        #       KWARGS/
-        #           BOOLEANS/
+        # KWARGS_BOOLEANS
         SHOWRESULT = kwargs.get('showresult', False)
-        # CODE/
+        # CODE
         for key in self.pg_keyb_list["alphabet"]["no-mod"]:
             self.pg_keyb_list["alphabet"]["mod"].append(key.upper())
 
@@ -170,18 +154,15 @@ class pygame_Tk_Integration(object):
         :param kwargs:
         :return: allvars
         """
-        # INIT/
-        #   VAR/
-        #       ARR/
+        # LISTS
         refrenced_dicts_list = [self.pg_keyb_list['alphabet']['no-mod'], self.pg_keyb_list['numerical'], self.pg_keyb_list['symbolics']['no-mod'], self.pg_keyb_list['symbolics']['mod'], self.pg_keyb_list['tc'],
                                 self.pg_keyb_list['arrow_keys']['3bttn'], self.pg_keyb_list['key_pad']['misc'], self.pg_keyb_list['key_pad']['numpad'], self.pg_keyb_list['function_buttons']['num'], self.pg_keyb_list['function_buttons']['str']]
         allvars = []
-        #       KWARGS/
-        #           BOOLEANS/
+        # KWARGS_BOOLEANS
         IncludeAlphaCaps = kwargs.get("include_alpha_caps", False)
         ShowResult = kwargs.get("show_result", False)
         IncludeFD = kwargs.get("include_fd", False)
-        # CODE/
+        # CODE
         # ;Alpha
         if IncludeFD is True:
             self.FinishDict(showresult=False)
@@ -201,12 +182,9 @@ class pygame_Tk_Integration(object):
         return allvars
 
     def SHOW_PYGAME_BINDINGS_CURRENT_DEVICE(self, **kwargs):
-        # INIT/
-        #   VAR/
-        #       KWARGS/
-        #           BOOLEANS/
+        # KWARGS_BOOLEANS
         show_len_bindings = kwargs.get("show_len_bindings", False)
-        # CODE/
+        # CODE
         if show_len_bindings is True:
             p(f"{key.get_pressed()}\n{len(key.get_pressed())}")
         else:
@@ -219,13 +197,10 @@ class pygame_Tk_Integration(object):
         :param kwargs:
         :return:
         """
-        # INIT/
-        #   VAR/
-        #       KWARGS/
-        #           BOOLEANS/
+        # KWARGS_BOOLEAN
         show_number_of_controllers = kwargs.get("show_num_of_controllers", False)
         show_controller_info = kwargs.get("show_controller_info", False)
-        # CODE/
+        # CODE
         if show_number_of_controllers is True:
             p(joystick.get_count())
 
@@ -281,6 +256,4 @@ class pygame_Tk_Integration(object):
             for buttons in range(controller_buttons):
                 self.pg_joys_list.append(f"Button {buttons}")
 
-
-gc.collect()
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

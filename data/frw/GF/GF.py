@@ -55,7 +55,6 @@ td_c_s_yo = td_c_s[0:4]  # Get year only
 # Today's Time
 tt = datetime.now()
 
-
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
 # p function
@@ -89,7 +88,6 @@ def flp(l: dict):
     """
     For in Loop Print From Dictionary
     """
-    # CODE/
     for key in l:
         p(f"{key}: {l.get(key)}")
 
@@ -102,11 +100,9 @@ def GetPresSpec(file: str):
 
     Returns: None
     """
-    # INIT/
-    #   VARS/
-    #       OS/
+    # OSPATH
     getpres = os.path.exists
-    # CODE/
+    # CODE
     p(f"{getpres(file)}")
 
 
@@ -126,12 +122,9 @@ def RCE(rfe: str, et: int):
                 2 = Not an Error but a Warning (WARNING)
                 3 = EccoPY_RenderTypeInvaild_Error (ERROR)
     """
-    # INIT/
-    #   VAR/
-    #       ARGS/
-    #           INT/
+    # INT
     error_type = et
-    # CODE/
+    # CODE
     if error_type == 0:  # FNFE
         p(f"ERROR: {rfe}")
         raise FileNotFoundError
@@ -160,34 +153,27 @@ def HVFFTAOHV(dirname: str,
     """
     Unfortunately what sucks about this function as of now is that I can possibly figure out a way to convert it into an actual hex value.
     """
-    # INIT/
-    #   ARGS/
-    #       VARS/
-    #           STR/
+    # STRINGS
     dfn = dirname  # ;Shortens dirname arg
     fn = filename  # ;Shortens and filename arg
     dtn = destination  # ;Shortens destination arg
-    #           BOOLEANS/
+    # BOOLEANS
     orf = outputresulttofile  # ;Shortens outputresulttofile arg (this makes it to where if you don't want the results made into a file, the function prints the result instead)
     pr = printresults  # ;Shortens the printresults arg
-    #           MSC/
+    # MISC
     gun = gp.getuser()  # ;Shortens and gets the current username
 
-    #   CODE/
-    #       VAR/
-    #           STR/
+    # CODE
     gdn = (dfn + fn)  # ;Combine and Shortens dfn and fn which creates the full path
     gun_gdn = (gun + gdn)  # ;Combines and shortens gun and gdn which will do something
     fp_uni = ("/Users/" + gun + "/" + dtn + fn)  # ;Combines and shortens gun and dtn and fn
-    #           CSN/
     pat = open(gdn, "r")  # ;Opens the file and gives python read and write access
-    #               PAT/
     dat = pat.read()
-    #           LIST/
+
     void_names = ["none", "null", "0"]
     preres = []
     res = []
-    #   CODE/
+
     pat.close()  # ;Prevents memory leakage
     r = dat.split(' ')
     if orf is True:
@@ -236,20 +222,17 @@ def image_dict(targetpath: str, **kwargs):
     :param kwargs:
     :return: Dict
     """
-    # INIT/
-    #   VARS/
-    #       INT/
+    # INT
     counter = 0
-    #       STR/
+    # STRINGS
     t_path = targetpath
-    #       DICT/
+    # DICTIONARIES
     d = {}
-    #       OP/
+    # OSPATH
     g_fit = os.listdir(t_path) # hey you get fit
-    #       KWARGS/
-    #           BOOLEANS/
+    # KWARGS_BOOLEANS
     v_names = kwargs.get("EVerboseResults", False) # prints the process
-    #   CODE/
+    #   CODE
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
             counter += 1
@@ -265,17 +248,15 @@ def get_directory(targetpath: str):
     :param kwargs:
     :return: Dict
     """
-    # INIT/
-    #   VARS/
-    #       INT/
+    # INT
     counter = 0
-    #       STR/
+    # STRINGS
     t_path = targetpath
-    #       DICT/
+    # DICTIONARIES
     d = {}
-    #       OP/
+    # OSPATH
     g_fit = os.listdir(t_path)
-    #   CODE/
+    # CODE
     for file in g_fit:
         counter += 1
         d.update({counter: t_path + file})
@@ -291,18 +272,12 @@ def merge(target_list, **kwargs):
     :param kwargs:
     :return:
     """
-    # INIT/
-    #   VAR/
-    #       ARGS/
-    #           ABS/
-    #               ARR/
+    # LISTS
     tl = target_list
-    #       KWARGS/
-    #           BOOLEANS/
-    show_result = kwargs.get("show_result", False)
-    #       ARR/
     i = [] # ;result var
-    # CODE/
+    # KWARGS_BOOLEANS
+    show_result = kwargs.get("show_result", False)
+    # CODE
 
     for cat in tl:
         for value in cat:
@@ -321,13 +296,11 @@ class GF_MATH_CONVERT_FROM_LIST(object):
         pass
 
     def hextoint(self, tl: list, dl: list):
-        # INIT/
-        #   VAR/
-        #       BOOLEANS/
+        # BOOLEANS
         islisthexed = False
-        #       VARS/
+        # INT
         nothexval = 0
-        #   CODE/
+        # CODE
         for hexchecker in tl:
             for i in range(len(tl)):
                 if type(hexchecker) != hex:
@@ -340,16 +313,10 @@ class GF_MUSICPLAYER_DICT_FORM(object):
     def __init__(self):
         pass
 
-    def play(self,
-             target: dict,
-             name: str,
-             loop: int):
-        # INIT/
-        #   VAR/
-        #       ARGS/
-        #           DICT/
+    def play(self, target: dict, name: str, loop: int):
+        # DICTIONARIES
         filename = target.get(name)
-        # CODE/
+        # CODE
         load.load(filename)
         if loop != 1 or 0:
             if randint(0, 100) == 1:
@@ -360,20 +327,15 @@ class GF_MUSICPLAYER_DICT_FORM(object):
     def que(self,
             target: dict,
             name: str):
-        # INIT/
-        #   VAR/
-        #       ARGS/
-        #           DICT/
+        # DICTIONARIES
         filename = target.get(name)
-        # CODE/
+        # CODE
         load.queue(filename)
 
     def queFromDict(self, target: dict):  # takes the values from the target and qeues them
-        # INIT/
-        #   VAR/
-        #       ARGS/
-        #           DICT/
+        # DICTIONARIES
         names = target
+        # CODE
         for i in names:
             self.que(names, i)
 
@@ -387,31 +349,20 @@ class GF_DEVLOG(object):
     RECORD_CONSOLE(self, what: sys.stderr, sys.stdout, sys.stdin)
     """
 
-    def __init__(self,
-                 filepath: str = "/Documents/SIS/EccoPY/LOGS/",
-                 textfile: str = "DEVELOPERLOG",
-                 filetype: str = ".log",
-                 limit_fs: float = 0x164210,
-                 isThisEnabled: bool = True):
-        # INIT/
-        #   ARGS/
-        #       VAR/
-        #           STR/
+    def __init__(self, filepath: str = "/Documents/SIS/EccoPY/LOGS/", textfile: str = "DEVELOPERLOG", filetype: str = ".log", limit_fs: float = 0x164210, isThisEnabled: bool = True):
+        # STRINGS
         self.fp = (filepath)
         self.tf = (textfile)
         self.ft = (filetype)
-        #           FLOATS/
+        # FLOATS
         self.lfs = (limit_fs)
-        #           BOOLEANS/
+        # BOOLEANS
         self.ise = isThisEnabled
-        #   STATEMENTS/
-        #       VARS/
-        #           STR/
+        # STATEMENTS
         self.gun = gp.getuser()
-        # ;Seagull
 
     def RECORD_CONSOLE(self, what):
-        # CODE/
+        # CODE
         if what is not sys.stderr or sys.stdout or sys.stdin:
             p(f"Gull: ARGUMENT OF RECORD WHICH IS {what} ISN'T 'sys.stderr', 'sys.stdout OR 'sys.stdin'\n SOLUTION: Try changing 'what' to one of those options")
             raise ValueError
@@ -443,14 +394,8 @@ class GF_WRITE_SETTING_FILES(object):
     def __init__(self):
         pass
 
-    def writeSettingsFile(self,
-                          dir: str = "/Documents/Seagulls/EccoPY/",
-                          name: str = "Settings"):
-        # INIT/
-        #   VAR/
-        #       ARGS/
-        #           ABS/
-        #               STR/
+    def writeSettingsFile(self, dir: str = "/Documents/Seagulls/EccoPY/", name: str = "Settings"):
+        # STRINGS
         d = dir
         n = name
         gun = gp.getuser()
@@ -481,12 +426,9 @@ class GF_MAPPING(object):
         """
         This function is now mainly used for either basic maps or static HUD
         """
-        # INIT/
-        #   VAR/
-        #       ARGS/
-        #           OPN/ ;Open()
+        # DIRECTORIES
         f = open(filepath, "r")
-        # CODE/
+        # CODE
         data = f.read()
         f.close()
         data = data.split('\n')
@@ -506,14 +448,10 @@ class GF_INIT(object):
 
     def __init__(self, assembly_mode: bool = False, **kwargs):
         p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
-        # INIT/
-        #   ARGS/
-        #       VAR/
-        #           BOOLEANS/
-        self.enable_assembly_mode = assembly_mode
-        #           KWARGS/
+        # KWARGS_BOOLEANS
+        self.enable_assembly_mode = kwargs.get("assembly_mode", True)
         self.print_faq_possible = kwargs.get("print_faq_possible", False) # ;Prints why I start functions like this
-        #   CODE/
+        #   CODE
         if self.enable_assembly_mode == True:  # ;gives it somewhat of an assembly feel
             self.m = GF_MAPPING  # ;Deals with mapping
             self.dl = GF_DEVLOG  # ;Logs stuff
@@ -526,11 +464,9 @@ class GF_INIT(object):
             self.set = GF_WRITE_SETTING_FILES
             self.musicPlayer = GF_MUSICPLAYER_DICT_FORM
             self.convert = GF_MATH_CONVERT_FROM_LIST
-        #       KWARGS/
         if self.print_faq_possible is True:
             p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
-        #   S/ ;Sandbox like psuedo directory
 
 # INIT_GULL_FRAMEWORK----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-GF = GF_INIT(True)
+GF = GF_INIT(assembly_mode=True)

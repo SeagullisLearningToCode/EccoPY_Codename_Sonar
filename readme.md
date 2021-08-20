@@ -38,5 +38,5 @@ SON1.ogg | `data/snd/SON1.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) De
 SON2.ogg | `data/snd/SON2.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) Developed by Novotrade | File located in `DATA/SON2.WAV`
 Non-menu-esc-styles_001.png | `.Concepts/Non-menu-esc-styles_001.png` | SeagullisLearningToCode | This goes with `Open_Bkgrd.png`
 Screen Shot 2021-07-26 at 2.36.12 PM.png | `.Screenshots/Screen Shot 2021-07-26 at 2.36.12 PM.png` | SeagullisLearningToCode | This also goes with `Non-menu-esc-styles_001.png`
-GF.py | `data/frw/GF.py` | Same rights apply for the ascii art (`Seagull.jpg`) but the code is mainly made by SeagullisLearningToCode | Feel free to use it as long as you give credit to me and others who forked it
+GF.py | `data/frw/GF.py` | SeagullisLearningToCode (please look if you're planning to use previous revisions/versions)| Feel free to use it as long as you give credit to me and others who forked it
 main.py | `main` | SeagullisLearningToCode | Applies to `GF.py` except for the ascii art

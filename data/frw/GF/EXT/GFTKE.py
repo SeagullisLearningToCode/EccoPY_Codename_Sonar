@@ -11,8 +11,8 @@ This file is also makes stating certain things faster and possibly easier.
 # IMPORTS---------------------------------------------------------------------------------------------------------------------
 from tkinter import *
 from tkinter import ttk
-from PIL import ImageTk, Image
 
+from PIL import ImageTk, Image
 from data.frw.GF.GF import *
 
 # VARIABLES-------------------------------------------------------------------------------------------------------------------

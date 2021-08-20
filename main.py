@@ -156,10 +156,10 @@ class MAIN_WINDOW(Tk):
         #           NB/
         set_menu_nb = ttk.Notebook(set_menu)
         #               FRME/
-        frame_01 = ttk.Frame(set_menu_nb)  # ;Video
-        frame_02 = ttk.Frame(set_menu_nb)  # ;Audio
-        frame_03 = ttk.Frame(set_menu_nb)  # ;Controller
-        frame_04 = ttk.Frame(set_menu_nb)  # ;Game
+        frame_01 = Frame(set_menu_nb)  # ;Video
+        frame_02 = Frame(set_menu_nb)  # ;Audio
+        frame_03 = Frame(set_menu_nb)  # ;Controller
+        frame_04 = Frame(set_menu_nb)  # ;Game
         #       INT/
         i = 0
 

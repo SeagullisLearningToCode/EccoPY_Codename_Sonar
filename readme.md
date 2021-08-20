@@ -31,12 +31,5 @@ File | Path | Source / Credit | Notes
 ecco.bmp | `data/img/ecco.bmp` |(Sliversea) https://www.spriters-resource.com/genesis_32x_scd/ecco1/sheet/65574/ | This came from The Spriters Resource.
 ecco-the-dolphin-jpeg_fade_cropped.png | `data/img/ecco-the-dolphin-jpeg_fade_cropped.png` | The Ecco Online media restoration community (https://eccothedolphin.online/media-restoration/) <br /> Original Version created by Boris Vanjello (Cover art for the Western release of the 1992 game) | I added in a fade effect and cropped the image (more additions will be made to it soon)
 Seagull.jpg | `data/img/Seagull.jpg` | Image © Acabashi; Creative Commons CC-BY-SA 4.0; Source: Wikimedia Commons (https://commons.wikimedia.org/wiki/File:Herring_gull_seagull_at_Broadstairs,_Kent,_England_06.jpg) | Image Modified by using GIMP 2.10 and a plugin called "GIMIC". Cropped (also changed the leveling) the original image Applied a Greyscale filter and GIMIC's Cutout Feature. CC-BY-SA License 4.0 (inherited from the Original Author).
-Open_bkgrd.png | `data/img/Open_bkgrd.png` | SeagullisLearningToCode | Feel free to use it Location (Panama City, FL) Public Domain
-CSOBB_BE.ogg | `data/snd/CSOBB_BE.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) Developed by Novotrade | File located in `DATA/CSSOB_BE.WAV`
-CSOBB_KI.ogg | `data/snd/CSOBB_KI.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) Developed by Novotrade | File located in `DATA/CSSOB_KI.WAV`
-SON1.ogg | `data/snd/SON1.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) Developed by Novotrade | File located in `DATA/SON1.WAV`
-SON2.ogg | `data/snd/SON2.ogg` | SEGA's Ecco PC (Fixed and Enchanced Edition) Developed by Novotrade | File located in `DATA/SON2.WAV`
-Non-menu-esc-styles_001.png | `.Concepts/Non-menu-esc-styles_001.png` | SeagullisLearningToCode | This goes with `Open_Bkgrd.png`
-Screen Shot 2021-07-26 at 2.36.12 PM.png | `.Screenshots/Screen Shot 2021-07-26 at 2.36.12 PM.png` | SeagullisLearningToCode | This also goes with `Non-menu-esc-styles_001.png`
-GF.py | `data/frw/GF.py` | SeagullisLearningToCode (please look if you're planning to use previous revisions/versions)| Feel free to use it as long as you give credit to me and others who forked it
-main.py | `main` | SeagullisLearningToCode | Applies to `GF.py` except for the ascii art
+GF.py | `data/frw/GF.py` | SeagullisLearningToCode (please look at this table for changes if you're planning to use previous revisions/versions)| Feel free to use it
+main.py | `main` | SeagullisLearningToCode | Applies to `GF.py`

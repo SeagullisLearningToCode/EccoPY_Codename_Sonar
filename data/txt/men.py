@@ -1,6 +1,6 @@
 # TXT/
 #   IMP/
-from data.frw.GF.GF import td_c_s_yo, flp
+from data.frw.GF.GF import td_c_s_yo
 #   VARS/
 #       STR/
 #           ENG/

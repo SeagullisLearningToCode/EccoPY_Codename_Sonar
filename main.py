@@ -534,7 +534,6 @@ class MAIN_WINDOW(Tk):
             self.update_idletasks()
             self.update()
 
-
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()
 mw.run()

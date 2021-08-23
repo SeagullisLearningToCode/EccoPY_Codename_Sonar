@@ -16,6 +16,7 @@ from data.frw.GF.EXT.GFTKE import *
 from data.txt.men import *
 from data.mu.Values import *
 
+
 class MAIN_W_I(object):
     def __init__(self):
         # OSPATH
@@ -29,6 +30,8 @@ class MAIN_W_I(object):
         # INT
         self.iterator_01 = 0
         self.iterator_02 = 0
+        # INT_LIST
+        self.iterator_03 = [0, 0, 0, 0, 0, 0, 0, 0]
         # BOOLEANS
         self.lessguimode = False
         self.converttopygame = False
@@ -61,6 +64,8 @@ class MAIN_WINDOW(Tk):
             rf = rb - (round(rb / 3))
             gf = gb - (round(gb / 3))
             bf = bb - (round(bb / 3))
+            # LIST
+            of_options_list = [self.PLAY_GAME, self.SETTINGS_MENU, self.SAVE_GAME, None, None]
             # CODE
             for subdict in winstrings["main"]["choices"]:
                 label_background = rgbtohex(rb - (self.sc_init.iterator_01 * 4),
@@ -69,35 +74,9 @@ class MAIN_WINDOW(Tk):
                 label_foreground = rgbtohex(rf - (self.sc_init.iterator_01 * 4),
                                             gf - (self.sc_init.iterator_01 * 4),
                                             bf - (self.sc_init.iterator_01 * 4))
-                if self.sc_init.iterator_01 == 0:
-                    Button(options_frame,
-                           highlightcolor=label_background,
-                           activebackground=label_background,
-                           activeforeground=label_foreground,
-                           bg=label_background,
-                           relief='groove',
-                           fg=label_foreground,
-                           bd=10,
-                           text=subdict,
-                           font='"Myanmar MN" 36',
-                           command=self.PLAY_GAME).grid(column=0,
-                                                        row=self.sc_init.iterator_01
-                                                        )
-                elif self.sc_init.iterator_01 == 1:
-                    Button(options_frame,
-                           highlightcolor=label_background,
-                           activebackground=label_background,
-                           activeforeground=label_foreground,
-                           bg=label_background,
-                           relief='groove',
-                           fg=label_foreground,
-                           bd=10,
-                           text=subdict,
-                           font='"Myanmar MN" 36',
-                           command=self.SETTINGS_MENU).grid(column=0,
-                                                            row=self.sc_init.iterator_01
-                                                            )
-                else:
+                option_func = of_options_list[self.sc_init.iterator_03[1]]
+                p(type(option_func))
+                if option_func is None:
                     Label(options_frame,
                           bg=label_background,
                           relief='groove',
@@ -107,12 +86,27 @@ class MAIN_WINDOW(Tk):
                           font='"Myanmar MN" 36').grid(column=0,
                                                        row=self.sc_init.iterator_01,
                                                        sticky="w")
+                else:
+                    Button(options_frame,
+                           highlightcolor=label_background,
+                           activebackground=label_background,
+                           activeforeground=label_foreground,
+                           bg=label_background,
+                           relief='groove',
+                           fg=label_foreground,
+                           bd=10,
+                           text=subdict,
+                           font='"Myanmar MN" 36',
+                           command=option_func).grid(column=0,
+                                                     row=self.sc_init.iterator_01
+                                                     )
                 self.sc_init.iterator_01 += 1
+                self.sc_init.iterator_03[1] += 1
 
         def bkgrd_image():
             # IMAGES
             bkgrd = loadimage(self.sc_init.i_dict[1])
-            # CODE/
+            # CODE
             Label(self, image=bkgrd, background=rgbtohex(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
             gc.collect()
 
@@ -131,57 +125,94 @@ class MAIN_WINDOW(Tk):
         frame_02 = Frame(set_menu_nb)  # ;Audio
         frame_03 = Frame(set_menu_nb)  # ;Controller
         frame_04 = Frame(set_menu_nb)  # ;Game
+        frame_05 = Frame(set_menu_nb)  # ;User Interface/Start-up
+        # LISTS
+        cb_bttns_str_list = [];
+        option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
+        frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05];
+        f_l = frme_list
         # INT
         i = 0
+        # INT_LISTS
+        l = [0, 0, 0, 0, 0]
 
         # CODE
         def cancel():
-            # CODE/
+            """
+            Cancels changes
+            :return:
+            """
+            # CODE
             self.forget(set_menu)
 
-        for choiceOptions in winstrings["main"]["save_options"]:
-            if choiceOptions == "Ok":
-                pass
-            elif choiceOptions == "Apply":
-                pass
-            elif choiceOptions == "Cancel":
-                Button(set_menu, text=choiceOptions, command=cancel).grid(column=i + 1, row=5)
-            i += 1
+        def ok():
+            """
+            Writes changes to a config file and closes window
+            :return:
+            """
+            # CODE
+            p("Settings Saved")
+            cancel()
+
+        def apply():
+            """
+            Writes changes to a config file but doesn't close window
+            :return:
+            """
+            # CODE
+            p("Settings Saved")
+
+        ls_bttns_list = [cancel, apply, ok]
+
+        for save_buttons in winstrings['main']['save_options']:
+            option_button_list.append(save_buttons)
+
+        for choiceOptions in range(len(option_button_list)):
+            i += 4.5
+            m = 10 * i  # ;Math
+            function_list = ls_bttns_list[choiceOptions]
+            string_list = option_button_list[choiceOptions]
+            Button(set_menu, text=string_list, command=function_list).grid(column=0, row=1, padx=m, sticky='e')
+            p(m)
 
         def video():
             # INT
             i = 1
+            # FRAMES
+            frame_01_01 = Frame(frame_01, relief='solid', bd=5)
             # STRINGVARS
-            x = StringVar()
-            y = StringVar()
-            rx = StringVar()
-            ry = StringVar()
+            rx = StringVar()  # ;Window Resolution-Width
+            ry = StringVar()  # ;Window Resolution-Height
+            x = StringVar()  # ;2D Resolution-Width
+            y = StringVar()  # ;2D Resolution-Height
             # ENTRIES
-            x_txt = Entry(frame_01, textvariable=x, width=5)
-            y_txt = Entry(frame_01, textvariable=y, width=5)
-            rx_txt = Entry(frame_01, textvariable=rx, width=5)
-            ry_txt = Entry(frame_01, textvariable=ry, width=5)
+            x_txt = Entry(frame_01_01, textvariable=x, width=5)
+            y_txt = Entry(frame_01_01, textvariable=y, width=5)
+            rx_txt = Entry(frame_01_01, textvariable=rx, width=5)
+            ry_txt = Entry(frame_01_01, textvariable=ry, width=5)
             # CHECKBUTTONS
-            dir_chkbtn = Checkbutton(frame_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
+            dir_chkbtn = Checkbutton(frame_01_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
             # SCALES
-            wei_scale = Scale(frame_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
+            wei_scale = Scale(frame_01_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
             # CODE
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
-                Label(frame_01, text=video_settings_strings).grid(column=0, row=i, sticky="e")
+                Label(frame_01_01, text=video_settings_strings).grid(column=0, row=i, sticky="w")
                 i += 1
 
-            x_txt.grid(column=2, row=1)
-            Label(frame_01, text=in_between_entries).grid(column=2, row=1, sticky='w')
-            y_txt.grid(column=2, row=1)
+            # ;Window Res
+            rx_txt.grid(column=1, row=1, sticky='w', padx=10)
+            Label(frame_01_01, text=in_between_entries).grid(column=1, row=1, sticky='w', padx=70)
+            ry_txt.grid(column=1, row=1, sticky='w', padx=90)
 
-            rx_txt.grid(column=2, row=2)
-            Label(frame_01, text=in_between_entries).grid(column=3, row=2)
-            ry_txt.grid(column=4, row=2)
+            # ;2D Res
+            x_txt.grid(column=1, row=2, sticky='w', padx=10)
+            Label(frame_01_01, text=in_between_entries).grid(column=1, row=2, sticky='w', padx=70)
+            y_txt.grid(column=1, row=2, sticky='w', padx=90)
 
-            dir_chkbtn.grid(column=2, row=3)
-
-            wei_scale.grid(column=2, row=4)
+            frame_01_01.grid(column=0, row=0, padx=100)
+            dir_chkbtn.grid(column=1, row=3, sticky='w', padx=10)
+            wei_scale.grid(column=1, row=4, sticky='w', padx=10)
 
         def audio():
             # NOTEBOOKS
@@ -248,40 +279,40 @@ class MAIN_WINDOW(Tk):
             frame02 = Frame(frame_03, relief="groove", bd=10)
             # COMBO_BOXES
             # ;Kyb-Movements
-            kyb_mvm_up = ttk.Combobox(frame_keyboard) # ;Up
-            kyb_mvm_down = ttk.Combobox(frame_keyboard) # ;Down
-            kyb_mvm_left = ttk.Combobox(frame_keyboard) # ;Left
-            kyb_mvm_right = ttk.Combobox(frame_keyboard) # ;Right
+            kyb_mvm_up = ttk.Combobox(frame_keyboard)  # ;Up
+            kyb_mvm_down = ttk.Combobox(frame_keyboard)  # ;Down
+            kyb_mvm_left = ttk.Combobox(frame_keyboard)  # ;Left
+            kyb_mvm_right = ttk.Combobox(frame_keyboard)  # ;Right
             # ;Kyb-ActionButtons
-            kyb_ab_swim = ttk.Combobox(frame_keyboard) # ;Swim
-            kyb_ab_sonar = ttk.Combobox(frame_keyboard) # ;Sonar
-            kyb_ab_dash = ttk.Combobox(frame_keyboard) # ;Dash
+            kyb_ab_swim = ttk.Combobox(frame_keyboard)  # ;Swim
+            kyb_ab_sonar = ttk.Combobox(frame_keyboard)  # ;Sonar
+            kyb_ab_dash = ttk.Combobox(frame_keyboard)  # ;Dash
             # ;Kyb-PauseButtons
-            kyb_pb_tom = ttk.Combobox(frame_keyboard) # ;TurnOffMusic
-            kyb_pb_tose = ttk.Combobox(frame_keyboard) # ;TurnOffSFX
+            kyb_pb_tom = ttk.Combobox(frame_keyboard)  # ;TurnOffMusic
+            kyb_pb_tose = ttk.Combobox(frame_keyboard)  # ;TurnOffSFX
             # ;Kyb-DebugButtons
-            kyb_dbb_sfps = ttk.Combobox(frame_keyboard) # ;ShowFPS
-            kyb_dbb_spos = ttk.Combobox(frame_keyboard) # ;ShowPOS
-            kyb_dbb_sall = ttk.Combobox(frame_keyboard) # ;ShowAll
+            kyb_dbb_sfps = ttk.Combobox(frame_keyboard)  # ;ShowFPS
+            kyb_dbb_spos = ttk.Combobox(frame_keyboard)  # ;ShowPOS
+            kyb_dbb_sall = ttk.Combobox(frame_keyboard)  # ;ShowAll
             # ;Jys-Movements
-            jys_mvm_up = ttk.Combobox(frame_joystick) # ;Up
-            jys_mvm_down = ttk.Combobox(frame_joystick) # ;Down
-            jys_mvm_left = ttk.Combobox(frame_joystick) # ;Left
-            jys_mvm_right = ttk.Combobox(frame_joystick) # ;Right
+            jys_mvm_up = ttk.Combobox(frame_joystick)  # ;Up
+            jys_mvm_down = ttk.Combobox(frame_joystick)  # ;Down
+            jys_mvm_left = ttk.Combobox(frame_joystick)  # ;Left
+            jys_mvm_right = ttk.Combobox(frame_joystick)  # ;Right
             # ;Jys-ActionButtons
-            jys_ab_swim = ttk.Combobox(frame_joystick) # ;Swim
-            jys_ab_sonar = ttk.Combobox(frame_joystick) # ;Sonar
-            jys_ab_dash = ttk.Combobox(frame_joystick) # ;Dash
+            jys_ab_swim = ttk.Combobox(frame_joystick)  # ;Swim
+            jys_ab_sonar = ttk.Combobox(frame_joystick)  # ;Sonar
+            jys_ab_dash = ttk.Combobox(frame_joystick)  # ;Dash
             # ;Jys-PauseButtons
-            jys_pb_tom = ttk.Combobox(frame_joystick) # ;TurnOffMusic
-            jys_pb_tose = ttk.Combobox(frame_joystick) # ;TurnOffSFX
+            jys_pb_tom = ttk.Combobox(frame_joystick)  # ;TurnOffMusic
+            jys_pb_tose = ttk.Combobox(frame_joystick)  # ;TurnOffSFX
             # ;Jys-DebugButtons
-            jys_dbb_sfps = ttk.Combobox(frame_joystick) # ;ShowFPS
-            jys_dbb_spos = ttk.Combobox(frame_joystick) # ;ShowPOS
-            jys_dbb_sall = ttk.Combobox(frame_joystick) # ;ShowAll
+            jys_dbb_sfps = ttk.Combobox(frame_joystick)  # ;ShowFPS
+            jys_dbb_spos = ttk.Combobox(frame_joystick)  # ;ShowPOS
+            jys_dbb_sall = ttk.Combobox(frame_joystick)  # ;ShowAll
             # LISTS
-            usi_keyboard_type_bindings_list = [kyb_mvm_up, kyb_mvm_left, kyb_mvm_right, kyb_mvm_down, kyb_ab_dash, kyb_ab_swim, kyb_ab_sonar, kyb_pb_tom, kyb_pb_tose, kyb_dbb_sall, kyb_dbb_sfps, kyb_dbb_spos] # ;For loop
-            usi_joystick_type_bindings_list = [jys_mvm_up, jys_mvm_left, jys_mvm_right, jys_mvm_down, jys_ab_dash, jys_ab_swim, jys_ab_sonar, jys_pb_tom, jys_pb_tose, jys_dbb_sall, jys_dbb_sfps, jys_dbb_spos] # ;For loop
+            usi_keyboard_type_bindings_list = [kyb_mvm_up, kyb_mvm_left, kyb_mvm_right, kyb_mvm_down, kyb_ab_dash, kyb_ab_swim, kyb_ab_sonar, kyb_pb_tom, kyb_pb_tose, kyb_dbb_sall, kyb_dbb_sfps, kyb_dbb_spos]  # ;For loop
+            usi_joystick_type_bindings_list = [jys_mvm_up, jys_mvm_left, jys_mvm_right, jys_mvm_down, jys_ab_dash, jys_ab_swim, jys_ab_sonar, jys_pb_tom, jys_pb_tose, jys_dbb_sall, jys_dbb_sfps, jys_dbb_spos]  # ;For loop
             # INT_ITERS ;Generic assembly-like vars
             i = 0
             q = 0
@@ -409,7 +440,7 @@ class MAIN_WINDOW(Tk):
                 keyboard_combobox['width'] = 15
                 keyboard_combobox['values'] = self.sc_init.keys
                 if not e[4] == 4 and not e[4] == 9:
-                    keyboard_combobox.grid(column=1, row=e[4]+1, padx=10)
+                    keyboard_combobox.grid(column=1, row=e[4] + 1, padx=10)
                 e[4] += 1
 
             for joystick_combobox in usi_joystick_type_bindings_list:
@@ -418,7 +449,7 @@ class MAIN_WINDOW(Tk):
                 if len(self.sc_init.tp.pg_controllers) <= 0:
                     joystick_combobox['state'] = 'disabled'
                 if not e[5] == 4 and not e[5] == 9:
-                    joystick_combobox.grid(column=1, row=e[5]+1, padx=10)
+                    joystick_combobox.grid(column=1, row=e[5] + 1, padx=10)
                 e[5] += 1
 
             # ;Grid
@@ -432,8 +463,9 @@ class MAIN_WINDOW(Tk):
             mod_list = winstrings['main']['options']['Game']['set']['Game']
             option_str_list = winstrings['main']['options']['Game']['set']
             # FRAMES
-            label_sect = Frame(frame_04) # ;Left
-            value_sect = Frame(frame_04) # ;Right
+            frame_04_01 = Frame(frame_04, relief='solid', bd=5)  # ;Main Frame
+            label_sect = Frame(frame_04_01)  # ;Left
+            value_sect = Frame(frame_04_01)  # ;Right
             # COMBO_BOXES
             difficulty_list_combobox = ttk.Combobox(value_sect)
             mod_list_combobox = ttk.Combobox(value_sect)
@@ -465,20 +497,17 @@ class MAIN_WINDOW(Tk):
                 q += 1
 
             # ;Grid
+            frame_04_01.grid(column=0, row=0)
             label_sect.grid(column=0, row=0, rowspan=len(options_val_list), sticky='n')
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
         for string in winstrings["main"]["options"]:
-            if not self.sc_init.iterator_02 == 5:
-                if string == "Video":
-                    set_menu_nb.add(frame_01, text=string)
-                elif string == "Audio":
-                    set_menu_nb.add(frame_02, text=string)
-                elif string == "Controlls":
-                    set_menu_nb.add(frame_03, text=string)
-                elif string == "Game":
-                    set_menu_nb.add(frame_04, text=string)
+            if self.sc_init.iterator_03[0] >= 5:
+                self.sc_init.iterator_03[0] = 0
+            sel_list = f_l[self.sc_init.iterator_03[0]]
+            set_menu_nb.add(sel_list, text=string)
             self.sc_init.iterator_02 += 1
+            self.sc_init.iterator_03[0] += 1
 
         set_menu_nb.grid(column=0, row=0)
 
@@ -500,7 +529,7 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
-    def run(self): # ;Now I'm going somewhere
+    def run(self):  # ;Now I'm going somewhere
         while self.sc_init.is_running is True:
             self.update_idletasks()
             self.update()

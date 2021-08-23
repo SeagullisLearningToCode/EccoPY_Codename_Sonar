@@ -15,7 +15,7 @@ winstrings = {
                     "In the original Ecco, there a ripple effect that makes the water surface feels alive, disabling this will make the game run slightly faster but will remove the feel of the original game.",  # ;Disable Ripple
                     "This is a new addition to Ecco the Dolphin, this adds weather effects based on the level that Ecco's in, this includes rain, snow, fog and possibly enviromental effects"  # ;Weather Effects Intensity
                 ],
-                "set": ["Window Resolution (size)", "2D Resolution", "Disable Ripple", "Weather Effects intensity"]
+                "set": ["Window Resolution (size)", "2D Resolution", "Ripple Effect", "Weather Effects intensity"]
             },
             "Audio": {
                 "tooltips": {
@@ -68,8 +68,18 @@ winstrings = {
                         ["Playable Review", "0429", "X11"]  # ;Prototypes any pre-release build goes here
                     ]
                 }
+            },
+            "User Interface": { # ;User will be able to change the start-up look (very minimal)
+                "Tooltips": ["Makes the start menu based on the original (might be different on some systems and may be disabled on console releases)", "Play Movies on start-up"],
+                "set": {
+                    "Start-Up": ["Play Movies", "Miminal Mode"], # ; Requires restart
+                }
             }
         },
-        "save_options": ["Ok", "Apply", "Cancel"],
+        "save_options": ["Cancel", "Apply", "Ok"],
+        "help_buttons": ["?", "Need Help?"]
     }
+}
+winstrings_settings_tooltips_dict = {
+
 }

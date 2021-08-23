@@ -483,6 +483,9 @@ class MAIN_WINDOW(Tk):
                 ).grid(column=0, row=i, pady=10, sticky='w')
                 i += 1
 
+        def user_interface():
+            pass
+
             combobox_list = [difficulty_list_combobox, mod_list_combobox]
             options_val_list = [difficulties, games]
 

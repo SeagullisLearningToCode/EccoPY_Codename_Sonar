@@ -483,9 +483,6 @@ class MAIN_WINDOW(Tk):
                 ).grid(column=0, row=i, pady=10, sticky='w')
                 i += 1
 
-        def user_interface():
-            pass
-
             combobox_list = [difficulty_list_combobox, mod_list_combobox]
             options_val_list = [difficulties, games]
 
@@ -503,6 +500,9 @@ class MAIN_WINDOW(Tk):
             frame_04_01.grid(column=0, row=0)
             label_sect.grid(column=0, row=0, rowspan=len(options_val_list), sticky='n')
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
+
+        def user_interface():
+            pass
 
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:

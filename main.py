@@ -50,6 +50,7 @@ class MAIN_WINDOW(Tk):
         # TKINTER
         self["background"] = rgbtohex(34, 87, 165)
         self.title(winstrings["main"]["title"][0])
+        # INT
 
     def DRAW_CONTENTS(self):
         # TKINTER
@@ -75,7 +76,6 @@ class MAIN_WINDOW(Tk):
                                             gf - (self.sc_init.iterator_01 * 4),
                                             bf - (self.sc_init.iterator_01 * 4))
                 option_func = of_options_list[self.sc_init.iterator_03[1]]
-                p(type(option_func))
                 if option_func is None:
                     Label(options_frame,
                           bg=label_background,
@@ -115,8 +115,14 @@ class MAIN_WINDOW(Tk):
         Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=4)
 
     def SETTINGS_MENU(self):
+        # COLORS_LIST_OFFSETS
+        SET_MENU_BACKGROUND_COLOR = [1.6, 1.6, 1.5]
+        sm_bkgrd_clr = SET_MENU_BACKGROUND_COLOR
+        sm_colors_presets = {
+            "grey": rgbtohex(round(236/sm_bkgrd_clr[0]), round(236/sm_bkgrd_clr[1]), round(236/sm_bkgrd_clr[2])) # ; Based on MacOSX element
+        }
         # TKINTER
-        set_menu = Toplevel()
+        set_menu = Toplevel(bg=sm_colors_presets["grey"])
         set_menu.title(winstrings["main"]["choices"][1])
         # NOTEBOOKS
         set_menu_nb = ttk.Notebook(set_menu)
@@ -162,18 +168,21 @@ class MAIN_WINDOW(Tk):
             # CODE
             p("Settings Saved")
 
-        ls_bttns_list = [cancel, apply, ok]
+        ls_bttns_list = [apply, cancel, ok]
 
         for save_buttons in winstrings['main']['save_options']:
             option_button_list.append(save_buttons)
 
         for choiceOptions in range(len(option_button_list)):
-            i += 4.5
-            m = 10 * i  # ;Math
+            save_buttons_p = option_button_list[self.sc_init.iterator_03[2]]
+            save_buttons_get_len = len(save_buttons_p)
+            m = save_buttons_get_len ** self.sc_init.iterator_03[2] # ;Math
+            p(f"Math: {m}")
+            p(save_buttons_get_len)
             function_list = ls_bttns_list[choiceOptions]
             string_list = option_button_list[choiceOptions]
-            Button(set_menu, text=string_list, command=function_list).grid(column=0, row=1, padx=m, sticky='e')
-            p(m)
+            Button(set_menu, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m*20, sticky='e')
+            self.sc_init.iterator_03[2] += 1
 
         def video():
             # INT
@@ -502,7 +511,12 @@ class MAIN_WINDOW(Tk):
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
         def user_interface():
-            pass
+            # DICTIONARIES_ABSTRACTED
+            ui_dict_abs = {
+                "options": winstrings['main']['options']['User Interface']['set']
+            }
+            # FRAMES
+            frame_05_01 = Frame(frame_05)
 
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:
@@ -518,6 +532,7 @@ class MAIN_WINDOW(Tk):
         audio()
         user_input()
         game()
+        user_interface()
 
     def PLAY_GAME(self):
         self.sc_init.is_running = False
@@ -532,8 +547,13 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
-    def run(self):  # ;Now I'm going somewhere
+    def run(self, **kwargs):  # ;Now I'm going somewhere
+        # KWARGS
+        run_get_sc_init_iters = kwargs.get("get_iters", False)
+        # CODE
         while self.sc_init.is_running is True:
+            if run_get_sc_init_iters is True:
+                p(f"Class Wide Iterators {self.sc_init.iterator_03}")
             self.update_idletasks()
             self.update()
 

@@ -76,7 +76,7 @@ winstrings = {
                 }
             }
         },
-        "save_options": ["Cancel", "Apply", "Ok"],
+        "save_options": ["Apply", "Cancel", "Ok"],
         "help_buttons": ["?", "Need Help?"]
     }
 }

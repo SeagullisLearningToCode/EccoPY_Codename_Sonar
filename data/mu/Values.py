@@ -9,3 +9,6 @@ snd_vol_lmts = [0.0, 100.0] # ;This will be converted to a number between 0.0 an
 audio_platforms_pointer = 0
 # ;CONTROLLS
 usi_enable_debugmode = False
+# ;USER_INTERFACE
+ui_miminal_mode = False
+ui_on_startup_play_movies = False

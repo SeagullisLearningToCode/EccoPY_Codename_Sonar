@@ -31,7 +31,7 @@ class MAIN_W_I(object):
         self.iterator_01 = 0
         self.iterator_02 = 0
         # INT_LIST
-        self.iterator_03 = [0, 0, 0, 0, 0, 0, 0, 0]
+        self.iterator_03 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         # BOOLEANS
         self.lessguimode = False
         self.converttopygame = False
@@ -115,6 +115,8 @@ class MAIN_WINDOW(Tk):
         Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=4)
 
     def SETTINGS_MENU(self):
+        # IDENTIFIERS
+        self.sc_init.options_menu_num += 1
         # COLORS_LIST_OFFSETS
         SET_MENU_BACKGROUND_COLOR = [1.6, 1.6, 1.5]
         sm_bkgrd_clr = SET_MENU_BACKGROUND_COLOR
@@ -149,6 +151,7 @@ class MAIN_WINDOW(Tk):
             :return:
             """
             # CODE
+            set_menu.grab_release()
             self.forget(set_menu)
 
         def ok():
@@ -174,11 +177,11 @@ class MAIN_WINDOW(Tk):
             option_button_list.append(save_buttons)
 
         for choiceOptions in range(len(option_button_list)):
+            if self.sc_init.iterator_03[2] >= len(option_button_list):
+                self.sc_init.iterator_03[2] = 0
             save_buttons_p = option_button_list[self.sc_init.iterator_03[2]]
             save_buttons_get_len = len(save_buttons_p)
             m = save_buttons_get_len ** self.sc_init.iterator_03[2] # ;Math
-            p(f"Math: {m}")
-            p(save_buttons_get_len)
             function_list = ls_bttns_list[choiceOptions]
             string_list = option_button_list[choiceOptions]
             Button(set_menu, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m*20, sticky='e')
@@ -276,7 +279,7 @@ class MAIN_WINDOW(Tk):
 
             volume_sfx.grid(column=1, row=3)
 
-            sframe_02_01.grid(column=0, row=1)
+            sframe_02_01.grid(column=0, row=1, padx=60)
 
         def user_input():
             # NOTEBOOK
@@ -506,17 +509,31 @@ class MAIN_WINDOW(Tk):
                 q += 1
 
             # ;Grid
-            frame_04_01.grid(column=0, row=0)
+            frame_04_01.grid(column=0, row=0, padx=140)
             label_sect.grid(column=0, row=0, rowspan=len(options_val_list), sticky='n')
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
         def user_interface():
             # DICTIONARIES_ABSTRACTED
-            ui_dict_abs = {
-                "options": winstrings['main']['options']['User Interface']['set']
+            ui_dict_abs = { # ;Abstracted
+                "options_start_up": winstrings['main']['options']['User Interface']['set']['Start-Up']
             }
             # FRAMES
             frame_05_01 = Frame(frame_05)
+            # CHECKBUTTONS
+            ui_ckb_mm = Checkbutton(frame_05_01) # ;Minimal Mode
+            ui_ckb_p_m = Checkbutton(frame_05_01) # ;Play Movies
+            # LISTS
+            ui_ls_val = [ui_ckb_mm, ui_ckb_p_m]
+            # CODE
+
+            for ui_txt in ui_dict_abs['options_start_up']: # ;Loop through and render labels
+                Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[3], padx=10, pady=5, sticky='w')
+                self.sc_init.iterator_03[3] += 1
+                self.sc_init.iterator_03[4] += 1
+
+            # ;Grid
+            frame_05_01.grid(column=0, row=0)
 
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:
@@ -527,6 +544,7 @@ class MAIN_WINDOW(Tk):
             self.sc_init.iterator_03[0] += 1
 
         set_menu_nb.grid(column=0, row=0)
+        set_menu.grab_set()
 
         video()
         audio()
@@ -547,13 +565,35 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
-    def run(self, **kwargs):  # ;Now I'm going somewhere
+    def run(self, **kwargs):
+        """
+         Kwarg                 Def Value Description
+         _____________________ _________ _______________________________________________________________________________________________
+        | get_iters           | False   | gets the self.sc_init_iterator_03 list                                                        |
+        | get_iters_delay     | False   | Enables delay (get_iters=True is needed)                                                      |
+        | get_iters_delay_val | 100     | Time needed to print (get_iters=True, get_iters_delay=True is needed) This slows down program |
+         -------------------------------------------------------------------------------------------------------------------------------
+
+        :param kwargs:
+        :return:
+        """
         # KWARGS
         run_get_sc_init_iters = kwargs.get("get_iters", False)
+        if run_get_sc_init_iters is True:
+            run_get_sc_init_iters_p_delay = kwargs.get('get_iters_delay', False)
+            if run_get_sc_init_iters_p_delay is True:
+                run_get_sc_init_iters_p_delay_val = kwargs.get('get_iters_delay_val', 100)
         # CODE
         while self.sc_init.is_running is True:
-            if run_get_sc_init_iters is True:
-                p(f"Class Wide Iterators {self.sc_init.iterator_03}")
+            if run_get_sc_init_iters and run_get_sc_init_iters_p_delay is True:
+                p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
+                for i in range(run_get_sc_init_iters_p_delay_val):
+                    if i >= run_get_sc_init_iters_p_delay_val-1:
+                        p(p_statement)
+            else:
+                if run_get_sc_init_iters is True and run_get_sc_init_iters_p_delay is False:
+                    p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
+                    p(p_statement)
             self.update_idletasks()
             self.update()
 

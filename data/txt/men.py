@@ -81,5 +81,10 @@ winstrings = {
     }
 }
 winstrings_settings_tooltips_dict = {
-
+    "Video": winstrings["main"]["options"]["Video"]["tooltips"],
+    "Audio": [winstrings['main']['options']['Audio']['tooltips']['Music'],
+              winstrings['main']['options']['Audio']['tooltips']['SFX']],
+    "Controlls": winstrings['main']['options']['Controlls']['tooltips'],
+    "Game": winstrings['main']['options']['Game']['tooltips'],
+    "User Interface": winstrings['main']['options']['User Interface']['Tooltips']
 }

@@ -162,7 +162,6 @@ def HVFFTAOHV(dirname: str,
     if os.path.exists(gdn) is False:
         RCE(f"The file specified cannot be found \n {gdn}", 0)
     else:
-
         for i in r:
             preres.append(i)
         if len(preres[-1]) >= 4:

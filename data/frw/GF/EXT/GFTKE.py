@@ -42,7 +42,7 @@ def loadimage(image):
     return ip
 
 
-def rgbtohex(r: int, g: int, b: int, **kwargs):
+def rgb(r: int, g: int, b: int, **kwargs):
     """
         Converts RGB values to Hexadecimal values
 
@@ -76,6 +76,22 @@ def rgbtohex(r: int, g: int, b: int, **kwargs):
     else:
         return "#%02x%02x%02x" % (r, g, b)
 
+def check_bv(boolvar: BooleanVar, target):
+    """
+    Check boolvar and send it's value
+
+    :param boolvar:
+    :param target:
+    :return:
+    """
+    # ABS
+    bv = boolvar
+    t = target
+    # CODE
+    if boolvar.get() is True:
+        target = True
+    else:
+        target = False
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

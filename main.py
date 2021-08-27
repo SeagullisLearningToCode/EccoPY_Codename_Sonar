@@ -48,13 +48,13 @@ class MAIN_WINDOW(Tk):
         # CLASS CALL
         self.sc_init = MAIN_W_I()
         # TKINTER
-        self["background"] = rgbtohex(34, 87, 165)
+        self["background"] = rgb(34, 87, 165)
         self.title(winstrings["main"]["title"][0])
         # INT
 
     def DRAW_CONTENTS(self):
         # TKINTER
-        options_frame = Frame(self, background=rgbtohex(34, 87, 165)).grid(column=0, rowspan=5)
+        options_frame = Frame(self, background=rgb(34, 87, 165)).grid(column=0, rowspan=5)
 
         def options_format():
             # BACKGROUND COLORS
@@ -69,12 +69,12 @@ class MAIN_WINDOW(Tk):
             of_options_list = [self.PLAY_GAME, self.SETTINGS_MENU, self.SAVE_GAME, None, None]
             # CODE
             for subdict in winstrings["main"]["choices"]:
-                label_background = rgbtohex(rb - (self.sc_init.iterator_01 * 4),
-                                            gb - (self.sc_init.iterator_01 * 4),
-                                            bb - (self.sc_init.iterator_01 * 4))
-                label_foreground = rgbtohex(rf - (self.sc_init.iterator_01 * 4),
-                                            gf - (self.sc_init.iterator_01 * 4),
-                                            bf - (self.sc_init.iterator_01 * 4))
+                label_background = rgb(rb - (self.sc_init.iterator_01 * 4),
+                                       gb - (self.sc_init.iterator_01 * 4),
+                                       bb - (self.sc_init.iterator_01 * 4))
+                label_foreground = rgb(rf - (self.sc_init.iterator_01 * 4),
+                                       gf - (self.sc_init.iterator_01 * 4),
+                                       bf - (self.sc_init.iterator_01 * 4))
                 option_func = of_options_list[self.sc_init.iterator_03[1]]
                 if option_func is None:
                     Label(options_frame,
@@ -107,7 +107,7 @@ class MAIN_WINDOW(Tk):
             # IMAGES
             bkgrd = loadimage(self.sc_init.i_dict[1])
             # CODE
-            Label(self, image=bkgrd, background=rgbtohex(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
+            Label(self, image=bkgrd, background=rgb(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
             gc.collect()
 
         bkgrd_image()
@@ -115,13 +115,11 @@ class MAIN_WINDOW(Tk):
         Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=4)
 
     def SETTINGS_MENU(self):
-        # IDENTIFIERS
-        self.sc_init.options_menu_num += 1
         # COLORS_LIST_OFFSETS
         SET_MENU_BACKGROUND_COLOR = [1.6, 1.6, 1.5]
         sm_bkgrd_clr = SET_MENU_BACKGROUND_COLOR
         sm_colors_presets = {
-            "grey": rgbtohex(round(236/sm_bkgrd_clr[0]), round(236/sm_bkgrd_clr[1]), round(236/sm_bkgrd_clr[2])) # ; Based on MacOSX element
+            "grey": rgb(round(236 / sm_bkgrd_clr[0]), round(236 / sm_bkgrd_clr[1]), round(236 / sm_bkgrd_clr[2]))  # ; Based on MacOSX element
         }
         # TKINTER
         set_menu = Toplevel(bg=sm_colors_presets["grey"])
@@ -181,17 +179,17 @@ class MAIN_WINDOW(Tk):
                 self.sc_init.iterator_03[2] = 0
             save_buttons_p = option_button_list[self.sc_init.iterator_03[2]]
             save_buttons_get_len = len(save_buttons_p)
-            m = save_buttons_get_len ** self.sc_init.iterator_03[2] # ;Math
+            m = save_buttons_get_len ** self.sc_init.iterator_03[2]  # ;Math
             function_list = ls_bttns_list[choiceOptions]
             string_list = option_button_list[choiceOptions]
-            Button(set_menu, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m*20, sticky='e')
+            Button(set_menu, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 20, sticky='e')
             self.sc_init.iterator_03[2] += 1
 
         def video():
             # INT
             i = 1
             # FRAMES
-            frame_01_01 = Frame(frame_01, relief='solid', bd=5)
+            frame_01_01 = Frame(frame_01, relief='flat', bd=5)
             # STRINGVARS
             rx = StringVar()  # ;Window Resolution-Width
             ry = StringVar()  # ;Window Resolution-Height
@@ -475,7 +473,7 @@ class MAIN_WINDOW(Tk):
             mod_list = winstrings['main']['options']['Game']['set']['Game']
             option_str_list = winstrings['main']['options']['Game']['set']
             # FRAMES
-            frame_04_01 = Frame(frame_04, relief='solid', bd=5)  # ;Main Frame
+            frame_04_01 = Frame(frame_04, relief='flat', bd=5)  # ;Main Frame
             label_sect = Frame(frame_04_01)  # ;Left
             value_sect = Frame(frame_04_01)  # ;Right
             # COMBO_BOXES
@@ -499,13 +497,13 @@ class MAIN_WINDOW(Tk):
             options_val_list = [difficulties, games]
 
             for game_cb_list in range(len(combobox_list)):
-                list = combobox_list[game_cb_list]
+                list_ = combobox_list[game_cb_list]
                 n_val_list = options_val_list[game_cb_list]
-                list['values'] = n_val_list
-                list['state'] = "readonly"
+                list_['values'] = n_val_list
+                list_['state'] = "readonly"
                 if game_cb_list == 0:
-                    list['width'] = 18
-                list.grid(column=0, row=q, padx=10, pady=10, sticky='w')
+                    list_['width'] = 18
+                list_.grid(column=0, row=q, padx=10, pady=10, sticky='w')
                 q += 1
 
             # ;Grid
@@ -514,26 +512,31 @@ class MAIN_WINDOW(Tk):
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
         def user_interface():
+            # BOOLEANVARS
+            mm = BooleanVar()
+            pm = BooleanVar()
             # DICTIONARIES_ABSTRACTED
-            ui_dict_abs = { # ;Abstracted
+            dict_abs = {  # ;Abstracted
                 "options_start_up": winstrings['main']['options']['User Interface']['set']['Start-Up']
             }
             # FRAMES
             frame_05_01 = Frame(frame_05)
             # CHECKBUTTONS
-            ui_ckb_mm = Checkbutton(frame_05_01) # ;Minimal Mode
-            ui_ckb_p_m = Checkbutton(frame_05_01) # ;Play Movies
-            # LISTS
-            ui_ls_val = [ui_ckb_mm, ui_ckb_p_m]
+            ui_ckb_mm = Checkbutton(frame_05_01, variable=mm, onvalue=True, offvalue=False)  # ;Minimal Mode
+            ui_ckb_p_m = Checkbutton(frame_05_01, variable=pm, onvalue=True, offvalue=False)  # ;Play Movies
             # CODE
 
-            for ui_txt in ui_dict_abs['options_start_up']: # ;Loop through and render labels
+            for ui_txt in dict_abs['options_start_up']:  # ;Loop through and render labels
                 Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[3], padx=10, pady=5, sticky='w')
                 self.sc_init.iterator_03[3] += 1
-                self.sc_init.iterator_03[4] += 1
+
+            check_bv(mm, miminal_mode)
+            check_bv(pm, play_movies)
 
             # ;Grid
-            frame_05_01.grid(column=0, row=0)
+            frame_05_01.grid(column=0, row=0, padx=150)
+            ui_ckb_mm.grid(column=1, row=0)
+            ui_ckb_p_m.grid(column=1, row=1)
 
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:
@@ -588,7 +591,7 @@ class MAIN_WINDOW(Tk):
             if run_get_sc_init_iters and run_get_sc_init_iters_p_delay is True:
                 p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
                 for i in range(run_get_sc_init_iters_p_delay_val):
-                    if i >= run_get_sc_init_iters_p_delay_val-1:
+                    if i >= run_get_sc_init_iters_p_delay_val - 1:
                         p(p_statement)
             else:
                 if run_get_sc_init_iters is True and run_get_sc_init_iters_p_delay is False:
@@ -596,6 +599,7 @@ class MAIN_WINDOW(Tk):
                     p(p_statement)
             self.update_idletasks()
             self.update()
+
 
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()

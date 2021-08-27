@@ -10,5 +10,5 @@ audio_platforms_pointer = 0
 # ;CONTROLLS
 usi_enable_debugmode = False
 # ;USER_INTERFACE
-ui_miminal_mode = False
-ui_on_startup_play_movies = False
+miminal_mode = False
+play_movies = False

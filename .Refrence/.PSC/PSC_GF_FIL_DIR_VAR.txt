@@ -17,6 +17,7 @@ MAIN_WINDOW.SETTINGS_MENU.audio
 MAIN_WINDOW.SETTINGS_MENU.audio.music_strings
 MAIN_WINDOW.SETTINGS_MENU.audio.sfx_strings
 MAIN_WINDOW.SETTINGS_MENU.audio.audio_settings_strings
+MAIN_WINDOW.SETTINGS_MENU.audio.audio_settings_strings.frames_list
 MAIN_WINDOW.SETTINGS_MENU.audio.unavailable_music_option
 MAIN_WINDOW.SETTINGS_MENU.audio.unvailable_sfx_option
 MAIN_WINDOW.SETTINGS_MENU.user_input
@@ -33,8 +34,12 @@ MAIN_WINDOW.SETTINGS_MENU.user_input.joystick_combobox
 MAIN_WINDOW.SETTINGS_MENU.game
 MAIN_WINDOW.SETTINGS_MENU.game.game_label_string
 MAIN_WINDOW.SETTINGS_MENU.game.game_cb_list
+MAIN_WINDOW.SETTINGS_MENU.game.game_cb_list.list_
+MAIN_WINDOW.SETTINGS_MENU.game.game_cb_list.n_val_list
 MAIN_WINDOW.SETTINGS_MENU.user_interface
 MAIN_WINDOW.SETTINGS_MENU.user_interface.ui_txt
+MAIN_WINDOW.SETTINGS_MENU.user_interface.string
+MAIN_WINDOW.SETTINGS_MENU.user_interface.string.sel_list
 MAIN_WINDOW.SAVE_GAME
 MAIN_WINDOW.SAVE_GAME.t
 MAIN_WINDOW.run
@@ -73,7 +78,7 @@ pygame_Tk_Integration.CombineDictToOne
 pygame_Tk_Integration.CombineDictToOne.keyb_key_val
 pygame_Tk_Integration.CombineDictToOne.keyb_key_val.key_val
 pygame_Tk_Integration.debug_controller
-pygame_Tk_Integration.debug_controller.controller.
+pygame_Tk_Integration.debug_controller.controller
 pygame_Tk_Integration.debug_controller.controller.jys
 pygame_Tk_Integration.debug_controller.controller.cid
 pygame_Tk_Integration.debug_controller.controller.controller_name

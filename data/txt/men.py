@@ -72,12 +72,13 @@ winstrings = {
             "User Interface": { # ;User will be able to change the start-up look (very minimal)
                 "Tooltips": ["Makes the start menu based on the original (might be different on some systems and may be disabled on console releases)", "Play Movies on start-up"],
                 "set": {
-                    "Start-Up": ["Play Movies", "Miminal Mode"], # ; Requires restart
+                    "Start-Up": ["Play Movies", "Miminal Mode", "UI Theme (Requires restart)"], # ; Requires restart
                 }
             }
         },
         "save_options": ["Apply", "Cancel", "Ok"],
-        "help_buttons": ["?", "Need Help?"]
+        "help_buttons": ["?", "Need Help?"],
+        "preset_strings": "Presets",
     }
 }
 winstrings_settings_tooltips_dict = {

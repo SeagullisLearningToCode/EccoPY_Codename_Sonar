@@ -23,8 +23,6 @@ class MAIN_W_I(object):
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
         # DICTIONARIES
         self.i_dict = image_dict(f"{self.main_dir}/data/img/")
-        # LISTS
-        self.size = [1024, 450]
         # CONFIG_PARSER
         self.options_save = ConfigParser()
         # INT
@@ -50,7 +48,10 @@ class MAIN_WINDOW(Tk):
         # TKINTER
         self["background"] = rgb(34, 87, 165)
         self.title(winstrings["main"]["title"][0])
-        # INT
+        # THEME
+        self.style = ttk.Style()
+        self.style.theme_use('classic')
+        # CODE
 
     def DRAW_CONTENTS(self):
         # TKINTER
@@ -116,33 +117,42 @@ class MAIN_WINDOW(Tk):
 
     def SETTINGS_MENU(self):
         # COLORS_LIST_OFFSETS
-        SET_MENU_BACKGROUND_COLOR = [1.6, 1.6, 1.5]
-        sm_bkgrd_clr = SET_MENU_BACKGROUND_COLOR
+        sm_bkgrd_clr = [1.6, 1.6, 1.5]
         sm_colors_presets = {
             "grey": rgb(round(236 / sm_bkgrd_clr[0]), round(236 / sm_bkgrd_clr[1]), round(236 / sm_bkgrd_clr[2]))  # ; Based on MacOSX element
         }
         # TKINTER
-        set_menu = Toplevel(bg=sm_colors_presets["grey"])
+        set_menu = Toplevel()
         set_menu.title(winstrings["main"]["choices"][1])
         # NOTEBOOKS
         set_menu_nb = ttk.Notebook(set_menu)
         # FRAMES
-        frame_01 = Frame(set_menu_nb)  # ;Video
-        frame_02 = Frame(set_menu_nb)  # ;Audio
-        frame_03 = Frame(set_menu_nb)  # ;Controller
-        frame_04 = Frame(set_menu_nb)  # ;Game
-        frame_05 = Frame(set_menu_nb)  # ;User Interface/Start-up
+        frame_01 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Video
+        frame_02 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Audio
+        frame_03 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Controller
+        frame_04 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Game
+        frame_05 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;User Interface/Start-up
+        frame_06 = Frame(set_menu, bg=sm_colors_presets["grey"])
+        # COMBO_BOXES
+        SET_MENU_PRESET_CMBBX = ttk.Combobox(frame_06)
+        SET_MENU_PRESET_CMBBX['values'] = settings_user_made_presets
         # LISTS
-        cb_bttns_str_list = [];
+        cb_bttns_str_list = []
         option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
-        frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05];
+        frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05]
         f_l = frme_list
         # INT
         i = 0
         # INT_LISTS
         l = [0, 0, 0, 0, 0]
-
         # CODE
+        frame_06.grid_propagate(0)
+        frame_06['height'] = 24
+
+        if len(settings_user_made_presets) >= 1:
+            Label(set_menu, text=winstrings['main']['preset_strings'], bg=sm_colors_presets['grey'], relief='groove', bd=3).grid(column=0, row=1, sticky='nw', padx=1)
+            SET_MENU_PRESET_CMBBX.grid(column=0, row=1, sticky='nw', padx=60)
+
         def cancel():
             """
             Cancels changes
@@ -182,14 +192,14 @@ class MAIN_WINDOW(Tk):
             m = save_buttons_get_len ** self.sc_init.iterator_03[2]  # ;Math
             function_list = ls_bttns_list[choiceOptions]
             string_list = option_button_list[choiceOptions]
-            Button(set_menu, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 20, sticky='e')
+            Button(frame_06, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 16 + 500, sticky='e')
             self.sc_init.iterator_03[2] += 1
 
         def video():
             # INT
             i = 1
             # FRAMES
-            frame_01_01 = Frame(frame_01, relief='flat', bd=5)
+            frame_01_01 = Frame(frame_01, relief='raised', bd=10)
             # STRINGVARS
             rx = StringVar()  # ;Window Resolution-Width
             ry = StringVar()  # ;Window Resolution-Height
@@ -220,7 +230,7 @@ class MAIN_WINDOW(Tk):
             Label(frame_01_01, text=in_between_entries).grid(column=1, row=2, sticky='w', padx=70)
             y_txt.grid(column=1, row=2, sticky='w', padx=90)
 
-            frame_01_01.grid(column=0, row=0, padx=100)
+            frame_01_01.grid(column=0, row=0)
             dir_chkbtn.grid(column=1, row=3, sticky='w', padx=10)
             wei_scale.grid(column=1, row=4, sticky='w', padx=10)
 
@@ -236,6 +246,8 @@ class MAIN_WINDOW(Tk):
             # SCALES
             volume_music = Scale(frame_02_01_01, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
             volume_sfx = Scale(frame_02_01_02, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
+            # LISTS
+            audio_settings_frames_list = [frame_02_01_01, frame_02_01_02]
             # INT-ITER VARS ;Assembly like-vars
             i = 0
             q = 0
@@ -252,10 +264,9 @@ class MAIN_WINDOW(Tk):
                 q += 1
 
             for audio_settings_strings in winstrings["main"]["options"]["Audio"]["set"]:
-                if audio_settings_strings == "Music":
-                    sframe_02_01.add(frame_02_01_01, text=audio_settings_strings)
-                elif audio_settings_strings == "SFX":
-                    sframe_02_01.add(frame_02_01_02, text=audio_settings_strings)
+                frames_list = audio_settings_frames_list[self.sc_init.iterator_03[4]]
+                sframe_02_01.add(frames_list, text=audio_settings_strings)
+                self.sc_init.iterator_03[4] += 1
 
             for unvailable_music_option in range(2):
                 Label(frame_02_01_01, text="not available".upper()).grid(column=1, row=a)
@@ -277,7 +288,7 @@ class MAIN_WINDOW(Tk):
 
             volume_sfx.grid(column=1, row=3)
 
-            sframe_02_01.grid(column=0, row=1, padx=60)
+            sframe_02_01.grid(column=0, row=1, padx=53)
 
         def user_input():
             # NOTEBOOK
@@ -447,7 +458,7 @@ class MAIN_WINDOW(Tk):
                     e[3] += 1
 
             for keyboard_combobox in usi_keyboard_type_bindings_list:
-                keyboard_combobox['width'] = 15
+                keyboard_combobox['width'] = 13
                 keyboard_combobox['values'] = self.sc_init.keys
                 if not e[4] == 4 and not e[4] == 9:
                     keyboard_combobox.grid(column=1, row=e[4] + 1, padx=10)
@@ -465,7 +476,7 @@ class MAIN_WINDOW(Tk):
             # ;Grid
             usi_keyboard_type_bindings.grid(column=0, row=0)
             frame02.grid(column=1, row=0)
-            sframe_03_01.grid(column=0, row=0, padx=86)
+            sframe_03_01.grid(column=0, row=0, padx=108)
 
         def game():
             # DICTIONARIES_ABSTRACTED
@@ -473,7 +484,7 @@ class MAIN_WINDOW(Tk):
             mod_list = winstrings['main']['options']['Game']['set']['Game']
             option_str_list = winstrings['main']['options']['Game']['set']
             # FRAMES
-            frame_04_01 = Frame(frame_04, relief='flat', bd=5)  # ;Main Frame
+            frame_04_01 = Frame(frame_04, relief='raised', bd=10)  # ;Main Frame
             label_sect = Frame(frame_04_01)  # ;Left
             value_sect = Frame(frame_04_01)  # ;Right
             # COMBO_BOXES
@@ -487,10 +498,7 @@ class MAIN_WINDOW(Tk):
             q = 0
             # CODE
             for game_label_string in option_str_list:
-                Label(
-                    label_sect,
-                    text=game_label_string
-                ).grid(column=0, row=i, pady=10, sticky='w')
+                Label(label_sect, text=game_label_string).grid(column=0, row=i, pady=10, sticky='w')
                 i += 1
 
             combobox_list = [difficulty_list_combobox, mod_list_combobox]
@@ -507,7 +515,7 @@ class MAIN_WINDOW(Tk):
                 q += 1
 
             # ;Grid
-            frame_04_01.grid(column=0, row=0, padx=140)
+            frame_04_01.grid(column=0, row=0, padx=184)
             label_sect.grid(column=0, row=0, rowspan=len(options_val_list), sticky='n')
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
@@ -520,11 +528,17 @@ class MAIN_WINDOW(Tk):
                 "options_start_up": winstrings['main']['options']['User Interface']['set']['Start-Up']
             }
             # FRAMES
-            frame_05_01 = Frame(frame_05)
+            frame_05_01 = Frame(frame_05, relief='raised', bd=10)
+            frame_05_01.configure(width=200)
             # CHECKBUTTONS
             ui_ckb_mm = Checkbutton(frame_05_01, variable=mm, onvalue=True, offvalue=False)  # ;Minimal Mode
             ui_ckb_p_m = Checkbutton(frame_05_01, variable=pm, onvalue=True, offvalue=False)  # ;Play Movies
+            # COMBO_BOXES
+            ui_cmb_thms = ttk.Combobox(frame_05_01, width=5)
+            # LISTS
+            ui_thms_list = [theme for theme in self.style.theme_names()]
             # CODE
+            ui_cmb_thms['values'] = ui_thms_list
 
             for ui_txt in dict_abs['options_start_up']:  # ;Loop through and render labels
                 Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[3], padx=10, pady=5, sticky='w')
@@ -534,9 +548,10 @@ class MAIN_WINDOW(Tk):
             check_bv(pm, play_movies)
 
             # ;Grid
-            frame_05_01.grid(column=0, row=0, padx=150)
+            frame_05_01.grid(column=0, row=0, padx=240)
             ui_ckb_mm.grid(column=1, row=0)
             ui_ckb_p_m.grid(column=1, row=1)
+            ui_cmb_thms.grid(column=1, row=2, padx=10)
 
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:
@@ -546,6 +561,8 @@ class MAIN_WINDOW(Tk):
             self.sc_init.iterator_02 += 1
             self.sc_init.iterator_03[0] += 1
 
+
+        frame_06.grid(column=0, row=1, sticky='e')
         set_menu_nb.grid(column=0, row=0)
         set_menu.grab_set()
 
@@ -554,8 +571,10 @@ class MAIN_WINDOW(Tk):
         user_input()
         game()
         user_interface()
+        frame_06['width'] = set_menu_nb.winfo_screenmmwidth()+65
 
     def PLAY_GAME(self):
+        # CODE
         self.sc_init.is_running = False
 
     def SAVE_GAME(self):

@@ -12,3 +12,5 @@ usi_enable_debugmode = False
 # ;USER_INTERFACE
 miminal_mode = False
 play_movies = False
+# ;USER-MADE-PRESETS
+settings_user_made_presets = []

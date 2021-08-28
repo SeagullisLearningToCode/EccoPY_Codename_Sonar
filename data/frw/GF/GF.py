@@ -419,7 +419,7 @@ class GF_INIT(object):
     Gull Framework Root class
     """
 
-    def __init__(self, assembly_mode: bool = False, **kwargs):
+    def __init__(self, **kwargs):
         p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
         # KWARGS_BOOLEANS
         self.enable_assembly_mode = kwargs.get("assembly_mode", True)

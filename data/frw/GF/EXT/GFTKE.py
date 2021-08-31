@@ -285,12 +285,13 @@ class pygame_Tk_Integration(object):
         # CODE
         for resolution in display.list_modes():
             sizes_autodetect.append(resolution)
-            if len(sizes_autodetect) == indexes:
-                sizes_autodetect.sort()
 
-            for unique_resolutions in sizes_autodetect:
-                if unique_resolutions not in sizes_autodetect_filtered:
-                    sizes_autodetect_filtered.append(unique_resolutions)
+        sizes_autodetect.sort()
+        rem_dupes_lst(sizes_autodetect)
+
+        for unique_resolutions in sizes_autodetect:
+            if unique_resolutions not in sizes_autodetect_filtered:
+                sizes_autodetect_filtered.append(unique_resolutions)
 
         if DA_PRINT_RESULT is True:
             p(f"AUTODETECT RESULTS (UNFILTERED): {sizes_autodetect}")

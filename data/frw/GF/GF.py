@@ -264,6 +264,26 @@ def merge(target_list, **kwargs):
 
     return i
 
+def rem_dupes_lst(target, **kwargs):
+    # LIST
+    new_list = []
+    # KWARGS
+    print_result = kwargs.get("print_result", False)
+    sender = kwargs.get("send", None)
+    # CODE
+    if sender is not None:
+        for i in target:
+            if i not in target:
+                sender.append(i)
+    else:
+        for i in target:
+            if i not in target:
+                new_list.append(i)
+
+    if print_result is True:
+        p(new_list)
+
+    return new_list
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -272,8 +292,6 @@ class GF_MATH_CONVERT_FROM_LIST(object):
         pass
 
     def hextoint(self, tl: list, dl: list):
-        # BOOLEANS
-        islisthexed = False
         # INT
         nothexval = 0
         # CODE

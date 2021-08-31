@@ -269,4 +269,42 @@ class pygame_Tk_Integration(object):
             for buttons in range(controller_buttons):
                 self.pg_joys_list.append(f"Button {buttons}")
 
+    def DISPLAY_AUTODETECT(self, **kwargs): # ; inheirited from EccoPY
+        """
+        Inherited from EccoPY in settings.py
+        :param kwargs:
+        :return:
+        """
+        # PYGAME
+        indexes = len(display.list_modes())
+        # KWARGS
+        DA_PRINT_RESULT = kwargs.get("print_result", False)
+        # LIST
+        sizes_autodetect = []
+        sizes_autodetect_filtered = []
+        # CODE
+        for resolution in display.list_modes():
+            sizes_autodetect.append(resolution)
+            if len(sizes_autodetect) == indexes:
+                sizes_autodetect.sort()
+
+            for unique_resolutions in sizes_autodetect:
+                if unique_resolutions not in sizes_autodetect_filtered:
+                    sizes_autodetect_filtered.append(unique_resolutions)
+
+        if DA_PRINT_RESULT is True:
+            p(f"AUTODETECT RESULTS (UNFILTERED): {sizes_autodetect}")
+            p(f"\nAUTODETECT RESULTS: {sizes_autodetect_filtered}\n\nDETECTED {len(sizes_autodetect_filtered)} Windowsize options\n")
+        sizes_autodetect_filtered.sort()
+
+        return sizes_autodetect_filtered
+
+    def resolution_to_readable_form(self, **kwargs):
+        # KWARGS
+        RTRF_PRINT_RESULT = kwargs.get("print_result", False)
+        RTRF_STRING_REPLACEMENT = kwargs.get("between_string", "x")
+        # CODE
+
+
+
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

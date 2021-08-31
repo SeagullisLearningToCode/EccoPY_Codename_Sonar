@@ -196,10 +196,17 @@ class MAIN_WINDOW(Tk):
             self.sc_init.iterator_03[2] += 1
 
         def video():
+            # PYGAME
+            vr_resolutions = [
+                [320, 224], [320, 240], [320, 244], [640, 480]
+            ]
+            wr_resolutions = self.sc_init.tp.DISPLAY_AUTODETECT()
             # INT
-            i = 1
+            i = 0
             # FRAMES
             frame_01_01 = Frame(frame_01, relief='raised', bd=10)
+            # BOOLEANVARS
+            custom_res_bv = BooleanVar()
             # STRINGVARS
             rx = StringVar()  # ;Window Resolution-Width
             ry = StringVar()  # ;Window Resolution-Height
@@ -211,28 +218,40 @@ class MAIN_WINDOW(Tk):
             rx_txt = Entry(frame_01_01, textvariable=rx, width=5)
             ry_txt = Entry(frame_01_01, textvariable=ry, width=5)
             # CHECKBUTTONS
+            custom_res = Checkbutton(frame_01_01, variable=custom_res_bv, onvalue=True, offvalue=False)
             dir_chkbtn = Checkbutton(frame_01_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
             # SCALES
             wei_scale = Scale(frame_01_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
+            # COMBO_BOXES
+            vr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=10)
+            wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=10)
             # CODE
+
+            vr_resolutions_cmbbox['values'] = vr_resolutions
+            wr_resolutions_cmbbox['values'] = wr_resolutions
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
                 Label(frame_01_01, text=video_settings_strings).grid(column=0, row=i, sticky="w")
                 i += 1
 
             # ;Window Res
-            rx_txt.grid(column=1, row=1, sticky='w', padx=10)
-            Label(frame_01_01, text=in_between_entries).grid(column=1, row=1, sticky='w', padx=70)
-            ry_txt.grid(column=1, row=1, sticky='w', padx=90)
+            if custom_res_bv.get() is True:
+                rx_txt.grid(column=1, row=1, sticky='w', padx=10)
+                Label(frame_01_01, text=in_between_entries).grid(column=1, row=1, sticky='w', padx=70)
+                ry_txt.grid(column=1, row=1, sticky='w', padx=90)
 
-            # ;2D Res
-            x_txt.grid(column=1, row=2, sticky='w', padx=10)
-            Label(frame_01_01, text=in_between_entries).grid(column=1, row=2, sticky='w', padx=70)
-            y_txt.grid(column=1, row=2, sticky='w', padx=90)
+                # ;2D Res
+                x_txt.grid(column=1, row=2, sticky='w', padx=10)
+                Label(frame_01_01, text=in_between_entries).grid(column=1, row=2, sticky='w', padx=70)
+                y_txt.grid(column=1, row=2, sticky='w', padx=90)
+            else:
+                custom_res.grid(column=1, row=0, padx=10, sticky='w')
 
             frame_01_01.grid(column=0, row=0)
             dir_chkbtn.grid(column=1, row=3, sticky='w', padx=10)
             wei_scale.grid(column=1, row=4, sticky='w', padx=10)
+            wr_resolutions_cmbbox.grid(column=1, row=1, padx=10, sticky='w')
+            vr_resolutions_cmbbox.grid(column=1, row=2, padx=10, sticky='w')
 
         def audio():
             # NOTEBOOKS

@@ -15,7 +15,7 @@ winstrings = {
                     "In the original Ecco, there a ripple effect that makes the water surface feels alive, disabling this will make the game run slightly faster but will remove the feel of the original game.",  # ;Disable Ripple
                     "This is a new addition to Ecco the Dolphin, this adds weather effects based on the level that Ecco's in, this includes rain, snow, fog and possibly enviromental effects"  # ;Weather Effects Intensity
                 ],
-                "set": ["Window Resolution (size)", "2D Resolution", "Ripple Effect", "Weather Effects intensity"]
+                "set": ["Custom Resolutions", "Window Resolution (size)", "2D Resolution", "Ripple Effect", "Weather Effects intensity"]
             },
             "Audio": {
                 "tooltips": {

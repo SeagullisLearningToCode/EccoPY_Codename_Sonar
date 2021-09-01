@@ -300,12 +300,50 @@ class pygame_Tk_Integration(object):
 
         return sizes_autodetect_filtered
 
-    def resolution_to_readable_form(self, **kwargs):
+    def res_to_readable_form(self, **kwargs):
         # KWARGS
+        RTRF_TARGET = kwargs.get("target", display.list_modes())
         RTRF_PRINT_RESULT = kwargs.get("print_result", False)
         RTRF_STRING_REPLACEMENT = kwargs.get("between_string", "x")
+        RTRF_SENDER = kwargs.get("sender", None) # ;This will send the result to the target
+        RTRF_RETURN_VERBOSE = kwargs.get('return_verbose', False)
+        # ABS
+        t = RTRF_TARGET
+        # LISTS
+        r = []
+        r_d = []
+        # DICTIONARIES
+        d = {}
+        # INT_LIST
+        ai = [0, 0, 0]
         # CODE
+        if RTRF_SENDER is not None:
+            for i in t:
+                str = f"{i[0]}{RTRF_STRING_REPLACEMENT}{i[1]}"
+                RTRF_SENDER.append(str)
+        else:
+            for i in t:
+                str = f"{i[0]}{RTRF_STRING_REPLACEMENT}{i[1]}"
+                r.append(str)
 
+        for result_values in r:
+            if RTRF_SENDER is not None:
+                list_tar = t[ai[0]]
+                d.update({result_values: list_tar})
+                ai[0] += 1
+            else:
+                d.update({result_values: t[ai[0]]})
+                ai[0] += 1
 
+        for value in d:
+            if RTRF_RETURN_VERBOSE is True:
+                r_d.append([value, [d[value][0], d[value][1]]])
+            else:
+                r_d.append(value)
+
+        if RTRF_PRINT_RESULT is True:
+            p(f"RESULT: {r}\nRESULT_DICT: {r_d}")
+
+        return r_d
 
 # EOF----------------------------------------------------------------------------------------------------------------------------------------------------------------------

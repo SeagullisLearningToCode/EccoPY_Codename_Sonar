@@ -198,7 +198,7 @@ class MAIN_WINDOW(Tk):
         def video():
             # PYGAME
             vr_resolutions = [
-                [320, 224], [320, 240], [320, 244], [640, 480]
+                [320, 224], [320, 240], [320, 244], [512, 256], [640, 480]
             ]
             wr_resolutions = self.sc_init.tp.DISPLAY_AUTODETECT()
             # INT
@@ -223,12 +223,13 @@ class MAIN_WINDOW(Tk):
             # SCALES
             wei_scale = Scale(frame_01_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
             # COMBO_BOXES
-            vr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=10)
-            wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=10)
+            vr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=7)
+            wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=9)
             # CODE
 
-            vr_resolutions_cmbbox['values'] = vr_resolutions
-            wr_resolutions_cmbbox['values'] = wr_resolutions
+            vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
+            wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
+
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
                 Label(frame_01_01, text=video_settings_strings).grid(column=0, row=i, sticky="w")

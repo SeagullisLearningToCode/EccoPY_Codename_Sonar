@@ -23,6 +23,15 @@ class MAIN_W_I(object):
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
         # DICTIONARIES
         self.i_dict = image_dict(f"{self.main_dir}/data/img/")
+        self.options_changes = {
+            "Video": [],
+            "Audio-Music": [],
+            "Audio-SFX": [],
+            "Controlls-Keyboard": [],
+            "Controlls-Joystick": [],
+            "Game": [],
+            "UI": [],
+        }
         # CONFIG_PARSER
         self.options_save = ConfigParser()
         # INT
@@ -34,6 +43,8 @@ class MAIN_W_I(object):
         self.lessguimode = False
         self.converttopygame = False
         self.is_running = True
+        # GF
+        self.wsf = GF.wsf()
         # GULL_FRAMEWORK_EXT
         self.tp = pygame_Tk_Integration()
         self.keys = self.tp.CombineDictToOne()
@@ -198,7 +209,7 @@ class MAIN_WINDOW(Tk):
         def video():
             # PYGAME
             vr_resolutions = [
-                [320, 224], [320, 240], [320, 244], [512, 256], [640, 480]
+                [320, 240], [320, 244], [384, 240], [384, 244], [512, 256], [640, 480]
             ]
             wr_resolutions = self.sc_init.tp.DISPLAY_AUTODETECT()
             # INT
@@ -229,7 +240,6 @@ class MAIN_WINDOW(Tk):
 
             vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
             wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
-
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
                 Label(frame_01_01, text=video_settings_strings).grid(column=0, row=i, sticky="w")
@@ -607,6 +617,23 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
+    def FIRST_RUN(self):
+        # GF
+        # STRINGS
+        point_usr_dir = f"/Users/{self.sc_init.wsf.gun}"
+        point_doc_dir_ls = f"{point_usr_dir}{self.sc_init.wsf.user_document_folder}{self.sc_init.wsf.subdir}"
+        # CODE
+        if GetPresSpec(point_doc_dir_ls) is False:
+            file = self.sc_init.wsf.writeSettingsFile(name="Launcher_Settings")
+            launcher_settings_file = open(file, "w")
+            self.sc_init.options_save['LAUNCHER'] = {
+                "IsFirstRun": 'True'
+            }
+            self.sc_init.options_save.write(launcher_settings_file)
+            file.close()
+        #elif self.sc_init.options_save.get(option="IsFirstRun") is True:
+            #self.sc_init.options_save.set(option="IsFirstRun")
+
     def run(self, **kwargs):
         """
          Kwarg                 Def Value Description
@@ -642,4 +669,5 @@ class MAIN_WINDOW(Tk):
 
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()
+mw.FIRST_RUN()
 mw.run()

@@ -32,6 +32,7 @@ td_c_s_yo = td_c_s[0:4]  # Get year only
 # Today's Time
 tt = datetime.now()
 
+
 # FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
 # p function
@@ -71,17 +72,22 @@ def flp(l: dict):
 
 # Get Presence
 # reason: shorten it up a bit with the os.path.exists
-def GetPresSpec(file: str):
+def GetPresSpec(file: str, **kwargs):
     """
     Does the file exist
 
-    Returns: None
+    Returns: None by default
     """
+    # KWARGS
+    GPS_RETURN_EXIST = kwargs.get('return_result', False)
     # OSPATH
     getpres = os.path.exists
     # CODE
-    p(f"{getpres(file)}")
+    if GPS_RETURN_EXIST is False:
+        p(f"{getpres(file)}")
 
+    if GPS_RETURN_EXIST is True:
+        return getpres(file)
 
 # Raise Custom Error Function (RCEF)
 
@@ -205,17 +211,18 @@ def image_dict(targetpath: str, **kwargs):
     # DICTIONARIES
     d = {}
     # OSPATH
-    g_fit = os.listdir(t_path) # hey you get fit
+    g_fit = os.listdir(t_path)  # hey you get fit
     # KWARGS_BOOLEANS
-    v_names = kwargs.get("EVerboseResults", False) # prints the process
+    v_names = kwargs.get("EVerboseResults", False)  # prints the process
     # CODE
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
             counter += 1
-            d.update({counter: t_path+file})
+            d.update({counter: t_path + file})
     if v_names is True:
         flp(d)
     return d
+
 
 def get_directory(targetpath: str):
     """
@@ -240,6 +247,7 @@ def get_directory(targetpath: str):
 
     return d
 
+
 def merge(target_list, **kwargs):
     """
     Takes a nested list into a single list
@@ -250,7 +258,7 @@ def merge(target_list, **kwargs):
     """
     # LISTS
     tl = target_list
-    i = [] # ;result var
+    i = []  # ;result var
     # KWARGS_BOOLEANS
     show_result = kwargs.get("show_result", False)
     # CODE
@@ -263,6 +271,7 @@ def merge(target_list, **kwargs):
         p(i)
 
     return i
+
 
 def rem_dupes_lst(target, **kwargs):
     # LIST
@@ -284,6 +293,7 @@ def rem_dupes_lst(target, **kwargs):
         p(new_list)
 
     return new_list
+
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -382,26 +392,34 @@ class GF_WRITE_SETTING_FILES(object):
 
     Functions Avaible
     ---------------------------
-    writeSettingsFile(self, dir: str *optional*, name: str *optional*)
+    writeSettingsFile(self, dir: str *optional*, name: str *optional*, **kwargs)
     """
 
     def __init__(self):
-        pass
+        super().__init__()
+        # USERNAME
+        self.gun = gp.getuser() # ;Get Current Username
+        # DIRECTORIES
+        self.subdir = f"{self.gun}/EP_S/"
+        self.user_document_folder = f"{self.gun}Documents/"
 
-    def writeSettingsFile(self, dir: str = "/Documents/Seagulls/EccoPY/", name: str = "Settings"):
+    def writeSettingsFile(self, dir: str = "/Documents/Seagulls/EccoPY/", name: str = "Settings", **kwargs):
+        # KWARGS
+        WSF_RETURN_FILEPATH = kwargs.get('return_path', True)
         # STRINGS
         d = dir
         n = name
-        gun = gp.getuser()
-        subdir = f"{gun}/EP_S/"
-        getdir = f"/Users/{gun}{d}{subdir}"
+        getdir = f"/Users/{self.gun}{d}{self.subdir}"
         # CODE
-
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)
         elif os.path.exists(f"{getdir}/{n}.ini") is False:
             newfile = open(f"{getdir}/{n}.ini", "w+")  # Creates new file
             newfile.close()
+
+        if WSF_RETURN_FILEPATH is True:
+            path_name = f"{getdir}{n}.ini"
+            return path_name
 
 
 class GF_MAPPING(object):
@@ -438,17 +456,31 @@ class GF_INIT(object):
     """
 
     def __init__(self, **kwargs):
-        p("\nGull Framework Shut Up Gull \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
+        p("\nGull Framework \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
         # KWARGS_BOOLEANS
         self.enable_assembly_mode = kwargs.get("assembly_mode", True)
-        self.print_faq_possible = kwargs.get("print_faq_possible", False) # ;Prints why I start functions like this
+        self.print_faq_possible = kwargs.get("print_faq_possible", False)  # ;Prints why I start functions like this
+        self.init_all_classes = kwargs.get("init_all", False) # ;Runs all initilized classes
         #   CODE
-        if self.enable_assembly_mode == True:  # ;gives it somewhat of an assembly feel
-            self.m = GF_MAPPING  # ;Deals with mapping
-            self.dl = GF_DEVLOG  # ;Logs stuff
-            self.wsf = GF_WRITE_SETTING_FILES  # ;Writes INI files
-            self.mpdf = GF_MUSICPLAYER_DICT_FORM  # ;Deals with playing music from dicts
-            self.cl = GF_MATH_CONVERT_FROM_LIST  # ;Deals with converting lists/dicts to differnt types of values inside them
+        if self.init_all_classes is True:
+            if self.enable_assembly_mode is True:
+                self.m = GF_MAPPING()
+                self.dl = GF_DEVLOG()
+                self.wsf = GF_WRITE_SETTING_FILES()
+                self.mpdf = GF_MUSICPLAYER_DICT_FORM()
+                self.cl = GF_MATH_CONVERT_FROM_LIST()
+            else:
+                self.map = GF_MAPPING()
+                self.log = GF_DEVLOG()
+                self.set = GF_WRITE_SETTING_FILES()
+                self.musicPlayer = GF_MUSICPLAYER_DICT_FORM()
+                self.convert = GF_MATH_CONVERT_FROM_LIST()
+        if self.enable_assembly_mode is True:  # ;gives it somewhat of an assembly feel
+            self.m = GF_MAPPING # ;Deals with mapping
+            self.dl = GF_DEVLOG # ;Logs stuff
+            self.wsf = GF_WRITE_SETTING_FILES # ;Writes INI files
+            self.mpdf = GF_MUSICPLAYER_DICT_FORM # ;Deals with playing music from dicts
+            self.cl = GF_MATH_CONVERT_FROM_LIST # ;Deals with converting lists/dicts to differnt types of values inside them
         else:  # ;New age stuff
             self.map = GF_MAPPING
             self.log = GF_DEVLOG
@@ -457,6 +489,7 @@ class GF_INIT(object):
             self.convert = GF_MATH_CONVERT_FROM_LIST
         if self.print_faq_possible is True:
             p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
+
 
 # INIT_GULL_FRAMEWORK----------------------------------------------------------------------------------------------------------------------------------------------------------------
 

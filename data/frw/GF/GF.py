@@ -19,24 +19,26 @@ from datetime import *
 from random import *
 from configparser import *
 import gc
+from importlib import util
 
-# VARIABLES-------------------------------------------------------------------------------------------------------------------
+# ;VARIABLES-------------------------------------------------------------------------------------------------------------------
 
 load = mixer.music
 
-# Today's Date
+# ;Today's Date
 td = date.today()
 
 td_c_s = str(td)  # Converts the current date into a String
 td_c_s_yo = td_c_s[0:4]  # Get year only
-# Today's Time
+# ;Today's Time
 tt = datetime.now()
+GF_FILE_PATH = os.path.dirname(os.path.abspath(__file__))
+GF_XTN_FOLDER_PATH = f"{GF_FILE_PATH}/EXT/"
 
+# ;FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
-# FUNCTIONS-------------------------------------------------------------------------------------------------------------------
-
-# p function
-# reason: same as the p function but made it faster to make a print statement by using a few characters
+# ;p function
+# ;reason: same as the p function but made it faster to make a print statement by using a few characters
 def p(t="passed"):
     """
     Print
@@ -49,8 +51,8 @@ def p(t="passed"):
     print(t)
 
 
-# sps function
-# Reason: easier and shorter
+# ;sps function
+# ;Reason: easier and shorter
 def sps(t: str):
     """
     Same thing as p() but adds in "passed"
@@ -58,7 +60,7 @@ def sps(t: str):
     Example: sps("it")
     Output: passed it
     """
-    # CODE/
+    # CODE
     p(f"passed {t}")
 
 
@@ -70,8 +72,8 @@ def flp(l: dict):
         p(f"{key}: {l.get(key)}")
 
 
-# Get Presence
-# reason: shorten it up a bit with the os.path.exists
+# ;Get Presence
+# ;reason: shorten it up a bit with the os.path.exists
 def GetPresSpec(file: str, **kwargs):
     """
     Does the file exist
@@ -89,7 +91,7 @@ def GetPresSpec(file: str, **kwargs):
     if GPS_RETURN_EXIST is True:
         return getpres(file)
 
-# Raise Custom Error Function (RCEF)
+# ;Raise Custom Error Function (RCEF)
 
 def RCE(rfe: str, et: int):
     """
@@ -108,15 +110,15 @@ def RCE(rfe: str, et: int):
     # INT
     error_type = et
     # CODE
-    if error_type == 0:  # FNFE
+    if error_type == 0:  # ;FNFE
         p(f"ERROR: {rfe}")
         raise FileNotFoundError
-    elif error_type == 1:  # FEE
+    elif error_type == 1:  # ;FEE
         p(f"ERROR: {rfe}")
         raise FileExistsError
-    elif error_type == 2:  # NEBW
+    elif error_type == 2:  # ;NEBW
         p(f"WARNING: {rfe}")
-    elif error_type == 3:  # EP_RTI_E
+    elif error_type == 3:  # ;EP_RTI_E
         p(f"ERROR: {rfe}")
         raise ValueError
     else:
@@ -128,7 +130,7 @@ def HVFFTAOHV(dirname: str,
               filename: str,
               destination: str,
               printresults: bool,
-              outputresulttofile: bool):  # True = 1, False = 0
+              outputresulttofile: bool):  # ;True = 1, False = 0
     """
     Hex Values From File To Array Of Hex Values
     This Function converts the hex values inside a text document and prints the values as an array
@@ -211,9 +213,9 @@ def image_dict(targetpath: str, **kwargs):
     # DICTIONARIES
     d = {}
     # OSPATH
-    g_fit = os.listdir(t_path)  # hey you get fit
+    g_fit = os.listdir(t_path)  # ;hey you get fit
     # KWARGS_BOOLEANS
-    v_names = kwargs.get("EVerboseResults", False)  # prints the process
+    v_names = kwargs.get("EVerboseResults", False)  # ;prints the process
     # CODE
     for file in g_fit:
         if file.__contains__(".jpg") or file.__contains__(".bmp") or file.__contains__(".png") or file.__contains__(".gif"):
@@ -224,27 +226,37 @@ def image_dict(targetpath: str, **kwargs):
     return d
 
 
-def get_directory(targetpath: str):
+def get_directory(targetpath: str, **kwargs):
     """
     Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
     :param targetpath:
     :param kwargs:
     :return: Dict
     """
+    # KWARGS
+    GD_FILTER = kwargs.get("filter", None)
+    GD_PRINT_DICT = kwargs.get("print_dict", True)
     # INT
     counter = 0
     # STRINGS
     t_path = targetpath
     # DICTIONARIES
     d = {}
+    # LIST
+    i = []
     # OSPATH
     g_fit = os.listdir(t_path)
     # CODE
-    for file in g_fit:
-        counter += 1
-        d.update({counter: t_path + file})
-    flp(d)
-
+    for file in g_fit: # ;Loop through directory
+        if GD_FILTER is not None: # ;if argument is not a NONE type
+            if file.__contains__(GD_FILTER): # ;if filename contains a word, number or file type
+                counter += 1
+                d.update({counter: t_path + file})
+        else:
+            counter += 1
+            d.update({counter: t_path + file})
+    if GD_PRINT_DICT is True:
+        flp(d)
     return d
 
 
@@ -401,7 +413,7 @@ class GF_WRITE_SETTING_FILES(object):
         self.gun = gp.getuser() # ;Get Current Username
         # DIRECTORIES
         self.subdir = f"{self.gun}/EP_S/"
-        self.user_document_folder = f"{self.gun}Documents/"
+        self.user_settings_folder = f"/Documents/Seagulls/EccoPY/"
 
     def writeSettingsFile(self, dir: str = "/Documents/Seagulls/EccoPY/", name: str = "Settings", **kwargs):
         # KWARGS
@@ -413,12 +425,14 @@ class GF_WRITE_SETTING_FILES(object):
         # CODE
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)
-        elif os.path.exists(f"{getdir}/{n}.ini") is False:
-            newfile = open(f"{getdir}/{n}.ini", "w+")  # Creates new file
+        if os.path.exists(f"{getdir}{n}.ini") is False:
+            p(f"{getdir}{n}.ini")
+            newfile = open(f"{getdir}{n}.ini", "w+")  # Creates new file
             newfile.close()
 
         if WSF_RETURN_FILEPATH is True:
             path_name = f"{getdir}{n}.ini"
+            p(path_name)
             return path_name
 
 
@@ -461,6 +475,7 @@ class GF_INIT(object):
         self.enable_assembly_mode = kwargs.get("assembly_mode", True)
         self.print_faq_possible = kwargs.get("print_faq_possible", False)  # ;Prints why I start functions like this
         self.init_all_classes = kwargs.get("init_all", False) # ;Runs all initilized classes
+        self.load_all_palm_trees = kwargs.get("load_all_palm_trees", False) # ;Loads all "Palm Trees"
         #   CODE
         if self.init_all_classes is True:
             if self.enable_assembly_mode is True:
@@ -489,6 +504,13 @@ class GF_INIT(object):
             self.convert = GF_MATH_CONVERT_FROM_LIST
         if self.print_faq_possible is True:
             p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
+        # ;Palm Trees (TEST)
+        if self.load_all_palm_trees is True:
+            pt_dir_dict = get_directory(targetpath=GF_XTN_FOLDER_PATH, filter='.py', print_dict=False)
+            for palm_tree in range(len(pt_dir_dict)):
+                ext = util.spec_from_file_location("*", pt_dir_dict[palm_tree + 1])
+                ext_mod = util.module_from_spec(ext)
+                ext.loader.exec_module(ext_mod)
 
 
 # INIT_GULL_FRAMEWORK----------------------------------------------------------------------------------------------------------------------------------------------------------------

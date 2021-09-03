@@ -621,18 +621,25 @@ class MAIN_WINDOW(Tk):
         # GF
         # STRINGS
         point_usr_dir = f"/Users/{self.sc_init.wsf.gun}"
-        point_doc_dir_ls = f"{point_usr_dir}{self.sc_init.wsf.user_document_folder}{self.sc_init.wsf.subdir}"
+        point_doc_dir_ls = f"{point_usr_dir}{self.sc_init.wsf.user_settings_folder}{self.sc_init.wsf.subdir}Launcher_Settings.ini"
+        p(point_doc_dir_ls)
         # CODE
+        def first_run_message():
+            # CODE
+            if GetPresSpec(point_doc_dir_ls) is False:
+                message_window = msg.showinfo(title=winstrings['main']['title'][0], message=winstrings['main']['firstrunmessage'])
+
+        self.sc_init.options_save['LAUNCHER'] = {
+            "IsFirstRun": 'True'
+        }
         if GetPresSpec(point_doc_dir_ls) is False:
+            first_run_message()
             file = self.sc_init.wsf.writeSettingsFile(name="Launcher_Settings")
-            launcher_settings_file = open(file, "w")
-            self.sc_init.options_save['LAUNCHER'] = {
-                "IsFirstRun": 'True'
-            }
+            launcher_settings_file = open(file, "w+")
             self.sc_init.options_save.write(launcher_settings_file)
             file.close()
-        #elif self.sc_init.options_save.get(option="IsFirstRun") is True:
-            #self.sc_init.options_save.set(option="IsFirstRun")
+        else:
+            self.sc_init.options_save['LAUNCHER']['IsFirstRun'] = 'False'
 
     def run(self, **kwargs):
         """

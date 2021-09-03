@@ -1,23 +1,18 @@
-"""
- __                     ___  __              ___       __   __
-/ _` |  | |    |       |__  |__)  /\   |\/| |__  |  | /  \ |__) |__/
-\__> \__/ |___ |___    |    |  \ /~~\  |  | |___ |/\| \__/ |  \ |  \  Xtension
-
-This file stores very simple functions with the sole purpose of de-bloating the Main.py file (used to be)
-This file is also makes stating certain things faster and possibly easier.
-"""
-# IMPORTS---------------------------------------------------------------------------------------------------------------------
+# GF_XTENSION
+# ;IMPORTS---------------------------------------------------------------------------------------------------------------------
+from data.frw.GF.GF import *
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox as msg
 from PIL import ImageTk, Image
 
 from data.frw.GF.GF import *
 
-# VARIABLES-------------------------------------------------------------------------------------------------------------------
+# ;VARIABLES-------------------------------------------------------------------------------------------------------------------
 
 # FAMILY EXTENTSION INFO
 INFO = {
-    "Type": "Extentsion",
+    "Type": "Palm Tree (Extentsion)",
     "Name": ["Gull", "Tkinter"],
     "Author/s": "SeagullIsLearningToCode",
     "Age": [8, 2, 2021],
@@ -25,7 +20,7 @@ INFO = {
 }
 flp(INFO)
 
-# FUNCTIONS-------------------------------------------------------------------------------------------------------------------
+# ;FUNCTIONS-------------------------------------------------------------------------------------------------------------------
 
 def loadimage(image):
     """

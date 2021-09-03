@@ -617,12 +617,13 @@ class MAIN_WINDOW(Tk):
             if t == 0:
                 p("Saved")
 
-    def FIRST_RUN(self):
+    def FIRST_RUN(self, **kwargs):
+        # KWARGS
+        FR_PRINT_INI_FILE = kwargs.get('print_ini_file', False)
         # GF
         # STRINGS
         point_usr_dir = f"/Users/{self.sc_init.wsf.gun}"
-        point_doc_dir_ls = f"{point_usr_dir}{self.sc_init.wsf.user_settings_folder}{self.sc_init.wsf.subdir}Launcher_Settings.ini"
-        p(point_doc_dir_ls)
+        point_doc_dir_ls = f"{point_usr_dir}{self.sc_init.wsf.user_settings_folder}{self.sc_init.wsf.subdir}/Launcher_Settings.ini" # ;This file can be placed anywhere
         # CODE
         def first_run_message():
             # CODE
@@ -630,16 +631,24 @@ class MAIN_WINDOW(Tk):
                 message_window = msg.showinfo(title=winstrings['main']['title'][0], message=winstrings['main']['firstrunmessage'])
 
         self.sc_init.options_save['LAUNCHER'] = {
-            "IsFirstRun": 'True'
+            "IsFirstRun": 'False'
         }
         if GetPresSpec(point_doc_dir_ls) is False:
             first_run_message()
             file = self.sc_init.wsf.writeSettingsFile(name="Launcher_Settings")
-            launcher_settings_file = open(file, "w+")
+            self.sc_init.options_save['LAUNCHER']['IsFirstRun'] = 'True'
+            launcher_settings_file = open(point_doc_dir_ls, "w+")
+            if FR_PRINT_INI_FILE is True:
+                p(launcher_settings_file.read())
             self.sc_init.options_save.write(launcher_settings_file)
-            file.close()
+            launcher_settings_file.close()
         else:
             self.sc_init.options_save['LAUNCHER']['IsFirstRun'] = 'False'
+            launcher_settings_file = open(point_doc_dir_ls, "w")
+            if FR_PRINT_INI_FILE is True:
+                p(launcher_settings_file.read())
+            self.sc_init.options_save.write(launcher_settings_file)
+            launcher_settings_file.close()
 
     def run(self, **kwargs):
         """

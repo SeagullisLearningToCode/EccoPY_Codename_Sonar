@@ -86,10 +86,9 @@ def GetPresSpec(file: str, **kwargs):
     getpres = os.path.exists
     # CODE
     if GPS_RETURN_EXIST is False:
-        p(f"{getpres(file)}")
+        p(getpres(file))
 
-    if GPS_RETURN_EXIST is True:
-        return getpres(file)
+    return getpres(file)
 
 # ;Raise Custom Error Function (RCEF)
 
@@ -242,8 +241,6 @@ def get_directory(targetpath: str, **kwargs):
     t_path = targetpath
     # DICTIONARIES
     d = {}
-    # LIST
-    i = []
     # OSPATH
     g_fit = os.listdir(t_path)
     # CODE
@@ -426,7 +423,7 @@ class GF_WRITE_SETTING_FILES(object):
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)
         if os.path.exists(f"{getdir}{n}.ini") is False:
-            p(f"{getdir}{n}.ini")
+            p()
             newfile = open(f"{getdir}{n}.ini", "w+")  # Creates new file
             newfile.close()
 

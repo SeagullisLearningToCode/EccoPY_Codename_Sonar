@@ -6,7 +6,6 @@ winstrings = {
     "main": {
         "title": [f"Bottlenose GUI Version {ui_version_number[1]} {ui_version_number[0]}", f"Ecco The Dolphin Rewritten Version {ui_version_number[1]} {ui_version_number[0]}"],
         "choices": ["Play          ", "Options", "Save        ", "Load       "],
-        "bottomtext": f"SeagullinSeagulls {td_c_s_yo}\nCode: https://github.com/SeagullisLearningToCode/EccoPY_Codename_Sonar",
         "firstrunmessage": f"Welcome to the {f'Bottlenose GUI Version {ui_version_number[1]} {ui_version_number[0]}'}, most of these options or settings have no external function which may be added in later, some things may change, removed or added overtime, this message will only appear once",
         "options": {
             "Video": {

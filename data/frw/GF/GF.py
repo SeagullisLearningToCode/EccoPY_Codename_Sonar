@@ -303,6 +303,30 @@ def rem_dupes_lst(target, **kwargs):
 
     return new_list
 
+def gen_iter_list(amount, **kwargs):
+    # KWARGS
+    GIL_PRINTRESULT = kwargs.get('print_result', False)
+    GIL_LISTNAME = kwargs.get('listname', None)
+    # ABS
+    a = amount
+    ln = GIL_LISTNAME
+    pr = GIL_PRINTRESULT
+    # LIST
+    l = []
+    # CODE
+    if GIL_LISTNAME is not None:
+        for i in range(a):
+            ln.append(0)
+        if pr is True:
+            p(ln)
+        return ln
+    else:
+        for i in range(a):
+            l.append(0)
+        if pr is True:
+            p(f"gen_iter_list <print_result>: {l}")
+        return l
+
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

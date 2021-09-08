@@ -21,16 +21,29 @@ class MAIN_W_I(object):
     def __init__(self):
         # OSPATH
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
+        # GULL_FRAMEWORK_EXT
+        self.tp = pygame_Tk_Integration()
+        self.keys = self.tp.CombineDictToOne()
+        self.dbg_controller = self.tp.debug_controller()
         # DICTIONARIES
-        self.i_dict = image_dict(f"{self.main_dir}/data/img/")
+        self.i_dict = image_dict(f"{self.main_dir}/data/img/", EVerboseResults=True)
         self.options_changes = {
-            "Video": [],
-            "Audio-Music": [],
-            "Audio-SFX": [],
-            "Controlls-Keyboard": [],
-            "Controlls-Joystick": [],
-            "Game": [],
-            "UI": [],
+            "Video": {
+                "boolvar": [BooleanVar()],
+                "strvar": [StringVar(), StringVar(), StringVar(), StringVar()],
+                "int": {
+                    "vres": [[320, 240], [320, 244], [384, 240], [384, 244], [512, 256], [640, 480]],
+                    "wres": self.tp.DISPLAY_AUTODETECT()
+                }
+            },
+            "Audio": {
+                "music": {
+
+                },
+                "sfx": {
+
+                }
+            }
         }
         # CONFIG_PARSER
         self.options_save = ConfigParser()
@@ -38,17 +51,13 @@ class MAIN_W_I(object):
         self.iterator_01 = 0
         self.iterator_02 = 0
         # INT_LIST
-        self.iterator_03 = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.iterator_03 = gen_iter_list(len(winstrings['main']['options'])*6)
         # BOOLEANS
         self.lessguimode = False
         self.converttopygame = False
         self.is_running = True
         # GF
         self.wsf = GF.wsf()
-        # GULL_FRAMEWORK_EXT
-        self.tp = pygame_Tk_Integration()
-        self.keys = self.tp.CombineDictToOne()
-        self.dbg_controller = self.tp.debug_controller()
 
 
 class MAIN_WINDOW(Tk):
@@ -57,6 +66,7 @@ class MAIN_WINDOW(Tk):
         # CLASS CALL
         self.sc_init = MAIN_W_I()
         # TKINTER
+        self.wm_attributes()
         self["background"] = rgb(34, 87, 165)
         self.title(winstrings["main"]["title"][0])
         # THEME
@@ -66,7 +76,7 @@ class MAIN_WINDOW(Tk):
 
     def DRAW_CONTENTS(self):
         # TKINTER
-        options_frame = Frame(self, background=rgb(34, 87, 165)).grid(column=0, rowspan=5)
+        options_frame = Frame(self, background=rgb(34, 87, 165)).grid(column=0, rowspan=len(winstrings['main']['choices']))
 
         def options_format():
             # BACKGROUND COLORS
@@ -78,7 +88,7 @@ class MAIN_WINDOW(Tk):
             gf = gb - (round(gb / 3))
             bf = bb - (round(bb / 3))
             # LIST
-            of_options_list = [self.PLAY_GAME, self.SETTINGS_MENU, self.SAVE_GAME, None, None]
+            of_options_list = [self.PLAY_GAME, self.SETTINGS_MENU, self.SAVE_GAME, None]
             # CODE
             for subdict in winstrings["main"]["choices"]:
                 label_background = rgb(rb - (self.sc_init.iterator_01 * 4),
@@ -89,15 +99,7 @@ class MAIN_WINDOW(Tk):
                                        bf - (self.sc_init.iterator_01 * 4))
                 option_func = of_options_list[self.sc_init.iterator_03[1]]
                 if option_func is None:
-                    Label(options_frame,
-                          bg=label_background,
-                          relief='groove',
-                          fg=label_foreground,
-                          bd=10,
-                          text=subdict,
-                          font='"Myanmar MN" 36').grid(column=0,
-                                                       row=self.sc_init.iterator_01,
-                                                       sticky="w")
+                    pass
                 else:
                     Button(options_frame,
                            highlightcolor=label_background,
@@ -110,21 +112,22 @@ class MAIN_WINDOW(Tk):
                            text=subdict,
                            font='"Myanmar MN" 36',
                            command=option_func).grid(column=0,
-                                                     row=self.sc_init.iterator_01
+                                                     row=self.sc_init.iterator_01,
+                                                     sticky='nw'
                                                      )
                 self.sc_init.iterator_01 += 1
                 self.sc_init.iterator_03[1] += 1
 
         def bkgrd_image():
             # IMAGES
-            bkgrd = loadimage(self.sc_init.i_dict[1])
+            bkgrd = loadimage(self.sc_init.i_dict[3])
             # CODE
-            Label(self, image=bkgrd, background=rgb(34, 87, 165)).grid(column=1, row=0, rowspan=5, sticky="ne")
+            Label(self, image=bkgrd, background=rgb(34, 87, 165)).grid(column=1, row=0, rowspan=len(winstrings['main']['choices']), sticky="nw")
             gc.collect()
 
         bkgrd_image()
         options_format()
-        Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=4)
+        Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=len(winstrings['main']['choices'])-1)
 
     def SETTINGS_MENU(self):
         # COLORS_LIST_OFFSETS
@@ -208,21 +211,19 @@ class MAIN_WINDOW(Tk):
 
         def video():
             # PYGAME
-            vr_resolutions = [
-                [320, 240], [320, 244], [384, 240], [384, 244], [512, 256], [640, 480]
-            ]
-            wr_resolutions = self.sc_init.tp.DISPLAY_AUTODETECT()
+            vr_resolutions = self.sc_init.options_changes['video'.title()]['int']['vres']
+            wr_resolutions = self.sc_init.options_changes['video'.title()]['int']['wres']
             # INT
             i = 0
             # FRAMES
             frame_01_01 = Frame(frame_01, relief='raised', bd=10)
             # BOOLEANVARS
-            custom_res_bv = BooleanVar()
+            custom_res_bv = self.sc_init.options_changes['video'.title()]['boolvar'][0]
             # STRINGVARS
-            rx = StringVar()  # ;Window Resolution-Width
-            ry = StringVar()  # ;Window Resolution-Height
-            x = StringVar()  # ;2D Resolution-Width
-            y = StringVar()  # ;2D Resolution-Height
+            rx = self.sc_init.options_changes['Video']['strvar'][0]  # ;Window Resolution-Width
+            ry = self.sc_init.options_changes['Video']['strvar'][1]  # ;Window Resolution-Height
+            x = self.sc_init.options_changes['Video']['strvar'][2]  # ;2D Resolution-Width
+            y = self.sc_init.options_changes['Video']['strvar'][3]  # ;2D Resolution-Height
             # ENTRIES
             x_txt = Entry(frame_01_01, textvariable=x, width=5)
             y_txt = Entry(frame_01_01, textvariable=y, width=5)
@@ -523,9 +524,6 @@ class MAIN_WINDOW(Tk):
             # MERGERS_LISTS
             difficulties = merge(difficulty_list)
             games = merge(mod_list)
-            # INT_ITERS ;Generic assembly-like vars
-            i = 0
-            q = 0
             # CODE
             for game_label_string in option_str_list:
                 Label(label_sect, text=game_label_string).grid(column=0, row=i, pady=10, sticky='w')
@@ -664,6 +662,7 @@ class MAIN_WINDOW(Tk):
         """
         # KWARGS
         run_get_sc_init_iters = kwargs.get("get_iters", False)
+        run_get_sc_init_oc = kwargs.get('get_option_changes', False)
         if run_get_sc_init_iters is True:
             run_get_sc_init_iters_p_delay = kwargs.get('get_iters_delay', False)
             if run_get_sc_init_iters_p_delay is True:
@@ -679,6 +678,8 @@ class MAIN_WINDOW(Tk):
                 if run_get_sc_init_iters is True and run_get_sc_init_iters_p_delay is False:
                     p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
                     p(p_statement)
+                if run_get_sc_init_oc is True:
+                    flp(self.sc_init.options_changes)
             self.update_idletasks()
             self.update()
 
@@ -686,4 +687,4 @@ class MAIN_WINDOW(Tk):
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()
 mw.FIRST_RUN()
-mw.run()
+mw.run(get_option_changes=False, get_iters=True)

@@ -5,7 +5,6 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as msg
 from PIL import ImageTk, Image
-
 from data.frw.GF.GF import *
 
 # ;VARIABLES-------------------------------------------------------------------------------------------------------------------

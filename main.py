@@ -113,21 +113,22 @@ class MAIN_WINDOW(Tk):
                            font='"Myanmar MN" 36',
                            command=option_func).grid(column=0,
                                                      row=self.sc_init.iterator_01,
-                                                     sticky='nw'
-                                                     )
+                                                     sticky='nw',
+                                                     pady=10)
                 self.sc_init.iterator_01 += 1
                 self.sc_init.iterator_03[1] += 1
 
         def bkgrd_image():
             # IMAGES
-            bkgrd = loadimage(self.sc_init.i_dict[3])
+            bkgrd = loadimage(self.sc_init.i_dict[4])
+            bkgrd_tl = loadimage(self.sc_init.i_dict[3])
             # CODE
             Label(self, image=bkgrd, background=rgb(34, 87, 165)).grid(column=1, row=0, rowspan=len(winstrings['main']['choices']), sticky="nw")
+            Label(self, foreground='DarkBlue', image=bkgrd_tl).grid(column=1, row=len(winstrings['main']['choices']) - 1)
             gc.collect()
 
         bkgrd_image()
         options_format()
-        Label(self, foreground='DarkBlue', text=winstrings["main"]["bottomtext"], font='"Arial Bold" 14').grid(column=1, row=len(winstrings['main']['choices'])-1)
 
     def SETTINGS_MENU(self):
         # COLORS_LIST_OFFSETS
@@ -140,6 +141,7 @@ class MAIN_WINDOW(Tk):
         set_menu.title(winstrings["main"]["choices"][1])
         # NOTEBOOKS
         set_menu_nb = ttk.Notebook(set_menu)
+        set_menu_nb['width'] = (547 + 20)
         # FRAMES
         frame_01 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Video
         frame_02 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Audio
@@ -155,10 +157,6 @@ class MAIN_WINDOW(Tk):
         option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
         frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05]
         f_l = frme_list
-        # INT
-        i = 0
-        # INT_LISTS
-        l = [0, 0, 0, 0, 0]
         # CODE
         frame_06.grid_propagate(0)
         frame_06['height'] = 24
@@ -206,15 +204,13 @@ class MAIN_WINDOW(Tk):
             m = save_buttons_get_len ** self.sc_init.iterator_03[2]  # ;Math
             function_list = ls_bttns_list[choiceOptions]
             string_list = option_button_list[choiceOptions]
-            Button(frame_06, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 16 + 500, sticky='e')
+            Button(frame_06, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 16 + set_menu_nb['width']/1.8, sticky='e')
             self.sc_init.iterator_03[2] += 1
 
         def video():
             # PYGAME
             vr_resolutions = self.sc_init.options_changes['video'.title()]['int']['vres']
             wr_resolutions = self.sc_init.options_changes['video'.title()]['int']['wres']
-            # INT
-            i = 0
             # FRAMES
             frame_01_01 = Frame(frame_01, relief='raised', bd=10)
             # BOOLEANVARS
@@ -239,12 +235,13 @@ class MAIN_WINDOW(Tk):
             wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=9)
             # CODE
 
+            self.sc_init.iterator_03[3] = 0
             vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
             wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
-                Label(frame_01_01, text=video_settings_strings).grid(column=0, row=i, sticky="w")
-                i += 1
+                Label(frame_01_01, text=video_settings_strings).grid(column=0, row=self.sc_init.iterator_03[3], sticky="w")
+                self.sc_init.iterator_03[3] += 1
 
             # ;Window Res
             if custom_res_bv.get() is True:
@@ -284,6 +281,7 @@ class MAIN_WINDOW(Tk):
             q = 0
             a = 1
             z = 1
+            self.sc_init.iterator_03[4] = 0
             # CODE
 
             for music_strings in winstrings["main"]["options"]["Audio"]["set"]["Music"]:
@@ -525,13 +523,15 @@ class MAIN_WINDOW(Tk):
             difficulties = merge(difficulty_list)
             games = merge(mod_list)
             # CODE
+            self.sc_init.iterator_03[5] = 0
             for game_label_string in option_str_list:
-                Label(label_sect, text=game_label_string).grid(column=0, row=i, pady=10, sticky='w')
-                i += 1
+                Label(label_sect, text=game_label_string).grid(column=0, row=self.sc_init.iterator_03[5], pady=10, sticky='w')
+                self.sc_init.iterator_03[5] += 1
 
             combobox_list = [difficulty_list_combobox, mod_list_combobox]
             options_val_list = [difficulties, games]
 
+            self.sc_init.iterator_03[6] = 0
             for game_cb_list in range(len(combobox_list)):
                 list_ = combobox_list[game_cb_list]
                 n_val_list = options_val_list[game_cb_list]
@@ -539,8 +539,8 @@ class MAIN_WINDOW(Tk):
                 list_['state'] = "readonly"
                 if game_cb_list == 0:
                     list_['width'] = 18
-                list_.grid(column=0, row=q, padx=10, pady=10, sticky='w')
-                q += 1
+                list_.grid(column=0, row=self.sc_init.iterator_03[6], padx=10, pady=10, sticky='w')
+                self.sc_init.iterator_03[6] += 1
 
             # ;Grid
             frame_04_01.grid(column=0, row=0, padx=184)
@@ -569,8 +569,8 @@ class MAIN_WINDOW(Tk):
             ui_cmb_thms['values'] = ui_thms_list
 
             for ui_txt in dict_abs['options_start_up']:  # ;Loop through and render labels
-                Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[3], padx=10, pady=5, sticky='w')
-                self.sc_init.iterator_03[3] += 1
+                Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[7], padx=10, pady=5, sticky='w')
+                self.sc_init.iterator_03[7] += 1
 
             check_bv(mm, miminal_mode)
             check_bv(pm, play_movies)
@@ -590,7 +590,7 @@ class MAIN_WINDOW(Tk):
             self.sc_init.iterator_03[0] += 1
 
 
-        frame_06.grid(column=0, row=1, sticky='e')
+        frame_06.grid(column=0, row=1, sticky='s')
         set_menu_nb.grid(column=0, row=0)
         set_menu.grab_set()
 
@@ -599,7 +599,7 @@ class MAIN_WINDOW(Tk):
         user_input()
         game()
         user_interface()
-        frame_06['width'] = set_menu_nb.winfo_screenmmwidth()+65
+        frame_06['width'] = set_menu_nb['width']
 
     def PLAY_GAME(self):
         # CODE
@@ -664,18 +664,20 @@ class MAIN_WINDOW(Tk):
         run_get_sc_init_iters = kwargs.get("get_iters", False)
         run_get_sc_init_oc = kwargs.get('get_option_changes', False)
         if run_get_sc_init_iters is True:
-            run_get_sc_init_iters_p_delay = kwargs.get('get_iters_delay', False)
-            if run_get_sc_init_iters_p_delay is True:
-                run_get_sc_init_iters_p_delay_val = kwargs.get('get_iters_delay_val', 100)
+            run_get_sc_init_iters_intel = kwargs.get("get_iters_intel", False)
+            if run_get_sc_init_iters_intel is True:
+                iter_vals = []
         # CODE
         while self.sc_init.is_running is True:
-            if run_get_sc_init_iters and run_get_sc_init_iters_p_delay is True:
-                p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
-                for i in range(run_get_sc_init_iters_p_delay_val):
-                    if i >= run_get_sc_init_iters_p_delay_val - 1:
-                        p(p_statement)
+            if run_get_sc_init_iters and run_get_sc_init_iters_intel is True:
+                for length in self.sc_init.iterator_03:
+                    if length not in iter_vals:
+                        p(f"Class Wide Iterators {self.sc_init.iterator_03}")
+                    iter_vals.append(length)
+                if len(iter_vals) == len(self.sc_init.iterator_03)*50000:
+                    iter_vals.clear()
             else:
-                if run_get_sc_init_iters is True and run_get_sc_init_iters_p_delay is False:
+                if run_get_sc_init_iters is True and run_get_sc_init_iters_intel is False:
                     p_statement = f"Class Wide Iterators {self.sc_init.iterator_03}"
                     p(p_statement)
                 if run_get_sc_init_oc is True:
@@ -687,4 +689,4 @@ class MAIN_WINDOW(Tk):
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()
 mw.FIRST_RUN()
-mw.run(get_option_changes=False, get_iters=True)
+mw.run(get_iters=True, get_iters_intel=True)

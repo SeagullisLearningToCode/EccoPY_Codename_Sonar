@@ -82,10 +82,10 @@ def check_bv(boolvar: BooleanVar, target):
     bv = boolvar
     t = target
     # CODE
-    if boolvar.get() is True:
-        target = True
+    if bv.get() is True:
+        t = True
     else:
-        target = False
+        t = False
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 

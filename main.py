@@ -16,7 +16,6 @@ from data.frw.GF.EXT.GFTKE import *
 from data.txt.men import *
 from data.mu.Values import *
 
-
 class MAIN_W_I(object):
     def __init__(self):
         # OSPATH
@@ -157,6 +156,14 @@ class MAIN_WINDOW(Tk):
         option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
         frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05]
         f_l = frme_list
+        # DICTIONARIES
+        funct_iter_tracker = {
+            "v": [],
+            'a': [],
+            'c': [],
+            'g': [],
+            'ui': [],
+        }
         # CODE
         frame_06.grid_propagate(0)
         frame_06['height'] = 24
@@ -234,14 +241,16 @@ class MAIN_WINDOW(Tk):
             vr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=7)
             wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=9)
             # CODE
-
-            self.sc_init.iterator_03[3] = 0
+            packer = [self.sc_init.iterator_03[3]]
             vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
             wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
                 Label(frame_01_01, text=video_settings_strings).grid(column=0, row=self.sc_init.iterator_03[3], sticky="w")
                 self.sc_init.iterator_03[3] += 1
+
+            for it in packer:
+                funct_iter_tracker['v'].append(it)
 
             # ;Window Res
             if custom_res_bv.get() is True:
@@ -282,6 +291,7 @@ class MAIN_WINDOW(Tk):
             a = 1
             z = 1
             self.sc_init.iterator_03[4] = 0
+            packer = [i, q, a, z, self.sc_init.iterator_03[4]]
             # CODE
 
             for music_strings in winstrings["main"]["options"]["Audio"]["set"]["Music"]:
@@ -304,6 +314,9 @@ class MAIN_WINDOW(Tk):
             for unvailable_sfx_option in range(2):
                 Label(frame_02_01_02, text="not available".upper()).grid(column=1, row=z)
                 z += 1
+
+            for it in packer:
+                funct_iter_tracker['a'].append(it)
 
             combox_01['values'] = (winstrings["main"]["options"]["Audio"]["special"]["games"]["retail"][0])
             combox_01['state'] = "readonly"
@@ -370,6 +383,7 @@ class MAIN_WINDOW(Tk):
             z = 0
             # INT_ITERS_ARR ;Generic assembly-like extended vars
             e = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            packer = [i, q, a, z, e]
             # CODE
 
             # ;Keyboard
@@ -502,6 +516,9 @@ class MAIN_WINDOW(Tk):
                     joystick_combobox.grid(column=1, row=e[5] + 1, padx=10)
                 e[5] += 1
 
+            for it in packer:
+                funct_iter_tracker['c'].append(it)
+
             # ;Grid
             usi_keyboard_type_bindings.grid(column=0, row=0)
             frame02.grid(column=1, row=0)
@@ -523,6 +540,7 @@ class MAIN_WINDOW(Tk):
             difficulties = merge(difficulty_list)
             games = merge(mod_list)
             # CODE
+            packer = [self.sc_init.iterator_03[5], self.sc_init.iterator_03[6]]
             self.sc_init.iterator_03[5] = 0
             for game_label_string in option_str_list:
                 Label(label_sect, text=game_label_string).grid(column=0, row=self.sc_init.iterator_03[5], pady=10, sticky='w')
@@ -541,6 +559,9 @@ class MAIN_WINDOW(Tk):
                     list_['width'] = 18
                 list_.grid(column=0, row=self.sc_init.iterator_03[6], padx=10, pady=10, sticky='w')
                 self.sc_init.iterator_03[6] += 1
+
+            for it in packer:
+                funct_iter_tracker['g'].append(it)
 
             # ;Grid
             frame_04_01.grid(column=0, row=0, padx=184)
@@ -566,11 +587,15 @@ class MAIN_WINDOW(Tk):
             # LISTS
             ui_thms_list = [theme for theme in self.style.theme_names()]
             # CODE
+            packer = [self.sc_init.iterator_03[7]]
             ui_cmb_thms['values'] = ui_thms_list
 
             for ui_txt in dict_abs['options_start_up']:  # ;Loop through and render labels
                 Label(frame_05_01, text=ui_txt).grid(column=0, row=self.sc_init.iterator_03[7], padx=10, pady=5, sticky='w')
                 self.sc_init.iterator_03[7] += 1
+
+            for it in packer:
+                funct_iter_tracker['ui'].append(it)
 
             check_bv(mm, miminal_mode)
             check_bv(pm, play_movies)
@@ -600,6 +625,7 @@ class MAIN_WINDOW(Tk):
         game()
         user_interface()
         frame_06['width'] = set_menu_nb['width']
+        flp(funct_iter_tracker)
 
     def PLAY_GAME(self):
         # CODE
@@ -607,13 +633,12 @@ class MAIN_WINDOW(Tk):
 
     def SAVE_GAME(self):
         # INT
-        time = randint(10, 5000)
+        time = randint(10, randint(10*2, randint(10*4, 500000000)))
         # CODE
-        p("Saving Game...")
         for t in range(time):
             t -= 1
-            if t == 0:
-                p("Saved")
+            p(f"Saving Game {int(t/time*100)}%")
+        p("Saved")
 
     def FIRST_RUN(self, **kwargs):
         # KWARGS
@@ -650,11 +675,11 @@ class MAIN_WINDOW(Tk):
 
     def run(self, **kwargs):
         """
-         Kwarg                 Def Value Description
-         _____________________ _________ _______________________________________________________________________________________________
-        | get_iters           | False   | gets the self.sc_init_iterator_03 list                                                        |
-        | get_iters_delay     | False   | Enables delay (get_iters=True is needed)                                                      |
-        | get_iters_delay_val | 100     | Time needed to print (get_iters=True, get_iters_delay=True is needed) This slows down program |
+         Kwarg                       Def Value       Description
+         ___________________________ _________ _______________________________________________________________________________________________
+        | get_iters                 | False   | gets the self.sc_init.iterator_03 list                                                        |
+        | get_sc_init_oc            | False   | gets the self.sc_init.options_changes dictionary and prints it.                               |
+        | get_sc_init_iters_intel   | False   | same as get_iters but when the value changes or the list's memory
          -------------------------------------------------------------------------------------------------------------------------------
 
         :param kwargs:
@@ -663,11 +688,11 @@ class MAIN_WINDOW(Tk):
         # KWARGS
         run_get_sc_init_iters = kwargs.get("get_iters", False)
         run_get_sc_init_oc = kwargs.get('get_option_changes', False)
+        # CODE
         if run_get_sc_init_iters is True:
             run_get_sc_init_iters_intel = kwargs.get("get_iters_intel", False)
             if run_get_sc_init_iters_intel is True:
                 iter_vals = []
-        # CODE
         while self.sc_init.is_running is True:
             if run_get_sc_init_iters and run_get_sc_init_iters_intel is True:
                 for length in self.sc_init.iterator_03:

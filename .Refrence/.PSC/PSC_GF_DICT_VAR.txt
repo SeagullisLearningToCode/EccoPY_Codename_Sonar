@@ -1,7 +1,23 @@
 MAIN_W_I
 MAIN_W_I.i_dict
+MAIN_W_I.options_change
+MAIN_W_I.options_change["Video"]
+MAIN_W_I.options_change["Video"]['boolvar']
+MAIN_W_I.options_change["Video"]['strvar']
+MAIN_W_I.options_change["Video"]['int']
+MAIN_W_I.options_change["Video"]['int']['vres']
+MAIN_W_I.options_change["Video"]['int']['wres']
+MAIN_W_I.options_change["Audio"]
+MAIN_W_I.options_change["Audio"]["music"]
+MAIN_W_I.options_change["Audio"]["sfx"]
 MAIN_WINDOW
 MAIN_WINDOW.SETTINGS_MENU
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker['v']
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker['a']
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker['c']
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker['g']
+MAIN_WINDOW.SETTINGS_MENU.funct_iter_tracker['ui']
 MAIN_WINDOW.SETTINGS_MENU.sm_colors_presets
 MAIN_WINDOW.SETTINGS_MENU.sm_colors_presets['grey']
 MAIN_WINDOW.SETTINGS_MENU.user_interface
@@ -33,7 +49,6 @@ pygame_Tk_Integration.pg_keyb_list['function_buttons']['str']
 winstrings
 winstrings['main']['title']
 winstrings['main']['choices']
-winstrings['main']['bottomtext']
 winstrings['main']['options']
 winstrings['main']['options']['Video']
 winstrings['main']['options']['Video']['tooltips']
@@ -65,6 +80,7 @@ winstrings['main']['options']['User Interface']['set']
 winstrings['main']['options']['User Interface']['set']['Start-Up']
 winstrings['main']['options']['save_options']
 winstrings['main']['options']['help_buttons']
+winstrings['main']['options']['preset_strings']
 winstrings_settings_tooltips_dict
 winstrings_settings_tooltips_dict['Video']
 winstrings_settings_tooltips_dict['Audio']

@@ -39,7 +39,7 @@ GF_XTN_FOLDER_PATH = f"{GF_FILE_PATH}/EXT/"
 
 # ;p function
 # ;reason: same as the p function but made it faster to make a print statement by using a few characters
-def p(t="passed"):
+def p(t="passed", **kwargs):
     """
     Print
     Make print statements faster than python's print("Hello World")
@@ -47,9 +47,8 @@ def p(t="passed"):
     Example: p("Hello World")
     Output: Hello World
     """
-    # CODE/
+    # CODE
     print(t)
-
 
 # ;sps function
 # ;Reason: easier and shorter
@@ -447,7 +446,6 @@ class GF_WRITE_SETTING_FILES(object):
         if os.path.exists(getdir) is False:
             os.makedirs(getdir)
         if os.path.exists(f"{getdir}{n}.ini") is False:
-            p()
             newfile = open(f"{getdir}{n}.ini", "w+")  # Creates new file
             newfile.close()
 

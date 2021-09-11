@@ -165,6 +165,12 @@ class MAIN_WINDOW(Tk):
             'ui': [],
         }
         # CODE
+        for reset in range(len(self.sc_init.iterator_03)):
+            if reset == 1:
+                pass
+            else:
+                self.sc_init.iterator_03[reset] = 0
+
         frame_06.grid_propagate(0)
         frame_06['height'] = 24
 
@@ -240,8 +246,9 @@ class MAIN_WINDOW(Tk):
             # COMBO_BOXES
             vr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=7)
             wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=9)
-            # CODE
+            # PACKER
             packer = [self.sc_init.iterator_03[3]]
+            # CODE
             vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
             wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
 
@@ -290,7 +297,7 @@ class MAIN_WINDOW(Tk):
             q = 0
             a = 1
             z = 1
-            self.sc_init.iterator_03[4] = 0
+            # PACKER
             packer = [i, q, a, z, self.sc_init.iterator_03[4]]
             # CODE
 
@@ -383,6 +390,7 @@ class MAIN_WINDOW(Tk):
             z = 0
             # INT_ITERS_ARR ;Generic assembly-like extended vars
             e = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+            # PACKER
             packer = [i, q, a, z, e]
             # CODE
 
@@ -539,8 +547,9 @@ class MAIN_WINDOW(Tk):
             # MERGERS_LISTS
             difficulties = merge(difficulty_list)
             games = merge(mod_list)
-            # CODE
+            # PACKER
             packer = [self.sc_init.iterator_03[5], self.sc_init.iterator_03[6]]
+            # CODE
             self.sc_init.iterator_03[5] = 0
             for game_label_string in option_str_list:
                 Label(label_sect, text=game_label_string).grid(column=0, row=self.sc_init.iterator_03[5], pady=10, sticky='w')
@@ -586,8 +595,9 @@ class MAIN_WINDOW(Tk):
             ui_cmb_thms = ttk.Combobox(frame_05_01, width=5)
             # LISTS
             ui_thms_list = [theme for theme in self.style.theme_names()]
-            # CODE
+            # PACKER
             packer = [self.sc_init.iterator_03[7]]
+            # CODE
             ui_cmb_thms['values'] = ui_thms_list
 
             for ui_txt in dict_abs['options_start_up']:  # ;Loop through and render labels
@@ -678,9 +688,10 @@ class MAIN_WINDOW(Tk):
          Kwarg                       Def Value       Description
          ___________________________ _________ _______________________________________________________________________________________________
         | get_iters                 | False   | gets the self.sc_init.iterator_03 list                                                        |
+        | debug_mode                | False   | Enables all printable keyword arguments.                                                      |
         | get_sc_init_oc            | False   | gets the self.sc_init.options_changes dictionary and prints it.                               |
-        | get_sc_init_iters_intel   | False   | same as get_iters but when the value changes or the list's memory
-         -------------------------------------------------------------------------------------------------------------------------------
+        | get_sc_init_iters_intel   | False   | same as get_iters but when the value changes or the list's memory                             |
+         -------------------------------------------------------------------------------------------------------------------------------------
 
         :param kwargs:
         :return:
@@ -688,13 +699,17 @@ class MAIN_WINDOW(Tk):
         # KWARGS
         run_get_sc_init_iters = kwargs.get("get_iters", False)
         run_get_sc_init_oc = kwargs.get('get_option_changes', False)
+        run_debug_mode = kwargs.get("debugmode", False)
         # CODE
+        if run_debug_mode is True:
+            run_get_sc_init_iters = True
+            run_get_sc_init_oc = True
         if run_get_sc_init_iters is True:
             run_get_sc_init_iters_intel = kwargs.get("get_iters_intel", False)
-            if run_get_sc_init_iters_intel is True:
+            if run_get_sc_init_iters_intel is True or run_debug_mode is True:
                 iter_vals = []
         while self.sc_init.is_running is True:
-            if run_get_sc_init_iters and run_get_sc_init_iters_intel is True:
+            if run_get_sc_init_iters and run_get_sc_init_iters_intel is True or run_debug_mode is True:
                 for length in self.sc_init.iterator_03:
                     if length not in iter_vals:
                         p(f"Class Wide Iterators {self.sc_init.iterator_03}")
@@ -714,4 +729,4 @@ class MAIN_WINDOW(Tk):
 mw = MAIN_WINDOW()
 mw.DRAW_CONTENTS()
 mw.FIRST_RUN()
-mw.run(get_iters=True, get_iters_intel=True)
+mw.run(debugmode=True)

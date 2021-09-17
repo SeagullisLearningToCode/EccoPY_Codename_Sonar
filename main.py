@@ -11,6 +11,7 @@ SonarMap/
         mu/ ; Menu Scripts
         snd/ ; Sound Folder
         txt/ ; Text String Folder
+        vid/ ; Video Folder
 """
 from data.frw.GF.EXT.GFTKE import *
 from data.txt.men import *
@@ -21,28 +22,30 @@ class MAIN_W_I(object):
         # OSPATH
         self.main_dir = os.path.dirname(os.path.abspath(__file__))
         # GULL_FRAMEWORK_EXT
-        self.tp = pygame_Tk_Integration()
+        self.tp = pygameTkIntegration()
         self.keys = self.tp.CombineDictToOne()
-        self.dbg_controller = self.tp.debug_controller()
+        self.dbg_controller = self.tp.debugController()
         # DICTIONARIES
-        self.i_dict = image_dict(f"{self.main_dir}/data/img/", EVerboseResults=True)
+        self.i_dict = imgDict(f"{self.main_dir}/data/img/")
+        self.v_dict = getDirectory(f"{self.main_dir}/data/vid/", filter='.mp4', print_dict=True)
         self.options_changes = {
             "Video": {
                 "boolvar": [BooleanVar(), BooleanVar()],
                 "strvar": [StringVar(), StringVar(), StringVar(), StringVar()],
                 "int": {
                     "vres": [[320, 240], [320, 244], [384, 240], [384, 244], [512, 256], [640, 480]],
-                    "wres": self.tp.DISPLAY_AUTODETECT()
+                    "wres": self.tp.displayAutodetect()
                 }
             }
         }
         # CONFIG_PARSER
-        self.options_save = ConfigParser()
+        self.options_save = ConfigParser() # ;Launcher Configuration
+        self.options_save_sm = ConfigParser() # ;Settings Menu Configuration
         # INT
         self.iterator_01 = 0
         self.iterator_02 = 0
         # INT_LIST
-        self.iterator_03 = gen_iter_list(len(winstrings['main']['options'])*6)
+        self.iterator_03 = genIterList(len(winstrings['main']['options'])*6)
         # BOOLEANS
         self.lessguimode = False
         self.converttopygame = False
@@ -51,8 +54,8 @@ class MAIN_W_I(object):
         self.wsf = GF.wsf()
 
 
-class MAIN_WINDOW(Tk):
-    def __init__(self, **kwargs):
+class mainWindow(Tk):
+    def __init__(self):
         super().__init__()
         # CLASS CALL
         self.sc_init = MAIN_W_I()
@@ -65,11 +68,11 @@ class MAIN_WINDOW(Tk):
         self.style.theme_use('classic')
         # CODE
 
-    def DRAW_CONTENTS(self):
+    def drawContents(self):
         # TKINTER
         options_frame = Frame(self, background=rgb(34, 87, 165)).grid(column=0, rowspan=len(winstrings['main']['choices']))
 
-        def options_format():
+        def optionsFormat():
             # BACKGROUND COLORS
             rb = 92 + 20
             gb = 133 + 20
@@ -79,7 +82,7 @@ class MAIN_WINDOW(Tk):
             gf = gb - (round(gb / 3))
             bf = bb - (round(bb / 3))
             # LIST
-            of_options_list = [self.PLAY_GAME, self.SETTINGS_MENU, self.SAVE_GAME, None]
+            of_options_list = [self.playGame, self.settingsMenu, self.saveGame, None]
             # CODE
             for subdict in winstrings["main"]["choices"]:
                 label_background = rgb(rb - (self.sc_init.iterator_01 * 4),
@@ -106,7 +109,7 @@ class MAIN_WINDOW(Tk):
                 self.sc_init.iterator_01 += 1
                 self.sc_init.iterator_03[1] += 1
 
-        def bkgrd_image():
+        def bkgrdImage():
             # IMAGES
             bkgrd = loadimage(self.sc_init.i_dict[6])
             bkgrd_tl = loadimage(self.sc_init.i_dict[4])
@@ -115,28 +118,25 @@ class MAIN_WINDOW(Tk):
             Label(self, foreground='DarkBlue', image=bkgrd_tl).grid(column=1, row=len(winstrings['main']['choices']) - 1)
             gc.collect()
 
-        bkgrd_image()
-        options_format()
+        bkgrdImage()
+        optionsFormat()
 
-    def SETTINGS_MENU(self):
-        # COLORS_LIST_OFFSETS
-        sm_bkgrd_clr = [1.6, 1.6, 1.5]
-        sm_colors_presets = {
-            "grey": rgb(round(236 / sm_bkgrd_clr[0]), round(236 / sm_bkgrd_clr[1]), round(236 / sm_bkgrd_clr[2]))  # ; Based on MacOSX element
-        }
+    def settingsMenu(self):
         # TKINTER
         set_menu = Toplevel()
         set_menu.title(winstrings["main"]["choices"][1])
         # NOTEBOOKS
         set_menu_nb = ttk.Notebook(set_menu)
-        set_menu_nb['width'] = (547 + 20)
+        set_menu_nb['width'] = 567
+        # STR
+        color = 'systemActiveAreaFill'
         # FRAMES
-        frame_01 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Video
-        frame_02 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Audio
-        frame_03 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Controller
-        frame_04 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;Game
-        frame_05 = Frame(set_menu_nb, bg=rgb(227, 227, 227))  # ;User Interface/Start-up
-        frame_06 = Frame(set_menu, bg=sm_colors_presets["grey"])
+        frame_01 = Frame(set_menu_nb, bg=color)  # ;Video
+        frame_02 = Frame(set_menu_nb, bg=color)  # ;Audio
+        frame_03 = Frame(set_menu_nb, bg=color)  # ;Controller
+        frame_04 = Frame(set_menu_nb, bg=color)  # ;Game
+        frame_05 = Frame(set_menu_nb, bg=color)  # ;User Interface/Start-up
+        frame_06 = Frame(set_menu, bg='systemMenuActive')
         # COMBO_BOXES
         SET_MENU_PRESET_CMBBX = ttk.Combobox(frame_06)
         SET_MENU_PRESET_CMBBX['values'] = settings_user_made_presets
@@ -144,8 +144,7 @@ class MAIN_WINDOW(Tk):
         cb_bttns_str_list = []
         option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
         frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05]
-        f_l = frme_list
-        p("hello world")
+        f_l = frme_list # ;Abstracted
         # DICTIONARIES
         funct_iter_tracker = {
             "v": [],
@@ -165,51 +164,10 @@ class MAIN_WINDOW(Tk):
         frame_06['height'] = 24
 
         if len(settings_user_made_presets) >= 1:
-            Label(set_menu, text=winstrings['main']['preset_strings'], bg=sm_colors_presets['grey'], relief='groove', bd=3).grid(column=0, row=1, sticky='nw', padx=1)
+            Label(set_menu, text=winstrings['main']['preset_strings'], bg='systemMenu', relief='groove', bd=3).grid(column=0, row=1, sticky='nw', padx=1)
             SET_MENU_PRESET_CMBBX.grid(column=0, row=1, sticky='nw', padx=60)
 
-        def cancel():
-            """
-            Cancels changes
-            :return:
-            """
-            # CODE
-            set_menu.grab_release()
-            self.forget(set_menu)
-
-        def ok():
-            """
-            Writes changes to a config file and closes window
-            :return:
-            """
-            # CODE
-            p("Settings Saved")
-            cancel()
-
-        def apply():
-            """
-            Writes changes to a config file but doesn't close window
-            :return:
-            """
-            # CODE
-            p("Settings Saved")
-
-        ls_bttns_list = [apply, cancel, ok]
-
-        for save_buttons in winstrings['main']['save_options']:
-            option_button_list.append(save_buttons)
-
-        for choiceOptions in range(len(option_button_list)):
-            if self.sc_init.iterator_03[2] >= len(option_button_list):
-                self.sc_init.iterator_03[2] = 0
-            save_buttons_p = option_button_list[self.sc_init.iterator_03[2]]
-            save_buttons_get_len = len(save_buttons_p)
-            m = save_buttons_get_len ** self.sc_init.iterator_03[2]  # ;Math
-            function_list = ls_bttns_list[choiceOptions]
-            string_list = option_button_list[choiceOptions]
-            Button(frame_06, text=string_list, command=function_list, bg=sm_colors_presets["grey"]).grid(column=0, row=1, padx=m * 16 + set_menu_nb['width']/1.8, sticky='e')
-            self.sc_init.iterator_03[2] += 1
-
+        # ;OPTIONS FUNCTIONS------------------------------------------------------------------------------------------------------------------------------------------------
         def video():
             # PYGAME
             vr_resolutions = self.sc_init.options_changes['video'.title()]['int']['vres']
@@ -264,8 +222,8 @@ class MAIN_WINDOW(Tk):
                 }
             }
             # CODE
-            vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
-            wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
+            vr_resolutions_cmbbox['values'] = self.sc_init.tp.resToReadableForm(target=vr_resolutions)
+            wr_resolutions_cmbbox['values'] = self.sc_init.tp.resToReadableForm(target=wr_resolutions)
 
             for video_settings_strings in winstrings["main"]["options"]["Video"]["set"]:
                 Label(frame_01_01, text=video_settings_strings).grid(column=0, row=self.sc_init.iterator_03[3], sticky="w")
@@ -665,8 +623,8 @@ class MAIN_WINDOW(Tk):
             for it in packer:
                 funct_iter_tracker['ui'].append(it)
 
-            check_bv(mm, miminal_mode)
-            check_bv(pm, play_movies)
+            checkBv(mm, miminal_mode)
+            checkBv(pm, play_movies)
 
             # ;Grid
             frame_05_01.grid(column=0, row=0, padx=240)
@@ -676,32 +634,78 @@ class MAIN_WINDOW(Tk):
 
             return int_val_globe_video
 
-        for string in winstrings["main"]["options"]:
-            if self.sc_init.iterator_03[0] >= 5:
-                self.sc_init.iterator_03[0] = 0
-            sel_list = f_l[self.sc_init.iterator_03[0]]
-            set_menu_nb.add(sel_list, text=string)
-            self.sc_init.iterator_02 += 1
-            self.sc_init.iterator_03[0] += 1
+        # ;SAVE BUTTONS------------------------------------------------------------------------------------------------------------------------------------------------
+        def cancel():
+            """
+            Cancels changes
+            :return:
+            """
+            # CODE
+            set_menu.grab_release()
+            self.forget(set_menu)
 
+        def ok():
+            """
+            Writes changes to a config file and closes window
+            :return:
+            """
+            # CODE
+            p("Settings Saved")
+            cancel()
+
+        def apply():
+            """
+            Writes changes to a config file but doesn't close window
+            :return:
+            """
+            # CODE
+            p("Settings Saved")
+
+        # ;SAVE BUTTONS LIST------------------------------------------------------------------------------------------------------------------------------------------------
+        ls_bttns_list = [apply, cancel, ok] # ;Contains functions
+
+        for save_buttons in winstrings['main']['save_options']:
+            option_button_list.append(save_buttons)
+
+        for choiceOptions in range(len(option_button_list)):
+            if self.sc_init.iterator_03[2] >= len(option_button_list):
+                self.sc_init.iterator_03[2] = 0
+            save_buttons_p = option_button_list[self.sc_init.iterator_03[2]]
+            save_buttons_get_len = len(save_buttons_p)
+            m = save_buttons_get_len ** self.sc_init.iterator_03[2]  # ;Math
+            function_list = ls_bttns_list[choiceOptions]
+            string_list = option_button_list[choiceOptions]
+            Button(frame_06, text=string_list, command=function_list, bg='systemMenu').grid(column=0, row=1, padx=m * 16 + set_menu_nb['width']/1.8, sticky='e')
+            self.sc_init.iterator_03[2] += 1
+
+        # ;Option String Loop------------------------------------------------------------------------------------------------------------------------------------------------
+        for string in winstrings["main"]["options"]: # ;Gets the strings within this directory
+            if self.sc_init.iterator_03[0] >= 5: # ;If class-wide iterator hits 5 then roll back to 0
+                self.sc_init.iterator_03[0] = 0
+            sel_list = f_l[self.sc_init.iterator_03[0]] # ;target list with class-widde iterator
+            set_menu_nb.add(sel_list, text=string) # ;Add to Notebook with looped 'string'
+            self.sc_init.iterator_02 += 1 # ;add 1
+            self.sc_init.iterator_03[0] += 1 # ;add 1
+
+        # ;Grid and Grabbers------------------------------------------------------------------------------------------------------------------------------------------------
         frame_06.grid(column=0, row=1, sticky='s')
         set_menu_nb.grid(column=0, row=0)
-        set_menu.grab_set()
+        set_menu.grab_set() # ;When settings menu is pressed all input goes to said or refrenced menu
 
         video = video()
         audio = audio()
         ui = user_input()
         game = game()
         usr_int = user_interface()
-        p(f"{video}\n{audio}\n{ui}\n{game}\n{usr_int}")
-        frame_06['width'] = set_menu_nb['width']
-        flp(funct_iter_tracker)
+        frame_06['width'] = set_menu_nb['width'] # ; This will increase the user's screenspace
+        flp(frame_01.getvar('custom_res_bv'))
+        return video, audio, ui, game, usr_int
 
-    def PLAY_GAME(self):
+    def playGame(self):
         # CODE
         self.sc_init.is_running = False
 
-    def SAVE_GAME(self):
+    def saveGame(self):
         # INT
         time = randint(10, randint(10*2, randint(10*4, 5999999)))
         # CODE
@@ -710,7 +714,7 @@ class MAIN_WINDOW(Tk):
             p(f"Saving Game {int(t/time*100)}%")
         p("Saved")
 
-    def FIRST_RUN(self, **kwargs):
+    def firstRun(self, **kwargs):
         # KWARGS
         FR_PRINT_INI_FILE = kwargs.get('print_ini_file', False)
         # GF
@@ -725,6 +729,9 @@ class MAIN_WINDOW(Tk):
 
         self.sc_init.options_save['LAUNCHER'] = {
             "IsFirstRun": 'False'
+        }
+        self.sc_init.options_save_sm['SETTINGS'] = {
+            "Video-2D-Resolution": "None"
         }
         if GetPresSpec(point_doc_dir_ls) is False:
             first_run_message()
@@ -774,7 +781,7 @@ class MAIN_WINDOW(Tk):
                     if length not in iter_vals:
                         p(f"Class Wide Iterators {self.sc_init.iterator_03}")
                     iter_vals.append(length)
-                if len(iter_vals) == len(self.sc_init.iterator_03)*50000:
+                if len(iter_vals) == len(self.sc_init.iterator_03)*5000:
                     iter_vals.clear()
             else:
                 if run_get_sc_init_iters is True and run_get_sc_init_iters_intel is False:
@@ -786,7 +793,7 @@ class MAIN_WINDOW(Tk):
             self.update()
 
 
-mw = MAIN_WINDOW()
-mw.DRAW_CONTENTS()
-mw.FIRST_RUN()
+mw = mainWindow()
+mw.drawContents()
+mw.firstRun()
 mw.run(debugmode=True)

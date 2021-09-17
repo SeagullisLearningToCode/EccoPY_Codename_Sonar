@@ -13,4 +13,4 @@ usi_enable_debugmode = False
 miminal_mode = False
 play_movies = False
 # ;USER-MADE-PRESETS
-settings_user_made_presets = []
+settings_user_made_presets = [] # ;Should only contain the paths to a settings files made in the launcher's settings menu

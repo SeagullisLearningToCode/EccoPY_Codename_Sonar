@@ -28,19 +28,11 @@ class MAIN_W_I(object):
         self.i_dict = image_dict(f"{self.main_dir}/data/img/", EVerboseResults=True)
         self.options_changes = {
             "Video": {
-                "boolvar": [BooleanVar()],
+                "boolvar": [BooleanVar(), BooleanVar()],
                 "strvar": [StringVar(), StringVar(), StringVar(), StringVar()],
                 "int": {
                     "vres": [[320, 240], [320, 244], [384, 240], [384, 244], [512, 256], [640, 480]],
                     "wres": self.tp.DISPLAY_AUTODETECT()
-                }
-            },
-            "Audio": {
-                "music": {
-
-                },
-                "sfx": {
-
                 }
             }
         }
@@ -110,17 +102,14 @@ class MAIN_WINDOW(Tk):
                            bd=10,
                            text=subdict,
                            font='"Myanmar MN" 36',
-                           command=option_func).grid(column=0,
-                                                     row=self.sc_init.iterator_01,
-                                                     sticky='nw',
-                                                     pady=10)
+                           command=option_func).grid(column=0, row=self.sc_init.iterator_01, sticky='nw', pady=10)
                 self.sc_init.iterator_01 += 1
                 self.sc_init.iterator_03[1] += 1
 
         def bkgrd_image():
             # IMAGES
-            bkgrd = loadimage(self.sc_init.i_dict[4])
-            bkgrd_tl = loadimage(self.sc_init.i_dict[3])
+            bkgrd = loadimage(self.sc_init.i_dict[6])
+            bkgrd_tl = loadimage(self.sc_init.i_dict[4])
             # CODE
             Label(self, image=bkgrd, background=rgb(34, 87, 165)).grid(column=1, row=0, rowspan=len(winstrings['main']['choices']), sticky="nw")
             Label(self, foreground='DarkBlue', image=bkgrd_tl).grid(column=1, row=len(winstrings['main']['choices']) - 1)
@@ -156,6 +145,7 @@ class MAIN_WINDOW(Tk):
         option_button_list = cb_bttns_str_list  # ;confirm_bttns_string_list
         frme_list = [frame_01, frame_02, frame_03, frame_04, frame_05]
         f_l = frme_list
+        p("hello world")
         # DICTIONARIES
         funct_iter_tracker = {
             "v": [],
@@ -228,6 +218,7 @@ class MAIN_WINDOW(Tk):
             frame_01_01 = Frame(frame_01, relief='raised', bd=10)
             # BOOLEANVARS
             custom_res_bv = self.sc_init.options_changes['video'.title()]['boolvar'][0]
+            r_disable_ripple_bv = self.sc_init.options_changes['video'.title()]['boolvar'][1]
             # STRINGVARS
             rx = self.sc_init.options_changes['Video']['strvar'][0]  # ;Window Resolution-Width
             ry = self.sc_init.options_changes['Video']['strvar'][1]  # ;Window Resolution-Height
@@ -240,7 +231,7 @@ class MAIN_WINDOW(Tk):
             ry_txt = Entry(frame_01_01, textvariable=ry, width=5)
             # CHECKBUTTONS
             custom_res = Checkbutton(frame_01_01, variable=custom_res_bv, onvalue=True, offvalue=False)
-            dir_chkbtn = Checkbutton(frame_01_01, variable=r_disable_ripple, onvalue=True, offvalue=False)
+            dir_chkbtn = Checkbutton(frame_01_01, variable=r_disable_ripple_bv, onvalue=True, offvalue=False)
             # SCALES
             wei_scale = Scale(frame_01_01, orient=HORIZONTAL, length=100, from_=weather_intensity_scale_limits[0], to=weather_intensity_scale_limits[1])
             # COMBO_BOXES
@@ -248,6 +239,30 @@ class MAIN_WINDOW(Tk):
             wr_resolutions_cmbbox = ttk.Combobox(frame_01_01, width=9)
             # PACKER
             packer = [self.sc_init.iterator_03[3]]
+            # DICTIONARIES
+            int_val_globe_video = {
+                "textboxes": {
+                    "2d": {
+                        "x": x_txt.get(),
+                        "y": y_txt.get()
+                    },
+                    "wd": {
+                        "rx": rx_txt.get(),
+                        "ry": ry_txt.get()
+                    }
+                },
+                "checkuttons": {
+                    "custom_res_bv": custom_res_bv.get(),
+                    "dir_chkbtn": r_disable_ripple_bv.get()
+                },
+                "scales": {
+                    "wei": wei_scale.get()
+                },
+                "entries": {
+                    "2d:": vr_resolutions_cmbbox.get(),
+                    "wr": wr_resolutions_cmbbox.get()
+                }
+            }
             # CODE
             vr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=vr_resolutions)
             wr_resolutions_cmbbox['values'] = self.sc_init.tp.res_to_readable_form(target=wr_resolutions)
@@ -278,6 +293,8 @@ class MAIN_WINDOW(Tk):
             wr_resolutions_cmbbox.grid(column=1, row=1, padx=10, sticky='w')
             vr_resolutions_cmbbox.grid(column=1, row=2, padx=10, sticky='w')
 
+            return int_val_globe_video
+
         def audio():
             # NOTEBOOKS
             sframe_02_01 = ttk.Notebook(frame_02)
@@ -292,6 +309,17 @@ class MAIN_WINDOW(Tk):
             volume_sfx = Scale(frame_02_01_02, orient=HORIZONTAL, length=200, from_=snd_vol_lmts[0], to=snd_vol_lmts[1])
             # LISTS
             audio_settings_frames_list = [frame_02_01_01, frame_02_01_02]
+            # DICTIONARIES
+            int_val_globe_audio = {
+                "comboboxes": {
+                    "music": combox_01.get(),
+                    "sfx": combox_02.get()
+                },
+                "scales": {
+                    "music": volume_music.get(),
+                    "sfx": volume_sfx.get()
+                }
+            }
             # INT-ITER VARS ;Assembly like-vars
             i = 0
             q = 0
@@ -339,6 +367,8 @@ class MAIN_WINDOW(Tk):
 
             sframe_02_01.grid(column=0, row=1, padx=53)
 
+            return int_val_globe_audio
+
         def user_input():
             # NOTEBOOK
             sframe_03_01 = ttk.Notebook(frame_03)  # ;Main
@@ -383,6 +413,13 @@ class MAIN_WINDOW(Tk):
             # LISTS
             usi_keyboard_type_bindings_list = [kyb_mvm_up, kyb_mvm_left, kyb_mvm_right, kyb_mvm_down, kyb_ab_dash, kyb_ab_swim, kyb_ab_sonar, kyb_pb_tom, kyb_pb_tose, kyb_dbb_sall, kyb_dbb_sfps, kyb_dbb_spos]  # ;For loop
             usi_joystick_type_bindings_list = [jys_mvm_up, jys_mvm_left, jys_mvm_right, jys_mvm_down, jys_ab_dash, jys_ab_swim, jys_ab_sonar, jys_pb_tom, jys_pb_tose, jys_dbb_sall, jys_dbb_sfps, jys_dbb_spos]  # ;For loop
+            # DICTIONARIES
+            int_val_globe_user_input = {
+                "comboboxes": {
+                    "keyboard": [i.get() for i in usi_keyboard_type_bindings_list],
+                    "joystick": [i.get() for i in usi_joystick_type_bindings_list]
+                }
+            }
             # INT_ITERS ;Generic assembly-like vars
             i = 0
             q = 0
@@ -532,6 +569,8 @@ class MAIN_WINDOW(Tk):
             frame02.grid(column=1, row=0)
             sframe_03_01.grid(column=0, row=0, padx=108)
 
+            return int_val_globe_user_input
+
         def game():
             # DICTIONARIES_ABSTRACTED
             difficulty_list = winstrings['main']['options']['Game']['set']['Difficulty']
@@ -549,6 +588,13 @@ class MAIN_WINDOW(Tk):
             games = merge(mod_list)
             # PACKER
             packer = [self.sc_init.iterator_03[5], self.sc_init.iterator_03[6]]
+            # DICTIONARIES
+            int_val_globe_game = {
+                "comboboxes": {
+                    "difficulty_list": difficulty_list_combobox.get(),
+                    "mod_list": difficulty_list_combobox.get()
+                }
+            }
             # CODE
             self.sc_init.iterator_03[5] = 0
             for game_label_string in option_str_list:
@@ -577,6 +623,8 @@ class MAIN_WINDOW(Tk):
             label_sect.grid(column=0, row=0, rowspan=len(options_val_list), sticky='n')
             value_sect.grid(column=1, row=0, rowspan=len(options_val_list), sticky='n')
 
+            return int_val_globe_game
+
         def user_interface():
             # BOOLEANVARS
             mm = BooleanVar()
@@ -597,6 +645,16 @@ class MAIN_WINDOW(Tk):
             ui_thms_list = [theme for theme in self.style.theme_names()]
             # PACKER
             packer = [self.sc_init.iterator_03[7]]
+            # DICTIONARIES
+            int_val_globe_video = {
+                "checkbuttons": {
+                    "ui_minimal_mode": mm.get(),
+                    "ui_play_movies": pm.get()
+                },
+                "comboboxes": {
+                    "ui_themes": ui_cmb_thms.get()
+                }
+            }
             # CODE
             ui_cmb_thms['values'] = ui_thms_list
 
@@ -616,6 +674,8 @@ class MAIN_WINDOW(Tk):
             ui_ckb_p_m.grid(column=1, row=1)
             ui_cmb_thms.grid(column=1, row=2, padx=10)
 
+            return int_val_globe_video
+
         for string in winstrings["main"]["options"]:
             if self.sc_init.iterator_03[0] >= 5:
                 self.sc_init.iterator_03[0] = 0
@@ -624,16 +684,16 @@ class MAIN_WINDOW(Tk):
             self.sc_init.iterator_02 += 1
             self.sc_init.iterator_03[0] += 1
 
-
         frame_06.grid(column=0, row=1, sticky='s')
         set_menu_nb.grid(column=0, row=0)
         set_menu.grab_set()
 
-        video()
-        audio()
-        user_input()
-        game()
-        user_interface()
+        video = video()
+        audio = audio()
+        ui = user_input()
+        game = game()
+        usr_int = user_interface()
+        p(f"{video}\n{audio}\n{ui}\n{game}\n{usr_int}")
         frame_06['width'] = set_menu_nb['width']
         flp(funct_iter_tracker)
 
@@ -643,7 +703,7 @@ class MAIN_WINDOW(Tk):
 
     def SAVE_GAME(self):
         # INT
-        time = randint(10, randint(10*2, randint(10*4, 500000000)))
+        time = randint(10, randint(10*2, randint(10*4, 5999999)))
         # CODE
         for t in range(time):
             t -= 1

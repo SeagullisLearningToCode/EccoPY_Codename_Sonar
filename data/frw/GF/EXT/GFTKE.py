@@ -4,6 +4,7 @@ from data.frw.GF.GF import *
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox as msg
+from tkvideo import *
 from PIL import ImageTk, Image
 from data.frw.GF.GF import *
 
@@ -70,7 +71,7 @@ def rgb(r: int, g: int, b: int, **kwargs):
     else:
         return "#%02x%02x%02x" % (r, g, b)
 
-def check_bv(boolvar: BooleanVar, target):
+def checkBv(boolvar: BooleanVar, target):
     """
     Check boolvar and send it's value
 
@@ -89,7 +90,7 @@ def check_bv(boolvar: BooleanVar, target):
 
 # CLASSES------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-class pygame_Tk_Integration(object):
+class pygameTkIntegration(object):
     """
     Have Tkinter and pygame work together (unfinished)
     """
@@ -188,7 +189,7 @@ class pygame_Tk_Integration(object):
 
         return allvars
 
-    def SHOW_PYGAME_BINDINGS_CURRENT_DEVICE(self, **kwargs):
+    def showPygameBindingsCurrentDevice(self, **kwargs):
         # KWARGS_BOOLEANS
         show_len_bindings = kwargs.get("show_len_bindings", False)
         # CODE
@@ -197,7 +198,7 @@ class pygame_Tk_Integration(object):
         else:
             p(key.get_pressed())
 
-    def debug_controller(self, **kwargs):
+    def debugController(self, **kwargs):
         """
         Copied from https://www.pygame.org/docs/ref/joystick.html#pygame.joystick.Joystick.get_guid
 
@@ -263,7 +264,7 @@ class pygame_Tk_Integration(object):
             for buttons in range(controller_buttons):
                 self.pg_joys_list.append(f"Button {buttons}")
 
-    def DISPLAY_AUTODETECT(self, **kwargs): # ; inheirited from EccoPY
+    def displayAutodetect(self, **kwargs): # ; inheirited from EccoPY
         """
         Inherited from EccoPY in settings.py
         :param kwargs:
@@ -281,7 +282,7 @@ class pygame_Tk_Integration(object):
             sizes_autodetect.append(resolution)
 
         sizes_autodetect.sort()
-        rem_dupes_lst(sizes_autodetect)
+        remDupesLst(sizes_autodetect)
 
         for unique_resolutions in sizes_autodetect:
             if unique_resolutions not in sizes_autodetect_filtered:
@@ -294,7 +295,7 @@ class pygame_Tk_Integration(object):
 
         return sizes_autodetect_filtered
 
-    def res_to_readable_form(self, **kwargs):
+    def resToReadableForm(self, **kwargs):
         # KWARGS
         RTRF_TARGET = kwargs.get("target", display.list_modes())
         RTRF_PRINT_RESULT = kwargs.get("print_result", False)

@@ -124,7 +124,7 @@ def RCE(rfe: str, et: int):
         raise ValueError
 
 
-def HVFFTAOHV(dirname: str,
+def hexValFromFile(dirname: str,
               filename: str,
               destination: str,
               printresults: bool,
@@ -196,7 +196,7 @@ def HVFFTAOHV(dirname: str,
     return res
 
 
-def image_dict(targetpath: str, **kwargs):
+def imgDict(targetpath: str, **kwargs):
     """
     Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
 
@@ -224,7 +224,7 @@ def image_dict(targetpath: str, **kwargs):
     return d
 
 
-def get_directory(targetpath: str, **kwargs):
+def getDirectory(targetpath: str, **kwargs):
     """
     Takes the files within a folder and translate the paths to a dictionary (targetname --> returnname)
     :param targetpath:
@@ -281,7 +281,7 @@ def merge(target_list, **kwargs):
     return i
 
 
-def rem_dupes_lst(target, **kwargs):
+def remDupesLst(target, **kwargs):
     # LIST
     new_list = []
     # KWARGS
@@ -302,7 +302,7 @@ def rem_dupes_lst(target, **kwargs):
 
     return new_list
 
-def gen_iter_list(amount, **kwargs):
+def genIterList(amount, **kwargs):
     # KWARGS
     GIL_PRINTRESULT = kwargs.get('print_result', False)
     GIL_LISTNAME = kwargs.get('listname', None)
@@ -489,7 +489,7 @@ class GF_INIT(object):
     """
 
     def __init__(self, **kwargs):
-        p("\nGull Framework \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n")
+        p("\nGull Framework \n      By SeagullinSeagulls\n            Code: https://github.com/SeagullisLearningToCode/Gull-Framework (Might be outdated)\n\nBELOW HERE MIGHT BE PALM TREES\n------------------------------------------------------------------------------------------------------------")
         # KWARGS_BOOLEANS
         self.enable_assembly_mode = kwargs.get("assembly_mode", True)
         self.print_faq_possible = kwargs.get("print_faq_possible", False)  # ;Prints why I start functions like this
@@ -525,7 +525,7 @@ class GF_INIT(object):
             p(f"Why do start functions with comments first?\n\nWell I do that because it makes it more organized for me (I hope this does the same to you), I guess it reminds me of something I can't think of it on the top of my head though.")
         # ;Palm Trees (TEST)
         if self.load_all_palm_trees is True:
-            pt_dir_dict = get_directory(targetpath=GF_XTN_FOLDER_PATH, filter='.py', print_dict=False)
+            pt_dir_dict = getDirectory(targetpath=GF_XTN_FOLDER_PATH, filter='.py', print_dict=False)
             for palm_tree in range(len(pt_dir_dict)):
                 ext = util.spec_from_file_location("*", pt_dir_dict[palm_tree + 1])
                 ext_mod = util.module_from_spec(ext)

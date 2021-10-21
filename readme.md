@@ -9,7 +9,7 @@
 ````
 This is used to play around how EccoPY would look if the user ran it for now it may be restricted to MacOSX, so feel free to use it as long you give credit to me (Sound SFX and some images don't belong to me)
 
-# Supported Operating Systems
+## Supported Operating Systems
 
 OS | Notes |
 ---|-------|
@@ -17,7 +17,7 @@ MacOS | Will work the best for now, might not look the same in `.Screenshots` la
 Windows | Not all fonts will be loaded, if so then it's defaulted to what Tkinter uses, but still will work like MacOS (in theory)|
 Linux | Not tested |
 
-# Dependencies
+## Dependencies
 Here is a detailed table of what you need to run this properly (if you're planning to edit the code of course)
 
 File | Path            | Modules  | Notes  
@@ -25,7 +25,7 @@ File | Path            | Modules  | Notes
 GF.py| `data/frw/GF.py` | `Pygame 2.0.1`, `Pyglet`| Any `import` statement that targets this file is most likely going to use these modules (unless targeting a specific object but still some functions use pygame)
 main.py| `main.py` | `Tkinter` (Built-in if using python 3.7 and up), `PIL` (Python Imaging Library)| `Python 3.8` or higher (to be safe about install the latest version of python), this also uses `GF.py`.
 
-# Sources
+## Sources
 File | Path | Source / Credit | Notes                  
 -----|------|-------|---------|
 ecco.bmp | `data/img/ecco.bmp` |(Sliversea) https://www.spriters-resource.com/genesis_32x_scd/ecco1/sheet/65574/ | This came from The Spriters Resource.
